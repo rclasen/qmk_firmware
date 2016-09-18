@@ -46,6 +46,11 @@ enum planck_keycodes {
   LMOVE,
 };
 
+// AltGr and GUI
+#define RAG(kc) (kc | QK_RALT | QK_LGUI)
+#define RAG_T(kc) MT(( MOD_RALT | MOD_LGUI), kc)
+#define KC_RAG RAG(KC_NO)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -63,9 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        | Esc  | PRINT|       | DEL  | Ins  |
  *                                 ,------|------|------|       |------+------+------.
- *                                 | Space|BackSp| HOME |       | PgUp | Enter| Space|
+ *                                 | Space|BackSp| CAG  |       | LGui | Enter| Space|
  *                                 |------|------|------|       |------|------|------|
- *                             | Tab/LCtrl|LShift| END  |       | PgDo |Rshift| RCtrl|
+ *                             | Tab/LCtrl|LShift| AltGr|       | Alt  |Rshift/Tab| RCtrl|
  *                                 `--------------------'       `--------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -77,20 +82,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSLS,        KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
         KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           LMOVE,
         KC_LCTRL,       KC_LGUI,        KC_LALT,        KC_RALT,        LSYMB,
-	// left thumb
+        // left thumb
                                                                                         KC_ESC,         KC_PSCR,
-                                                                        KC_SPC,         KC_BSPC,        KC_HOME,
-                                                                        CTL_T(KC_TAB),  KC_LSFT,        KC_END,
+                                                                        KC_SPC,         KC_BSPC,        KC_FN3,
+                                                                        KC_LCTL,        SFT_T(KC_TAB),  KC_RALT,
         // right hand
         KC_RGHT,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
-        KC_DOWN,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
+        KC_UP,          KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
                         KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOT,
-        LMOVE,          KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,	KC_RSFT,
+        LMOVE,          KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
                                         LSYMB,          KC_RALT,        KC_LALT,        KC_RGUI,        KC_RCTRL,
-	// right thumb
+        // right thumb
         KC_DEL,         KC_INS,
-        KC_PGUP,        KC_ENTER,       KC_SPC,
-        KC_PGDN,        KC_RSFT,        KC_RCTRL
+        KC_LGUI,        KC_ENTER,       KC_SPC,
+        KC_LALT,        SFT_T(KC_TAB),  KC_RCTRL
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -163,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
-				  KC_TRNS, KC_TRNS, KC_TRNS,
+                                  KC_TRNS, KC_TRNS, KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_MUTE, KC_VOLD, KC_VOLU, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -179,7 +184,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),                // FN1 - Momentary Layer 1 (Symbols)
-    [2] = ACTION_LAYER_TAP_TOGGLE(MOVE)                // FN1 - Momentary Layer 1 (Symbols)
+    [2] = ACTION_LAYER_TAP_TOGGLE(MOVE),                // FN2 - Momentary Layer 2 (mmoving)
+    [3] = ACTION_MODS( MOD_LCTL | MOD_LALT | MOD_LGUI )
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
@@ -191,6 +197,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
           SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
         }
         break;
+
     }
 
     return MACRO_NONE;
@@ -206,32 +213,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode){
       case LSYMB:
         if( record->event.pressed ){
-	    lsymb_timer = timer_read();
-	    lsymb_active = layer_state & 1UL<<SYMB;
-	    layer_on(SYMB);
+            lsymb_timer = timer_read();
+            lsymb_active = layer_state & 1UL<<SYMB;
+            layer_on(SYMB);
 
-	} else if( timer_elapsed(lsymb_timer) > 150 ){
-	    layer_off(SYMB);
+        } else if( timer_elapsed(lsymb_timer) > 150 ){
+            layer_off(SYMB);
 
-	} else {
-	   if( lsymb_active )
-	       layer_off(SYMB);
-	}
+        } else {
+           if( lsymb_active )
+               layer_off(SYMB);
+        }
         break;
 
       case LMOVE:
         if( record->event.pressed ){
-	    lmove_timer = timer_read();
-	    lmove_active = layer_state & 1UL<<MOVE;
-	    layer_on(MOVE);
+            lmove_timer = timer_read();
+            lmove_active = layer_state & 1UL<<MOVE;
+            layer_on(MOVE);
 
-	} else if( timer_elapsed(lmove_timer) > 150 ){
-	    layer_off(MOVE);
+        } else if( timer_elapsed(lmove_timer) > 150 ){
+            layer_off(MOVE);
 
-	} else {
-	   if( lmove_active )
-	       layer_off(MOVE);
-	}
+        } else {
+           if( lmove_active )
+               layer_off(MOVE);
+        }
         break;
     }
 
