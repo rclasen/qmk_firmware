@@ -134,14 +134,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,        KC_LALT,        CMG,            LNAV,           LSYM,
         // left thumb
                                                                                         KC_RALT,        KC_LGUI,
-                                                                        KC_SPC,         KC_BSPC,        KC_LALT,
-                                                                        KC_SPC,         KC_BSPC,        KC_LCTL,
+                                                                        CTL_T(KC_SPC),  KC_BSPC,        KC_LALT,
+                                                                        CTL_T(KC_SPC),  KC_BSPC,        KC_LCTL,
         // right hand
         KC_DEL,         KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
         KC_TAB,         KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
                         KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOT,
         KC_INS,         KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
-                                        LSYM,           LNAV,           CMG,            KC_MENU,        KC_RCTL,
+                                        LSYM,           LNAV,           CMG,            ALT_T(KC_APP),  KC_RCTL,
         // right thumb
         KC_RGUI,        KC_RALT,
         KC_LALT,        KC_ENTER,       KC_SPC,
