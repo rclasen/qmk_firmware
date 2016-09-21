@@ -5,7 +5,7 @@
 
 /*
 
-- mouse is used with left hand. This needs the following keys on right
+- mouse is used with right hand. This needs the following keys on left
   side:
 
   base:
@@ -14,20 +14,25 @@
     -> shift/ctrl and insert/delete need different fingers
   - alt-tab - to switch windows
     -> alt and tab need different fingers
+  - ?enter on left hand
 
   nav:
   - navkeys: cursor, page-up/down, home, end - for extra navigation
-    -> navlayer toggle on right hand
+    -> navlayer toggle on left hand
   - shift with navkeys: cursor, page-up/down, home, end - for selection
     -> shift and navkeys need different fingers
   - <something>-cursor - desktop/window switching - NOT ON WINDOWS
   - ctrl-x/c/v, ctrl-shift-v - for copy/paste 2
     -> ctrl and shift and x/c/v need different fingers
 
+  mouse:
+  - direction, buttons, accel on right hand, independent
+
 - shift/ctrl/layer modifer must be available for each hand and allow
   one-handed operation
 
 - may use 2 hands:
+  - alt-enter
   - alt-f4
   - alt-space - window menu
   - ctrl-esc  - gui menu
@@ -41,122 +46,133 @@
     -> altgr and shift need different fingers
 
 easy to use:
-- space
-- shift
++ space
++ shift		LAYER 2
 - backspace
-- tab
-- ctrl
-- enter
-- esc
-- symbol layer
-- nav layer
++ tab
++ ctrl		MODIFIER
++ enter
++ esc
++ symbol	LAYER 3
++ nav		LAYER 4
 
 rare:
-- insert
-- alt
-- altgr
-- delete
++ insert
++ alt		MODIFIER
++ <something>	MODIFIER
+- gui		MODIFIER
++ altgr		LAYER
++ delete
+- mouse		LAYER
 - print
 
-right center:
- - delete
- - tab
- - insert
-right main:
- - nav: xcv
- - nav: navkeys
- - shift
-right bottom
- - symbol layer
- - nav layer
-right thumb hot:
- - space (hot)
- - enter (hot)
- - ctrl (in reach of main/center)
- - alt
 
-left center:
- - print
- - esc
+
+
 left main:
- - shift
+- tab
+- shift		LAYER 2
 left bottom:
- - symbol layer
- - nav layer
+- mouse		LAYER
+- symbol	LAYER 3
+- gui
+- <something>	MODIFIER
+- nav		LAYER 4
+left center:
+- delete
+- ?enter
+- insert
 left thumb:
- - space (hot)
- - backspace (hot)
- - ctrl (in reach of main/center)
- - altgr
+- ctrl/space	MODIFIER
+- ?backspace
+- alt		MODIFIER
+
+right thumb
+- ctrl
+- enter
+- space
+right center:
+- print
+- backspace
+- esc
+right bottom
+- nav		LAYER 4
+- altgr		LAYER
+-
+- symbol	LAYER 3
+- mouse
+right main:
+- shift		LAYER 2
+
 */
 
 #define BASE 0 // default layer
 #define SYM 1 // symbols
-#define NAV 2 // media keys
+#define NAV 2 // navkeys, numpad
+#define MOS 3 // mouse, Fx, media
 
 #define CMG LCTL(LALT(KC_LGUI))
 
-enum planck_keycodes {
+enum my_keycodes {
   LSYM = SAFE_RANGE,
   LNAV,
+  LMOS,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   `    |   1  |   2  |   3  |   4  |   5  | Print|           | Del  |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |   `    |   1  |   2  |   3  |   4  |   5  |  Del |           | Print|   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |  Esc |           | TAB  |   Y  |   U  |   I  |   O  |   P  |   =    |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  | Enter|           | Bspc |   Y  |   U  |   I  |   O  |   P  |   =    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |  \     |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           | Ins  |   N  |   M  |   ,  |   .  |   /  | RShift |
+ * |--------+------+------+------+------+------|  Ins |           | Esc  |------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LCtrl| LAlt | CMG  | LNAV | LSYM |                                       | LSYM | LNAV | CMG  | Menu | RCtrl|
+ *   | LMOS | LSYM | GUI  | CMGV | LNAV |                                       | LNAV | CMG  |      | LSYM | LMOS |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | RAlt | LGui |       | RGui | RAlt |
+ *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 | Space|BackSp| LAlt |       | LAlt | Enter| Space|
+ *                                 | Space| Bspc | Menu |       |      | Enter| Space|
  *                                 |------|------|------|       |------|------|------|
- *                                 | Spave|BackSp| LCtrl|       | RCtrl| Enter| Space|
+ *                                 | Space| Bspc | LAlt |       | RCtrl| Enter| Space|
  *                                 `--------------------'       `--------------------'
  */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
 [BASE] = KEYMAP_80(  // layer 0 : default
         // left hand
-        KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_PSCR,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_ESC,
+        KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_DEL,
+        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_ENTER,
         KC_BSLS,        KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
-        KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_NO,
-        KC_LCTL,        KC_LALT,        CMG,            LNAV,           LSYM,
+        KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_INS,
+        LMOS,           LSYM,           KC_LGUI,        CMG,            LNAV,
         // left thumb
-                                                                                        KC_RALT,        KC_LGUI,
-                                                                        CTL_T(KC_SPC),  KC_BSPC,        KC_LALT,
-                                                                        CTL_T(KC_SPC),  KC_BSPC,        KC_LCTL,
+                                                                                        KC_NO,          KC_NO,
+                                                                        CTL_T(KC_SPC),  KC_BSPC,        KC_NO,
+                                                                        CTL_T(KC_SPC),  KC_BSPC,        ALT_T(KC_APP),
         // right hand
-        KC_DEL,         KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
-        KC_TAB,         KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
+        KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
+        KC_BSPC,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
                         KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOT,
-        KC_INS,         KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
-                                        LSYM,           LNAV,           CMG,            ALT_T(KC_APP),  KC_RCTL,
+        KC_ESC,         KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
+                                        LNAV,           CMG,            KC_NO,          LSYM,           LMOS,
         // right thumb
-        KC_RGUI,        KC_RALT,
-        KC_LALT,        KC_ENTER,       KC_SPC,
+        KC_NO,          KC_NO,
+        KC_NO,          KC_ENTER,       KC_SPC,
         KC_RCTL,        KC_ENTER,       KC_SPC
     ),
 /* Keymap 1: Symbol Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |Version |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |           |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12   |
+ * |Version |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   !  |   @  |   {  |   }  |   |  |      |           |      |      |   &  |   *  |      |   :  |        |
+ * |        |      |  _   |  [   |  ]   |   ^  |      |           |      |  !   |  <   |  >   |  =   |  &   |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   #  |   $  |   (  |   )  |   `  |------|           |------|   -  |   +  |   =  |   \  |  #;  |        |
+ * |        |  \   |  /   |  {   |  }   |   *  |------|           |------|  ?   |  (   |  )   |  -   |  :   |  @     |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   _  |   ?  |  #,  |  #.  |  #/  |        |
+ * |        |  #   |  $   |  |   |  ~   |   `  |      |           |      |  +   |  %   |  "   |  '   |  ;   |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -168,37 +184,76 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// SYMOLS
 [SYM] = KEYMAP_80(
        // left hand
-       M(0),   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,
-       KC_TRNS,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
-       KC_TRNS,KC_HASH,KC_DLR, KC_LPRN,KC_RPRN,KC_GRV,
-       KC_TRNS,KC_PERC,KC_CIRC,KC_LBRC,KC_RBRC,KC_TILD,KC_TRNS,
-       KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                       KC_TRNS,KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
-                               KC_TRNS,KC_TRNS,KC_TRNS,
+       M(0),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_UNDS, KC_LBRC, KC_RBRC, KC_PIPE, KC_TRNS,
+       KC_TRNS, KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_GRV,
+       KC_TRNS, KC_HASH, KC_DLR,  KC_PIPE, KC_TILD, KC_GRV,  KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                                                    KC_TRNS, KC_TRNS,
+                                           KC_TRNS, KC_TRNS, KC_TRNS,
+                                           KC_TRNS, KC_TRNS, KC_TRNS,
        // right hand
-       KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_AMPR,KC_ASTR, KC_TRNS, KC_TRNS, KC_TRNS,
-                KC_MINUS,KC_PLUS,KC_EQL,  KC_BSLS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_UNDS, KC_QUES,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                         KC_TRNS,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_EXLM, KC_LABK, KC_RABK, KC_EQL,  KC_AMPR, KC_TRNS,
+                KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_COLN, KC_AT,
+       KC_TRNS, KC_PLUS, KC_PERC, KC_DQT,  KC_QUOT, KC_SCLN, KC_TRNS,
+                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* Keymap 2: Media and mouse keys
+/* keymap 2: navigation and keypad
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |           |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12   |
+ * |        |      |      |      |      |      |      |           |      |      |      |      |  /   |  *   |  -     |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        | Mclk |      | MsUp |      |      |      |           |      | HOME | PgDn | PgDn | End  |      |        |
+ * |        | PgUp |      | up   |      | PgDn |      |           |      |      |  7   |  8   |  9   |  +   |  -     |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        | Lclk |MsLeft|MsDown|MsRght|      |------|           |------| LEFT | DOWN | UP   | RIGHT|      |        |
+ * |        | Home | left | down | right| End  |------|           |------|      |  4   |  5   |  6   |  ,   |  .     |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        | Rclk | mprev| mstop| mplay| mnext|      |           |      |      | cut  | copy | paste| ptext|        |
+ * |        |      |      |      |      |      |      |           |      |  :   |  1   |  2   |  3   |  ;   |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+----------.
+ *                                 |      |      |      |       |      |      |     0    |
+ *                                 |------|------|------|       |------|------|----------|
+ *                                 |      |      |      |       |      |      |     0    |
+ *                                 `--------------------'       `------------------------'
+ */
+[NAV] = KEYMAP_80(
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_PGUP, KC_TRNS, KC_UP,   KC_TRNS, KC_PGDN, KC_TRNS,
+       KC_TRNS, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                                           KC_TRNS, KC_TRNS,
+                                  KC_TRNS, KC_TRNS, KC_TRNS,
+                                  KC_TRNS, KC_TRNS, KC_TRNS,
+    // right hand
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SLSH, KC_ASTR, KC_MINS,
+       KC_TRNS, KC_TRNS, KC_7,    KC_8,    KC_9,    KC_PLUS, KC_MINS,
+                KC_TRNS, KC_4,    KC_5,    KC_6,    KC_COMM, KC_DOT,
+       KC_TRNS, KC_COLN, KC_1,    KC_2,    KC_3,    KC_SCLN, KC_TRNS,
+                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_0,
+       KC_TRNS, KC_TRNS, KC_0
+),
+/* Keymap 3: Media and mouse keys
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |           |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 | VolD   |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      | Mup  |      | Mclk | VolUp  |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|      | Mleft| Mdown| Mrigh| Lclk | Mute   |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      | mprev| mstop| mplay| mnext|      |           |      |      |      |      |      | Rclk |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -210,21 +265,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |          |
  *                                 `--------------------'       `------------------------'
  */
-// MEDIA AND MOUSE
-[NAV] = KEYMAP_80(
+[MOS] = KEYMAP_80(
        KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
-       KC_TRNS, KC_BTN3, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
-       KC_TRNS, KC_BTN2, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
-       KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_TRNS, KC_TRNS, KC_VOLU,
-       KC_TRNS, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_TRNS, KC_MUTE,
-                KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_WBAK, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LSFT(LCTL(KC_V)), KC_TRNS,
+       KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_VOLD,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_BTN3, KC_VOLU,
+                KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, KC_MUTE,
+       KC_TRNS, KC_WBAK, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN2, KC_TRNS,
                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS,
@@ -289,6 +343,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                layer_off(NAV);
         }
         break;
+
+      case LMOS:
+        if( record->event.pressed ){
+            lsymb_timer = timer_read();
+            lsymb_active = layer_state & 1UL<<MOS;
+            layer_on(MOS);
+
+        } else if( timer_elapsed(lsymb_timer) > 150 ){
+            layer_off(MOS);
+
+        } else {
+           if( lsymb_active )
+               layer_off(MOS);
+        }
+        break;
+
     }
 
     return true;
@@ -302,22 +372,21 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
-
     ergodox_board_led_off();
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-    switch (layer) {
-        case SYM:
+
+    if( layer_state & 1UL<<SYM ){
             ergodox_right_led_1_on();
-            break;
-        case NAV:
+    }
+
+    if( layer_state & 1UL<<NAV ){
             ergodox_right_led_2_on();
-            break;
-        default:
-            // none
-            break;
+    }
+
+    if( layer_state & 1UL<<MOS ){
+            ergodox_right_led_3_on();
     }
 
 };
