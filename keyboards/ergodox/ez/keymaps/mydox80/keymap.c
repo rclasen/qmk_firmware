@@ -165,6 +165,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 /* Keymap 1: Symbol Layer
  *
+ * TODO: add more exotic characters
+ *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |Version |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -213,7 +215,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        | Home | left | down | right| End  |------|           |------|      |  4   |  5   |  6   |  ,   |  .     |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        | Esc  | Tab  |      | Enter|      |      |           |      |  :   |  1   |  2   |  3   |  ;   |        |
+ * |        | Esc  | Tab  | Ins  | Enter|      |      |           |      |  :   |  1   |  2   |  3   |  ;   |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -229,12 +231,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, KC_TRNS,
        KC_TRNS, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
-       KC_TRNS, KC_ESC,  KC_TAB,  KC_TRNS, KC_ENTER,KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_ESC,  KC_TAB,  KC_INS,  KC_ENTER,KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                           KC_TRNS, KC_TRNS,
-                                  KC_TRNS, KC_TRNS, KC_TRNS,
-                                  KC_TRNS, KC_TRNS, KC_TRNS,
-    // right hand
+                                                    KC_TRNS, KC_TRNS,
+                                           KC_TRNS, KC_TRNS, KC_TRNS,
+                                           KC_TRNS, KC_TRNS, KC_TRNS,
+       // right hand
+       // TODO: use Keypad keys:
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TAB,  KC_SLSH, KC_ASTR, KC_MINS,
        KC_TRNS, KC_TRNS, KC_7,    KC_8,    KC_9,    KC_PLUS, KC_MINS,
                 KC_TRNS, KC_4,    KC_5,    KC_6,    KC_COMM, KC_DOT,
@@ -245,6 +248,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_0
 ),
 /* Keymap 3: Media and mouse keys
+ *
+ * TODO: more media keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |           |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 | VolD   |
@@ -271,10 +276,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                           KC_TRNS, KC_TRNS,
-                                  KC_TRNS, KC_TRNS, KC_TRNS,
-                                  KC_TRNS, KC_TRNS, KC_TRNS,
-    // right hand
+                                                    KC_TRNS, KC_TRNS,
+                                           KC_TRNS, KC_TRNS, KC_TRNS,
+                                           KC_TRNS, KC_TRNS, KC_TRNS,
+       // right hand
        KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_VOLD,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_BTN3, KC_VOLU,
                 KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, KC_MUTE,
