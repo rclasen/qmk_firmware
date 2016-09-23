@@ -136,9 +136,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 | Space| LSYM |      |       |      | Enter| Space|
+ *                                 | Space| LNAV |      |       |      | Enter| Space|
  *                                 |------|------|------|       |------|------|------|
- *                                 | Space| LSYM | LNAV |       | RCtrl| Enter| Space|
+ *                                 | Space| LSYM | LSYM |       | RCtrl| Enter| Space|
  *                                 `--------------------'       `--------------------'
  */
 [BASE] = KEYMAP_80(  // layer 0 : default
@@ -150,8 +150,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LMOS,           KC_NO,          KC_LGUI,        CMG,            ALT_T(KC_APP),
         // left thumb
                                                                                         KC_NO,          KC_NO,
-                                                                        CTL_T(KC_SPC),  LSYM,           KC_NO,
-                                                                        CTL_T(KC_SPC),  LSYM,           LNAV,
+                                                                        CTL_T(KC_SPC),  LNAV,           KC_NO,
+                                                                        CTL_T(KC_SPC),  LNAV,           LSYM,
         // right hand
         KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
         KC_BSPC,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
@@ -189,8 +189,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYM] = KEYMAP_80(
        // left hand
        M(0),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_UNDS, KC_LBRC, KC_RBRC, KC_PIPE, KC_TRNS,
-       KC_TRNS, KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_GRV,
+       KC_TRNS, KC_TRNS, KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC, KC_TRNS,
+       KC_TRNS, KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_ASTR,
        KC_TRNS, KC_HASH, KC_DLR,  KC_PIPE, KC_TILD, KC_GRV,  KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                                     KC_TRNS, KC_TRNS,
