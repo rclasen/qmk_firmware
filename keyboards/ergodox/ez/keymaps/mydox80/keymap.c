@@ -127,42 +127,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  Esc |           | BSPC |   Y  |   U  |   I  |   O  |   P  |   =    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  \     |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
- * |--------+------+------+------+------+------|  Ins |           | Enter|------+------+------+------+------+--------|
+ * | FNAV   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
+ * |--------+------+------+------+------+------|  Ins |           | Tab  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LMOS |      | GUI  | CMG  |Alt/Mnu|                                      | LSYM | RAlt | GUI  | LNAV | LMOS |
+ *   | tMOS |      | GUI  | CMG  |Alt/Mnu|                                      | hSYM | RAlt | GUI  | tNAV | tMOS |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 | Space| LNAV |      |       |      | Enter| Space|
+ *                                 | Space| LCtrl|      |       |      | Enter| shift|
  *                                 |------|------|------|       |------|------|------|
- *                                 | Space| LNAV | LSYM |       | RCtrl| Enter| Space|
+ *                                 | Space| LCtrl| hSYM |       | RCtrl| Enter| shift|
  *                                 `--------------------'       `--------------------'
  */
 [BASE] = KEYMAP_80(  // layer 0 : default
         // left hand
         KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_DEL,
         KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_ESC,
-        KC_BSLS,        KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
+        LNAV,           KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
         KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_INS,
         TG(MOS),        KC_NO,          KC_LGUI,        CMG,            ALT_T(KC_APP),
                                                                         // left thumb
                                                                                         KC_NO,          KC_NO,
-                                                                        CTL_T(KC_SPC),  LNAV,           KC_NO,
-                                                                        CTL_T(KC_SPC),  LNAV,           LSYM,
+                                                                        KC_SPC,         KC_LCTL,        KC_NO,
+                                                                        KC_SPC,         KC_LCTL,        MO(SYM),
 
         // right hand
         KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
         KC_BSPC,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
                         KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOT,
-        KC_ENTER,       KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
+        KC_TAB,         KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
                                         MO(SYM),        KC_RALT,        KC_LGUI,        TG(NAV),        TG(MOS),
         // right thumb
         KC_NO,          KC_NO,
-        KC_NO,          KC_ENTER,       KC_SPC,
-        KC_RCTL,        KC_ENTER,       KC_SPC
+        KC_NO,          KC_ENTER,       KC_RSFT,
+        KC_RCTL,        KC_ENTER,       KC_RSFT
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -315,55 +315,58 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
-static uint16_t lsymb_timer;
-bool lsymb_active;
+static uint16_t lsym_timer;
+static bool lsym_active;
 
-static uint16_t lmove_timer;
-bool lmove_active;
+static uint16_t lnav_timer;
+static bool lnav_active;
+
+static uint16_t lmos_timer;
+static bool lmos_active;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode){
       case LSYM:
         if( record->event.pressed ){
-            lsymb_timer = timer_read();
-            lsymb_active = layer_state & 1UL<<SYM;
+            lsym_timer = timer_read();
+            lsym_active = layer_state & 1UL<<SYM;
             layer_on(SYM);
 
-        } else if( timer_elapsed(lsymb_timer) > 150 ){
+        } else if( timer_elapsed(lsym_timer) > 150 ){
             layer_off(SYM);
 
         } else {
-           if( lsymb_active )
+           if( lsym_active )
                layer_off(SYM);
         }
         break;
 
       case LNAV:
         if( record->event.pressed ){
-            lmove_timer = timer_read();
-            lmove_active = layer_state & 1UL<<NAV;
+            lnav_timer = timer_read();
+            lnav_active = layer_state & 1UL<<NAV;
             layer_on(NAV);
 
-        } else if( timer_elapsed(lmove_timer) > 150 ){
+        } else if( timer_elapsed(lnav_timer) > 150 ){
             layer_off(NAV);
 
         } else {
-           if( lmove_active )
+           if( lnav_active )
                layer_off(NAV);
         }
         break;
 
       case LMOS:
         if( record->event.pressed ){
-            lsymb_timer = timer_read();
-            lsymb_active = layer_state & 1UL<<MOS;
+            lmos_timer = timer_read();
+            lmos_active = layer_state & 1UL<<MOS;
             layer_on(MOS);
 
-        } else if( timer_elapsed(lsymb_timer) > 150 ){
+        } else if( timer_elapsed(lmos_timer) > 150 ){
             layer_off(MOS);
 
         } else {
-           if( lsymb_active )
+           if( lmos_active )
                layer_off(MOS);
         }
         break;
