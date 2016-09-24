@@ -26,11 +26,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.1430096"
-     inkscape:cx="515.97123"
-     inkscape:cy="218.35267"
+     inkscape:zoom="1.2618795"
+     inkscape:cx="530.19195"
+     inkscape:cy="267.23163"
      inkscape:document-units="px"
-     inkscape:current-layer="layer8"
+     inkscape:current-layer="layer1"
      showgrid="false"
      fit-margin-top="5"
      fit-margin-left="5"
@@ -433,12 +433,6 @@
        id="path8058-2-9-0-5-7-5-4-9-9"
        inkscape:connector-curvature="0" />
     <path
-       sodipodi:nodetypes="ccccc"
-       style="color:#000000;fill:#e3d7f4;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.69938666;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       d="m 360.58579,1227.0075 51.99608,0 0,76.5182 -51.99608,0 z"
-       id="path8058-2-9-0-5-7-5-4-9-7-2"
-       inkscape:connector-curvature="0" />
-    <path
        transform="translate(-312.76688,644.53376)"
        inkscape:connector-curvature="0"
        id="path4403-0"
@@ -744,29 +738,27 @@
          x="412.64587"
          y="752.09644">Fnav</tspan></text>
     <text
-       transform="translate(2.7501106e-5,-426.61784)"
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-weight:bold;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#b8490f;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
        x="808.96381"
-       y="685.11987"
+       y="261.26004"
        id="text7197-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan7199-1"
          x="808.96381"
-         y="685.11987">Fsym</tspan></text>
+         y="261.26004">Fsym</tspan></text>
     <text
-       transform="translate(2.7501106e-5,-426.61784)"
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-weight:bold;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#0000ff;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       x="1028.853"
-       y="701.03827"
+       x="975.53131"
+       y="273.5011"
        id="text7201-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan7203-2"
-         x="1028.853"
-         y="701.03827">Fnav</tspan></text>
+         x="975.53131"
+         y="273.5011">Fnav</tspan></text>
     <path
        transform="translate(2.7501106e-5,-426.61784)"
        inkscape:connector-curvature="0"
@@ -903,29 +895,27 @@
          style="color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.80000007;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
     <text
-       transform="translate(2.7501106e-5,-426.61784)"
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-weight:bold;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#3b753b;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       x="697.13678"
-       y="623.56226"
+       x="1029.0188"
+       y="273.24969"
        id="text4510-1"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4512-2"
-         x="697.13678"
-         y="623.56226">F/M</tspan></text>
+         x="1029.0188"
+         y="273.24969">F/M</tspan></text>
     <text
-       transform="translate(2.7501106e-5,-426.61784)"
        xml:space="preserve"
        style="font-size:16px;font-style:normal;font-weight:bold;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#3b753b;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       x="57.661919"
-       y="697.06744"
+       x="56.742607"
+       y="270.44962"
        id="text4510-1-0"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4512-2-6"
-         x="57.661919"
-         y="697.06744">F/M</tspan></text>
+         x="56.742607"
+         y="270.44962">F/M</tspan></text>
     <text
        transform="translate(2.7501106e-5,-426.61784)"
        xml:space="preserve"
@@ -997,12 +987,18 @@
            style="color:#000000;fill:#000000;stroke:#000000;stroke-width:1.74988961;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       </g>
     </g>
+    <path
+       sodipodi:nodetypes="ccc"
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:1.99812078;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;marker-end:url(#Arrow2Mend-13-8-55-1-4-3);visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m 713.39851,183.73021 -10e-6,10.3801 -23.70004,2e-4"
+       id="path10025-4-7"
+       inkscape:connector-curvature="0" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="base"
-     style="display:none"
+     style="display:inline"
      transform="translate(2.6901275e-5,-426.61784)">
     <text
        xml:space="preserve"
@@ -1629,7 +1625,7 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="altgr"
-     style="display:none"
+     style="display:inline"
      transform="translate(0,-1.199662e-6)">
     <text
        xml:space="preserve"
@@ -2289,7 +2285,7 @@
      inkscape:groupmode="layer"
      id="layer6"
      inkscape:label="Fsym"
-     style="display:inline"
+     style="display:none"
      transform="translate(0,-1.199662e-6)">
     <text
        transform="translate(3e-5,-426.61784)"
@@ -2771,7 +2767,7 @@
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="Fnav"
-     style="display:inline"
+     style="display:none"
      transform="translate(0,-1.199662e-6)">
     <text
        transform="scale(-1,-1)"
@@ -3220,6 +3216,17 @@
            style="color:#000000;fill:#000000;stroke:#0000ff;stroke-width:1.74988961;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
       </g>
     </g>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-weight:bold;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       x="236.89354"
+       y="222.73288"
+       id="text3584"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3586"
+         x="236.89354"
+         y="222.73288">Ins</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
