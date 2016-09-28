@@ -5,6 +5,20 @@
 
 /*
 
+- dox is missing keys for:
+  - esc
+  - backspace
+  - enter
+
+- keys in bad places
+  - ctrl
+
+- extra keys:
+  - SYM - layer symbol
+  - NAV - layer nav/keypad
+  - MSF - layer mouse/Fx
+  - GHK - global hotkey
+
 - mouse is used with right hand. This needs the following keys on left
   side:
 
@@ -21,7 +35,7 @@
     -> navlayer toggle on left hand
   - shift with navkeys: cursor, page-up/down, home, end - for selection
     -> shift and navkeys need different fingers
-  - <something>-cursor - desktop/window switching - NOT ON WINDOWS
+  - GHK-cursor - desktop/window switching - NOT ON WINDOWS
   - ctrl-x/c/v, ctrl-shift-v - for copy/paste 2
     -> ctrl and shift and x/c/v need different fingers
 
@@ -31,78 +45,89 @@
 - shift/ctrl/layer modifer must be available for each hand and allow
   one-handed operation
 
-- may use 2 hands:
+- on each hand for alternation:
+  - shift
+  - SYM - layer symbol
+  - ctrl ?
+ 
+- may use 2 hands together:
   - alt-enter
   - alt-f4
   - alt-space - window menu
   - ctrl-esc  - gui menu
-  - <something>-cursor - window/desk navigation
-  - <something>-h/j/k/l/number/space - window/desk navigation
-  - <something>-m/z/r - window manipulation
-  - <something>-alpha - portable os hotkeys
+  - GHK-cursor - window/desk navigation
+  - GHK-h/j/k/l/number/space - window/desk navigation
+  - GHK-m/z/r - window manipulation
+  - GHK-alpha - portable os hotkeys
   - alt-anything - windows application hotkeys
   - altgr-anything - strange characters
   - altgr-shift-anything - even more strange characters
     -> altgr and shift need different fingers
 
-easy to use:
-+ space
-+ shift		LAYER 2
-- backspace
-+ tab
-+ ctrl		MODIFIER
-+ enter
-+ esc
-+ symbol	LAYER 3
-+ nav		LAYER 4
+frequent/easy to use:
+= space		tap	1hold	l,r?
++ shift			hold	l,r	layer 2
+- SYM			hold	l,r	layer 3
+- ctrl			hold	l,r?		modifier
+- backspace	tap		one
++ enter		tap	hold	one
++ NAV		tap	hold	l	layer 4
+
+often:
++ tab		tap		l
++ esc		tap		l
+= alt			hold	l,r?		modifier
+= GHK			hold	l,r?		modifier
++ MSF		tap		l,r	layer
 
 rare:
-+ insert
-+ alt		MODIFIER
-+ <something>	MODIFIER
-- gui		MODIFIER
-+ altgr		LAYER
-+ delete
-- mouse		LAYER
-- print
++ insert	tap		l
+= altgr			hold	r,l?	layer
+= gui		tap	hold	l,r?		modifier
++ delete	tap
++ print		tap
++ menu		tap		l
 
 
 
 
 left main:
-- tab
-- shift		LAYER 2
+- tab		tap		l
+- shift			hold	l,r	layer 2
+- caps: NAV		tap	hold	l	layer 4
+- z: SYM		hold	l,r	layer 3
 left bottom:
-- mouse		LAYER
-- symbol	LAYER 3
-- gui
-- <something>	MODIFIER
-- nav		LAYER 4
+- MSF		tap		l,r	layer
+- gui		tap	hold	l,r?		modifier
+- GHK			hold	l,r?		modifier
+- esc: alt		hold	l,r?		modifier
+- alt: esc	tap		l
 left center:
-- delete
-- ?enter
-- insert
+- delete	tap
+- menu		tap		l
+- insert	tap		l
 left thumb:
-- ctrl/space	MODIFIER
-- ?backspace
-- alt		MODIFIER
+- space		tap	1hold	l,r
+- ctrl			hold	l,r?		modifier
+- backspace	tap		one
 
 right thumb
-- ctrl
-- enter
-- space
+- ctrl			hold	l,r?		modifier
+- enter		tap		one
+- space		tap	1hold	l,r
 right center:
-- print
-- backspace
-- esc
+- print		tap
+- tab		tap		l
 right bottom
-- nav		LAYER 4
-- altgr		LAYER
--
-- symbol	LAYER 3
-- mouse
+- esc: alt		hold	l,r?		modifier
+- alt: esc	tap		l
+- altgr			hold	r,l?	layer
+- gui		tap	hold	l,r?		modifier
+- NAV		tap	hold	l	layer 4
+- MSF		tap		l,r	layer
 right main:
-- shift		LAYER 2
+- shift			hold	l,r	layer 2
+- /: SYM		hold	l,r	layer 3
 
 */
 
@@ -125,44 +150,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   `    |   1  |   2  |   3  |   4  |   5  |  Del |           | Print|   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |  Esc |           | BSPC |   Y  |   U  |   I  |   O  |   P  |   =    |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  |   =    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | FNAV   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
+ * | fNAV   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
  * |--------+------+------+------+------+------|  Ins |           | Tab  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | tMOS |      | GUI  | CMG  |Alt/Mnu|                                      | hSYM | RAlt | GUI  | tNAV | tMOS |
+ *   | hSYM | tMOS | GUI  | CMG  |Alt Esc|                                     |Alt Esc| RAlt | GUI  | tMOS | hSYM |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 | Space| LCtrl|      |       |      | Enter| shift|
- *                                 |------|------|------|       |------|------|------|
- *                                 | Space| LCtrl| hSYM |       | RCtrl| Enter| shift|
+ *                                 | LCtrl| BSPC |      |       |      | Enter| Space|
+ *                                 +      +      +------+       +------+      +      +
+ *                                 | Space| BSPC | LSYM |       | RCtrl| Enter| Space|
  *                                 `--------------------'       `--------------------'
  */
 [BASE] = KEYMAP_80(  // layer 0 : default
         // left hand
         KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_DEL,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_ESC,
+        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_NO,
         LNAV,           KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
         KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_INS,
-        TG(MOS),        KC_NO,          KC_LGUI,        CMG,            ALT_T(KC_APP),
+        MO(SYM),        TG(MOS),        KC_LGUI,        CMG,            ALT_T(KC_ESC),
                                                                         // left thumb
-                                                                                        KC_NO,          KC_NO,
-                                                                        KC_SPC,         KC_LCTL,        KC_NO,
-                                                                        KC_SPC,         KC_LCTL,        MO(SYM),
+                                                                                        KC_NO,          KC_APP,
+                                                                        CTL_T(KC_SPC),  KC_BSPC,        LSYM,
+                                                                        CTL_T(KC_SPC),  KC_BSPC,        LSYM,
 
         // right hand
         KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
-        KC_BSPC,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
+        KC_NO,          KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
                         KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOT,
         KC_TAB,         KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
-                                        MO(SYM),        KC_RALT,        KC_LGUI,        TG(NAV),        TG(MOS),
+                                        ALT_T(KC_ESC),  KC_RALT,        KC_LGUI,        TG(MOS),        MO(SYM),
         // right thumb
         KC_NO,          KC_NO,
-        KC_NO,          KC_ENTER,       KC_RSFT,
-        KC_RCTL,        KC_ENTER,       KC_RSFT
+        KC_NO,          KC_ENTER,       KC_SPC,
+        KC_RCTL,        KC_ENTER,       KC_SPC
     ),
 /* Keymap 1: Symbol Layer
  *
