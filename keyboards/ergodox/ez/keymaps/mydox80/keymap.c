@@ -150,44 +150,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   `    |   1  |   2  |   3  |   4  |   5  |  Del |           | Print|   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  | Menu |           | fNAV |   Y  |   U  |   I  |   O  |   P  |   =    |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  | fMOS |           | fMOS |   Y  |   U  |   I  |   O  |   P  |   =    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | fNAV   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
- * |--------+------+------+------+------+------|  Ins |           | Tab  |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|  Ins |           | fNAV |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | hSYM | tMOS | GUI  | CMG  |Alt Esc|                                     |Alt Esc| RAlt | GUI  | tMOS | hSYM |
+ *   | hSYM | hSYM | GUI  | CMG  |Alt Esc|                                      | RAlt | LAlt | GUI  | hSYM | hSYM |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
+ *                                        |      | Menu |       | Tab  |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 | Space| LCtrl|      |       |      | Enter| Space|
  *                                 +      +      +------+       +------+      +      +
- *                                 | Space| LCtrl| BSPC |       |ct/bs | Enter| Space|
+ *                                 | Space| LCtrl| BSPC |       | BSPC | Enter|ctl/sp|
  *                                 `--------------------'       `--------------------'
  */
 [BASE] = KEYMAP_80(  // layer 0 : default
         // left hand
         KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_DEL,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_APP,
+        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           LMOS,
         LNAV,           KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
         KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_INS,
-        MO(SYM),        TG(MOS),        KC_LGUI,        CMG,            ALT_T(KC_ESC),
+        MO(SYM),        MO(SYM),        KC_LGUI,        CMG,            ALT_T(KC_ESC),
                                                                         // left thumb
-                                                                                        KC_NO,          KC_NO,
+                                                                                        KC_NO,          KC_APP,
                                                                         KC_SPC,         KC_LCTL,        KC_NO,
                                                                         KC_SPC,         KC_LCTL,        KC_BSPC,
 
         // right hand
         KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
-        LNAV,           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
+        LMOS,           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
                         KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOT,
-        KC_TAB,         KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
-                                        ALT_T(KC_ESC),  KC_RALT,        KC_LGUI,        TG(MOS),        MO(SYM),
+        LNAV,           KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
+                                        KC_RALT,        KC_LALT,        KC_LGUI,        MO(SYM),        MO(SYM),
         // right thumb
-        KC_NO,          KC_NO,
+        KC_TAB,         KC_NO,
         KC_NO,          KC_ENTER,       KC_SPC,
-        CTL_T(KC_BSPC), KC_ENTER,       KC_SPC
+        KC_BSPC,        KC_ENTER,       CTL_T(KC_SPC)
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -418,11 +418,11 @@ void matrix_scan_user(void) {
             ergodox_right_led_1_on();
     }
 
-    if( layer_state & 1UL<<NAV ){
+    if( layer_state & 1UL<<MOS ){
             ergodox_right_led_2_on();
     }
 
-    if( layer_state & 1UL<<MOS ){
+    if( layer_state & 1UL<<NAV ){
             ergodox_right_led_3_on();
     }
 
