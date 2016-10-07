@@ -186,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         KC_RALT,        KC_LALT,        KC_LGUI,        MO(SYM),        MO(SYM),
         // right thumb
         KC_TAB,         KC_NO,
-        KC_NO,          KC_ENTER,       KC_SPC,
+        KC_NO,          KC_ENTER,       CTL_T(KC_SPC),
         KC_BSPC,        KC_ENTER,       CTL_T(KC_SPC)
     ),
 /* Keymap 1: Symbol Layer
