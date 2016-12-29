@@ -136,7 +136,8 @@ right main:
 #define NAV 2 // navkeys, numpad
 #define MOS 3 // mouse, Fx, media
 
-#define CMG LCTL(LALT(KC_LGUI))
+#define CMG OSM( MOD_LCTL | MOD_LALT | MOD_LGUI )
+
 
 enum my_keycodes {
   LSYM = SAFE_RANGE,
@@ -169,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP_80(  // layer 0 : default
         // left hand
         KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_DEL,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           TG(MOS),
+        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           OSL(MOS),
         LNAV,           KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
         KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_INS,
         MO(SYM),        MO(SYM),        KC_LGUI,        CMG,            ALT_T(KC_ESC),
@@ -180,14 +181,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right hand
         KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
-        TG(MOS),        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
+        OSL(MOS),       KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
                         KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOT,
         LNAV,           KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
                                         KC_RALT,        KC_LALT,        KC_LGUI,        MO(SYM),        MO(SYM),
         // right thumb
         KC_UP,          KC_TAB,
-        KC_DOWN,        KC_ENTER,       CTL_T(KC_SPC),
-        KC_BSPC,        KC_ENTER,       CTL_T(KC_SPC)
+        KC_DOWN,        KC_ENTER,       KC_NO,
+        KC_BSPC,        KC_ENTER,       KC_NO
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -340,6 +341,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
+
 static uint16_t lsym_timer;
 static bool lsym_active;
 
@@ -401,10 +403,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+/*
+
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
 
 };
+
+*/
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
@@ -413,6 +419,12 @@ void matrix_scan_user(void) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
+
+/*
+    if( usb_led & ( 1<<USB_LED_CAPS_LOCK ) ){
+            ergodox_right_led_1_on();
+    }
+*/
 
     if( layer_state & 1UL<<SYM ){
             ergodox_right_led_1_on();
