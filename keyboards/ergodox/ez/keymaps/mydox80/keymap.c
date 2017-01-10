@@ -131,18 +131,72 @@ right main:
 
 */
 
-#define BASE 0 // default layer
-#define SYM 1 // symbols
-#define NAV 2 // navkeys, numpad
-#define MOS 3 // mouse, Fx, media
-
-#define CMG OSM( MOD_LCTL | MOD_LALT | MOD_LGUI )
-
-enum my_keycodes {
-  LSYM = SAFE_RANGE,
-  LNAV,
-  LMOS,
+// this determins the order of layers:
+enum my_layer {
+	BASE,	// default layer
+	NAV,	// navkeys, numpad
+	MOS,	// mouse, Fx, media
+	SYM,	// symbols
 };
+
+// for keys with custom "actions" coded in matrix_scan_user
+enum my_keycodes {
+	XL_NAV	= SAFE_RANGE,
+	XL_MOS,
+	XL_SYM,
+};
+
+// for index / F(index) of standard actions:
+enum my_fn {
+	F_OM_RALT,
+	//F_OM_GHK,
+};
+const uint16_t PROGMEM fn_actions[] = {
+	[F_OM_RALT]	= ACTION_MODS_ONESHOT(MOD_RALT),	// ... as OSM(MOD_RALT) sends LALT
+	//[F_OM_GHK]	= ACTION_MODS_ONESHOT(MOD_LCTL | MOD_LALT | MOD_LGUI),
+};
+
+
+#define TL_NAV	LT(NAV)
+#define TL_MOS	LT(MOS)
+#define TL_SYM	LT(SYM)
+
+#define ML_NAV	MO(NAV)
+#define ML_MOS	MO(MOS)
+#define ML_SYM	MO(SYM)
+
+#define OL_NAV	OSL(NAV)
+#define OL_MOS	OSL(MOS)
+#define OL_SYM	OSL(SYM)
+
+#define OM_RALT	F(F_OM_RALT)
+
+// known as LCAG .. but only available as LCAG() / LCAG_T()
+//#define OM_GHK F(F_OM_GHK)
+#define OM_GHK OSM( MOD_LCTL | MOD_LALT | MOD_LGUI )
+
+
+
+
+
+
+// Layer:
+//
+// MO momentary layer
+// TG toggle layer
+// OSL oneshot layer
+// XL_xx momentary / toggle layer
+// LT momentary layer / keycode
+
+// Modifier
+//
+// KC_xx momentary modifier
+// ?? toggle modifier
+// OSM oneshot modifier
+// -- momentary / toggle modifuer
+// xx_T() momentary modifier / keycode
+
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -156,7 +210,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  Ins |           | fNAV |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | hSYM | hSYM | GUI  | CMG  |Alt/Esc|                                      | RAlt | LAlt | GUI  | hSYM | hSYM |
+ *   | hSYM | hSYM | GUI  | GHK  |Alt/Esc|                                      | RAlt | LAlt | GUI  | hSYM | hSYM |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | Menu | right|       |  up  | tab  |
@@ -169,10 +223,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP_80(  // layer 0 : default
         // left hand
         KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_DEL,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           OSL(MOS),
-        LNAV,           KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
+        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           XL_MOS,
+        XL_NAV,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
         KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_INS,
-        MO(SYM),        MO(SYM),        KC_LGUI,        CMG,            ALT_T(KC_ESC),
+        ML_SYM,         XL_SYM,         KC_LGUI,        OM_GHK,         ALT_T(KC_ESC),
                                                                         // left thumb
                                                                                         KC_APP,         KC_RIGHT,
                                                                         KC_SPC,         KC_LCTL,        KC_LEFT,
@@ -180,10 +234,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right hand
         KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
-        OSL(MOS),       KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
+        XL_MOS,         KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
                         KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOT,
-        LNAV,           KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
-                                        KC_NO,          KC_LALT,        KC_LGUI,        MO(SYM),        MO(SYM),
+        XL_NAV,         KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
+                                        OM_RALT,        KC_LALT,        KC_LGUI,        XL_SYM,         ML_SYM,
         // right thumb
         KC_UP,          KC_TAB,
         KC_DOWN,        KC_BSPC,        KC_ENTER,
@@ -317,14 +371,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-/*
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYM),                // FN1 - Momentary Layer 1 (Symbols)
-    [2] = ACTION_LAYER_TAP_TOGGLE(NAV),                // FN2 - Momentary Layer 2 (Navigation)
-    [3] = ACTION_LAYER_TAP_TOGGLE(MOS),                // FN3 - Momentary Layer 3 (Mouse/Fx/Media)
-};
-*/
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
@@ -352,7 +398,7 @@ static bool lmos_active;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode){
-      case LSYM:
+      case XL_SYM:
         if( record->event.pressed ){
             lsym_timer = timer_read();
             lsym_active = layer_state & 1UL<<SYM;
@@ -367,7 +413,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
 
-      case LNAV:
+      case XL_NAV:
         if( record->event.pressed ){
             lnav_timer = timer_read();
             lnav_active = layer_state & 1UL<<NAV;
@@ -382,7 +428,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
 
-      case LMOS:
+      case XL_MOS:
         if( record->event.pressed ){
             lmos_timer = timer_read();
             lmos_active = layer_state & 1UL<<MOS;
