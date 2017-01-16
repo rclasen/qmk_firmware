@@ -133,7 +133,7 @@ right main:
 
 // this determins the order of layers:
 enum my_layer {
-	BASE,	// default layer
+	BASE = 0,	// default layer
 	NAV,	// navkeys, numpad
 	MOS,	// mouse, Fx, media
 	SYM,	// symbols
@@ -169,7 +169,14 @@ const uint16_t PROGMEM fn_actions[] = {
 #define OL_MOS	OSL(MOS)
 #define OL_SYM	OSL(SYM)
 
+#define OM_LALT	OSM(MOD_LALT)
 #define OM_RALT	F(F_OM_RALT)
+
+#define OM_LCTL	OSM(MOD_LCTL)
+
+#define OM_LGUI	OSM(MOD_LGUI)
+
+#define OM_LSFT	OSM(MOD_LSFT)
 
 // known as LCAG .. but only available as LCAG() / LCAG_T()
 //#define OM_GHK F(F_OM_GHK)
@@ -225,19 +232,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_DEL,
         KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           XL_MOS,
         XL_NAV,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
-        KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_INS,
+        OM_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_INS,
         ML_SYM,         XL_SYM,         KC_LGUI,        OM_GHK,         ALT_T(KC_ESC),
                                                                         // left thumb
                                                                                         KC_APP,         KC_RIGHT,
-                                                                        KC_SPC,         KC_LCTL,        KC_LEFT,
-                                                                        KC_SPC,         KC_LCTL,        KC_BSPC,
+                                                                        KC_SPC,         OM_LCTL,        KC_LEFT,
+                                                                        KC_SPC,         OM_LCTL,        KC_BSPC,
 
         // right hand
         KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
         XL_MOS,         KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_EQL,
                         KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOT,
-        XL_NAV,         KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,
-                                        OM_RALT,        KC_LALT,        KC_LGUI,        XL_SYM,         ML_SYM,
+        XL_NAV,         KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        OM_LSFT,
+                                        OM_RALT,        OM_LALT,        OM_LGUI,        XL_SYM,         ML_SYM,
         // right thumb
         KC_UP,          KC_TAB,
         KC_DOWN,        KC_BSPC,        KC_ENTER,
@@ -457,30 +464,102 @@ void matrix_init_user(void) {
 
 */
 
+static uint8_t capslock = 0;
+
+void led_set_kb( uint8_t usb_led ){
+	capslock = usb_led & (1<<USB_LED_CAPS_LOCK) ? 1 : 0;
+}
+
+
+#define MOD_ACTIVE(bits) ( keyboard_report->mods & bits || (\
+	(get_oneshot_mods() & bits) \
+	&& !has_oneshot_mods_timed_out() \
+	) )
+
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
+	uint8_t led[] = {
+		0, 0, 0
+	};
 
-/*
-    if( usb_led & ( 1<<USB_LED_CAPS_LOCK ) ){
-            ergodox_right_led_1_on();
-    }
-*/
+	// layer
 
-    if( layer_state & 1UL<<SYM ){
-            ergodox_right_led_1_on();
-    }
+	if( layer_state & 1UL<<SYM ){
+		led[0] = 1UL<<5;
+	}
 
-    if( layer_state & 1UL<<MOS ){
-            ergodox_right_led_2_on();
-    }
+	if( layer_state & 1UL<<MOS ){
+		led[1] = 1UL<<5;
+	}
 
-    if( layer_state & 1UL<<NAV ){
-            ergodox_right_led_3_on();
-    }
+	if( layer_state & 1UL<<NAV ){
+		led[2] = 1UL<<5;
+	}
+
+	// OS state
+
+	if( capslock ){
+		led[0] |= 1UL<<7;
+	}
+
+	// oneshot modifier
+
+	if( MOD_ACTIVE( MOD_BIT(KC_LSFT) ) ){
+		led[2] |= 1UL<<7;
+	}
+
+	if( MOD_ACTIVE( MOD_BIT(KC_RSFT) ) ){
+		led[2] |= 1UL<<7;
+	}
+
+	if( MOD_ACTIVE( MOD_BIT(KC_LCTL) ) ){
+		led[2] |= 1UL<<7;
+	}
+
+	if( MOD_ACTIVE( MOD_BIT(KC_RCTL) ) ){
+		led[2] |= 1UL<<7;
+	}
+
+	if( MOD_ACTIVE( MOD_BIT(KC_LALT) ) ){
+		led[2] |= 1UL<<7;
+	}
+
+	if( MOD_ACTIVE( MOD_BIT(KC_RALT) ) ){
+		led[2] |= 1UL<<7;
+	}
+
+	if( MOD_ACTIVE( MOD_BIT(KC_LGUI) ) ){
+		led[2] |= 1UL<<7;
+	}
+
+	if( MOD_ACTIVE( MOD_BIT(KC_RGUI) ) ){
+		led[2] |= 1UL<<7;
+	}
+
+
+
+	// finally: set led on/off/brightness
+
+	if( led[0] ){
+		ergodox_right_led_1_set( led[0] );
+		ergodox_right_led_1_on();
+	} else {
+		ergodox_right_led_1_off();
+	}
+
+	if( led[1] ){
+		ergodox_right_led_2_set( led[1] );
+		ergodox_right_led_2_on();
+	} else {
+		ergodox_right_led_2_off();
+	}
+
+	if( led[2] ){
+		ergodox_right_led_3_set( led[2] );
+		ergodox_right_led_3_on();
+	} else {
+		ergodox_right_led_3_off();
+	}
 
 };
