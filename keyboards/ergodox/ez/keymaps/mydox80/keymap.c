@@ -485,16 +485,16 @@ void matrix_scan_user(void) {
 
 	// layer
 
-	if( layer_state & 1UL<<SYM ){
-		led[0] = 1UL<<5;
+	if( layer_state & 1UL<<NAV ){
+		led[1] |= 1UL<<5;
 	}
 
 	if( layer_state & 1UL<<MOS ){
-		led[1] = 1UL<<5;
+		led[1] |= 1UL<<6;
 	}
 
-	if( layer_state & 1UL<<NAV ){
-		led[2] = 1UL<<5;
+	if( layer_state & 1UL<<SYM ){
+		led[1] |= 1UL<<7;
 	}
 
 	// OS state
@@ -506,27 +506,27 @@ void matrix_scan_user(void) {
 	// oneshot modifier
 
 	if( MOD_ACTIVE( MOD_BIT(KC_LSFT) ) ){
-		led[2] |= 1UL<<7;
+		led[2] |= 1UL<<4;
 	}
 
 	if( MOD_ACTIVE( MOD_BIT(KC_RSFT) ) ){
-		led[2] |= 1UL<<7;
+		led[2] |= 1UL<<4;
 	}
 
 	if( MOD_ACTIVE( MOD_BIT(KC_LCTL) ) ){
-		led[2] |= 1UL<<7;
+		led[2] |= 1UL<<5;
 	}
 
 	if( MOD_ACTIVE( MOD_BIT(KC_RCTL) ) ){
-		led[2] |= 1UL<<7;
+		led[2] |= 1UL<<5;
 	}
 
 	if( MOD_ACTIVE( MOD_BIT(KC_LALT) ) ){
-		led[2] |= 1UL<<7;
+		led[2] |= 1UL<<6;
 	}
 
 	if( MOD_ACTIVE( MOD_BIT(KC_RALT) ) ){
-		led[2] |= 1UL<<7;
+		led[2] |= 1UL<<6;
 	}
 
 	if( MOD_ACTIVE( MOD_BIT(KC_LGUI) ) ){
