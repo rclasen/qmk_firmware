@@ -469,10 +469,10 @@ void matrix_init_user(void) {
 
 */
 
-static uint8_t capslock = 0;
+static uint8_t usbled = 0;
 
 void led_set_kb( uint8_t usb_led ){
-	capslock = usb_led & (1<<USB_LED_CAPS_LOCK) ? 1 : 0;
+	usbled = usb_led;
 }
 
 
@@ -504,11 +504,15 @@ void matrix_scan_user(void) {
 
 	// OS state
 
-	if( capslock ){
-		led[0] |= 1UL<<7;
+	if( ! ( usbled & (1UL<<USB_LED_NUM_LOCK) )){
+		led[0] |= 1UL<<3;
 	}
 
-	// oneshot modifier
+	if( usbled & (1UL<<USB_LED_CAPS_LOCK) ){
+		led[0] |= 1UL<<6;
+	}
+
+	// modifier
 
 	if( MOD_ACTIVE( MOD_BIT(KC_LSFT) ) ){
 		led[2] |= 1UL<<4;
