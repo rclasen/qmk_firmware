@@ -28,7 +28,9 @@
     -> shift/ctrl and insert/delete need different fingers
   - alt-tab - to switch windows
     -> alt and tab need different fingers
+  - ctrl-tab - to switch documents
   - ?enter on left hand
+  - ?ctrl-pgup/down - to switch tabs
 
   nav:
   - navkeys: cursor, page-up/down, home, end - for extra navigation
@@ -63,6 +65,7 @@
   - altgr-anything - strange characters
   - altgr-shift-anything - even more strange characters
     -> altgr and shift need different fingers
+  - alt-print/sysrq-X - linux sysrq
 
 frequent/easy to use:
 = space		tap	1hold	l,r?
@@ -144,6 +147,7 @@ enum my_keycodes {
 	XL_NAV	= SAFE_RANGE,
 	XL_MOS,
 	XL_SYM,
+	KC_BASE,
 };
 
 // for index / F(index) of standard actions:
@@ -157,9 +161,9 @@ const uint16_t PROGMEM fn_actions[] = {
 };
 
 
-#define TL_NAV	LT(NAV)
-#define TL_MOS	LT(MOS)
-#define TL_SYM	LT(SYM)
+#define TL_NAV	TG(NAV)
+#define TL_MOS	TG(MOS)
+#define TL_SYM	TG(SYM)
 
 #define ML_NAV	MO(NAV)
 #define ML_MOS	MO(MOS)
@@ -253,8 +257,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_DEL,
         KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           XL_MOS,
         XL_NAV,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
-        KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           KC_INS,
-        KC_NO,          OM_LGUI,        OM_LALT,        OM_GHK,         XL_SYM,
+        KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           LSFT(KC_INS),
+        KC_BASE,        OM_LGUI,        OM_LALT,        OM_GHK,         XL_SYM,
                                                                         // left thumb
                                                                                         KC_APP,         KC_RIGHT,
                                                                         KC_SPC,         OM_LCTL,        KC_LEFT,
@@ -350,7 +354,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_MINS, KC_7,    KC_8,    KC_9,    KC_PLUS, KC_TRNS,
                 KC_DOT,  KC_4,    KC_5,    KC_6,    KC_COMM, KC_TRNS,
        KC_TRNS, KC_COLN, KC_1,    KC_2,    KC_3,    KC_SCLN, KC_TRNS,
-                         KC_0,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                         SFT_T(KC_0), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
@@ -426,6 +430,15 @@ static bool lmos_active;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode){
+      case KC_BASE:
+	if( record->event.pressed ){
+		clear_oneshot_mods();
+		clear_oneshot_locked_mods();
+		layer_clear();
+		clear_oneshot_layer_state(ONESHOT_PRESSED);
+	}
+	return true;
+
       case XL_SYM:
         if( record->event.pressed ){
             lsym_timer = timer_read();
@@ -439,7 +452,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            if( lsym_active )
                layer_off(SYM);
         }
-        break;
+	return false;
 
       case XL_NAV:
         if( record->event.pressed ){
@@ -454,7 +467,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            if( lnav_active )
                layer_off(NAV);
         }
-        break;
+	return false;
 
       case XL_MOS:
         if( record->event.pressed ){
@@ -469,7 +482,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
            if( lmos_active )
                layer_off(MOS);
         }
-        break;
+	return false;
 
     }
 
@@ -524,8 +537,12 @@ void matrix_scan_user(void) {
 		led[0] |= 1UL<<3;
 	}
 
+	if( usbled & (1UL<<USB_LED_COMPOSE) ){
+		led[0] |= 1UL<<5;
+	}
+
 	if( usbled & (1UL<<USB_LED_CAPS_LOCK) ){
-		led[0] |= 1UL<<6;
+		led[0] |= 1UL<<7;
 	}
 
 	// modifier
