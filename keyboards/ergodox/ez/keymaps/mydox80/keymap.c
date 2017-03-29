@@ -144,22 +144,8 @@ enum my_layer {
 
 // for keys with custom "actions" coded in matrix_scan_user
 enum my_keycodes {
-	XL_NAV	= SAFE_RANGE,
-	XL_MOS,
-	XL_SYM,
-	KC_BASE,
+	KC_BASE	= SAFE_RANGE,
 };
-
-// for index / F(index) of standard actions:
-enum my_fn {
-	F_OM_RALT,
-	//F_OM_GHK,
-};
-const uint16_t PROGMEM fn_actions[] = {
-	[F_OM_RALT]	= ACTION_MODS_ONESHOT(MOD_RALT),	// ... as OSM(MOD_RALT) sends LALT
-	//[F_OM_GHK]	= ACTION_MODS_ONESHOT(MOD_LCTL | MOD_LALT | MOD_LGUI),
-};
-
 
 #define TL_NAV	TG(NAV)
 #define TL_MOS	TG(MOS)
@@ -174,7 +160,7 @@ const uint16_t PROGMEM fn_actions[] = {
 #define OL_SYM	OSL(SYM)
 
 #define OM_LALT	OSM(MOD_LALT)
-#define OM_RALT	F(F_OM_RALT)
+#define OM_RALT	OSM(MOD_RALT)
 
 #define OM_LCTL	OSM(MOD_LCTL)
 
@@ -196,7 +182,6 @@ const uint16_t PROGMEM fn_actions[] = {
 // MO momentary layer
 // TG toggle layer
 // OSL oneshot layer
-// XL_xx momentary / toggle layer
 // LT momentary layer / keycode
 
 // Modifier
@@ -255,19 +240,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP_80(  // layer 0 : default
         // left hand
         KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_DEL,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           XL_MOS,
-        XL_NAV,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
+        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           OL_MOS,
+        OL_NAV,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
         KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           LSFT(KC_INS),
         OM_GHK,         KC_NO,          OM_LGUI,        OM_LALT,        OM_LCTL,
                                                                         // left thumb
                                                                                         KC_APP,         KC_RIGHT,
-                                                                        KC_SPC,         XL_SYM,         KC_LEFT,
-                                                                        KC_SPC,         XL_SYM,         KC_ESC,
+                                                                        KC_SPC,         OL_SYM,         KC_LEFT,
+                                                                        KC_SPC,         OL_SYM,         KC_ESC,
 
         // right hand
         KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
-        XL_MOS,         KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_OUML,
-                        KC_H,           KC_J,           KC_K,           KC_L,           KC_UUML,        XL_NAV,
+        OL_MOS,         KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_OUML,
+                        KC_H,           KC_J,           KC_K,           KC_L,           KC_UUML,        OL_NAV,
         KC_NO,          KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_AUML,        KC_LSFT,
                                         OM_LSFT,        OM_LALT,        OM_LGUI,        OM_RALT,        OM_GHK,
         // right thumb
@@ -403,31 +388,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-    switch(id) {
-      case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
-
-    }
-
-    return MACRO_NONE;
-};
-
-
-static uint16_t lsym_timer;
-static bool lsym_active;
-
-static uint16_t lnav_timer;
-static bool lnav_active;
-
-static uint16_t lmos_timer;
-static bool lmos_active;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode){
       case KC_BASE:
@@ -438,51 +398,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		clear_oneshot_layer_state(ONESHOT_PRESSED);
 	}
 	return true;
-
-      case XL_SYM:
-        if( record->event.pressed ){
-            lsym_timer = timer_read();
-            lsym_active = layer_state & 1UL<<SYM;
-            layer_on(SYM);
-
-        } else if( timer_elapsed(lsym_timer) > 150 ){
-            layer_off(SYM);
-
-        } else {
-           if( lsym_active ) // TODO: or if a differnet key was presses
-               layer_off(SYM);
-        }
-	return false;
-
-      case XL_NAV:
-        if( record->event.pressed ){
-            lnav_timer = timer_read();
-            lnav_active = layer_state & 1UL<<NAV;
-            layer_on(NAV);
-
-        } else if( timer_elapsed(lnav_timer) > 150 ){
-            layer_off(NAV);
-
-        } else {
-           if( lnav_active )  // TODO: or if a differnet key was presses
-               layer_off(NAV);
-        }
-	return false;
-
-      case XL_MOS:
-        if( record->event.pressed ){
-            lmos_timer = timer_read();
-            lmos_active = layer_state & 1UL<<MOS;
-            layer_on(MOS);
-
-        } else if( timer_elapsed(lmos_timer) > 150 ){
-            layer_off(MOS);
-
-        } else {
-           if( lmos_active ) // TODO: or if a differnet key was presses
-               layer_off(MOS);
-        }
-	return false;
 
     }
 
