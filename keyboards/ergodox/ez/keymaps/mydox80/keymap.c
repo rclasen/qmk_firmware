@@ -238,18 +238,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  | fMOS |           | fMOS |   Y  |   U  |   I  |   O  |   P  |   ö    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | fNAV   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ü  | fMOS   |
- * |--------+------+------+------+------+------|  Ins |           | fNAV |------+------+------+------+------+--------|
+ * | fNAV   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ü  | fNAV   |
+ * |--------+------+------+------+------+------|  Ins |           |      |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   ä  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      | LGUI | LALT | GHK  | fSYM |                                       |LShift| LAlt | GUI  | RALT |      |
+ *   | GHK  |      | LGUI | LALT | LCTL |                                       |LShift| LAlt | GUI  | RALT | GHK  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | Menu | right|       |  up  | tab  |
+ *                                        | Menu | right|       |  up  |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 | Space| LCtrl| left |       | down | BSPC | Enter|
+ *                                 | Space| fSYM | left |       | down | BSPC | Enter|
  *                                 +      +      +------+       +------+      +      +
- *                                 | Space| LCtrl| ESC  |       |      | BSPC | Enter|
+ *                                 | Space| fSYM | ESC  |       | TAB  | BSPC | Enter|
  *                                 `--------------------'       `--------------------'
  */
 [BASE] = KEYMAP_80(  // layer 0 : default
@@ -258,22 +258,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           XL_MOS,
         XL_NAV,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
         KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           LSFT(KC_INS),
-        KC_BASE,        OM_LGUI,        OM_LALT,        OM_GHK,         XL_SYM,
+        OM_GHK,         KC_NO,          OM_LGUI,        OM_LALT,        OM_LCTL,
                                                                         // left thumb
                                                                                         KC_APP,         KC_RIGHT,
-                                                                        KC_SPC,         OM_LCTL,        KC_LEFT,
-                                                                        KC_SPC,         OM_LCTL,        KC_ESC,
+                                                                        KC_SPC,         XL_SYM,         KC_LEFT,
+                                                                        KC_SPC,         XL_SYM,         KC_ESC,
 
         // right hand
         KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
         XL_MOS,         KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_OUML,
-                        KC_H,           KC_J,           KC_K,           KC_L,           KC_UUML,        XL_MOS,
-        XL_NAV,         KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_AUML,        KC_LSFT,
-                                        OM_LSFT,        OM_LALT,        OM_LGUI,        OM_RALT,        KC_NO,
+                        KC_H,           KC_J,           KC_K,           KC_L,           KC_UUML,        XL_NAV,
+        KC_NO,          KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_AUML,        KC_LSFT,
+                                        OM_LSFT,        OM_LALT,        OM_LGUI,        OM_RALT,        OM_GHK,
         // right thumb
-        KC_UP,          KC_TAB,
+        KC_UP,          KC_NO,
         KC_DOWN,        KC_BSPC,        KC_ENTER,
-        KC_NO,          KC_BSPC,        KC_ENTER
+        KC_TAB,         KC_BSPC,        KC_ENTER
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -449,7 +449,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(SYM);
 
         } else {
-           if( lsym_active )
+           if( lsym_active ) // TODO: or if a differnet key was presses
                layer_off(SYM);
         }
 	return false;
@@ -464,7 +464,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(NAV);
 
         } else {
-           if( lnav_active )
+           if( lnav_active )  // TODO: or if a differnet key was presses
                layer_off(NAV);
         }
 	return false;
@@ -479,7 +479,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_off(MOS);
 
         } else {
-           if( lmos_active )
+           if( lmos_active ) // TODO: or if a differnet key was presses
                layer_off(MOS);
         }
 	return false;
