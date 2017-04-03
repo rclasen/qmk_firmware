@@ -253,7 +253,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
         OL_MOS,         KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_OUML,
                         KC_H,           KC_J,           KC_K,           KC_L,           KC_UUML,        OL_NAV,
-        KC_NO,          KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_AUML,        KC_LSFT,
+        KC_BASE,        KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_AUML,        KC_LSFT,
                                         OM_LSFT,        OM_LALT,        OM_LGUI,        OM_RALT,        OM_GHK,
         // right thumb
         KC_UP,          KC_NO,
@@ -390,28 +390,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode){
-      case KC_BASE:
-	if( record->event.pressed ){
-		clear_oneshot_mods();
-		clear_oneshot_locked_mods();
-		layer_clear();
-		clear_oneshot_layer_state(ONESHOT_PRESSED);
-	}
-	return true;
+        case KC_BASE:
+            if( record->event.pressed ){
+                clear_oneshot_mods();
+                clear_oneshot_locked_mods();
+                unregister_mods(get_mods());
+
+                reset_oneshot_layer();
+                layer_clear();
+            }
+            return true;
 
     }
 
     return true;
 }
 
-/*
-
+#if 0
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
+    debug_enable=true;
 
 };
+#endif
 
-*/
 
 static uint8_t usbled = 0;
 
