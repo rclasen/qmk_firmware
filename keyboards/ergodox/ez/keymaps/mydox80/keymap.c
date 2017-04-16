@@ -145,7 +145,332 @@ enum my_layer {
 // for keys with custom "actions" coded in matrix_scan_user
 enum my_keycodes {
 	KC_BASE	= SAFE_RANGE,
+    KC_MYTAP,
+    KC_MYTAP1,
+    KC_MYTAP2,
+    KC_MYTAP3,
+    KC_MYTAP4,
+    KC_MYTAP5,
+    KC_MYTAP6,
+    KC_MYTAP7,
+    KC_MYTAP_MAX,
 };
+
+/************************************************************
+ * mytap global
+ */
+
+enum mytap_state {
+    MYTAP_STATE_OFF,
+    MYTAP_STATE_TAPPING,
+    MYTAP_STATE_HOLD,
+    MYTAP_STATE_ONESHOT,
+    MYTAP_STATE_LOCKED,
+};
+
+typedef struct {
+    bool pressed;
+    enum mytap_state state;
+    uint8_t count;
+    uint16_t timer;
+} mytap_state_t;
+
+typedef void (*mytap_fn_t)( mytap_state_t *state, void *data );
+
+typedef struct {
+    mytap_state_t state;
+    struct {
+        mytap_fn_t on_press;
+        mytap_fn_t on_release;
+    } fn;
+    void *data;
+} mytap_action_t;
+
+#define XT(n) (KC_MYTAP + n)
+
+extern mytap_action_t mytap_actions[];
+
+// index of highest used mytap action:
+static int8_t mytap_highest = -1;
+// inext of action currently in tapping sequence:
+static int8_t mytap_tapping = -1;
+
+// other key was pressed, active oneshots are to be released:
+static bool mytap_oneshot_cleanup = false;
+
+// any state -> OFF
+//
+// - when a held mytap is released
+// - after a oneshot key was sent
+// - after ONESHOT_TIMEOUT
+// - when locking was ended
+void mytap_release( uint8_t idx )
+{
+    mytap_action_t *action = &mytap_actions[idx];
+
+    dprintf("mytap_release idx=%d oldstate=%d\n", idx, action->state.state);
+    if( action->fn.on_release )
+        (*action->fn.on_release)( &action->state, action->data );
+
+    action->state.state = MYTAP_STATE_OFF;
+}
+
+// any state -> TAPPING
+//
+// on first press of a tapping / hold sequence
+void mytap_tapping_begin( uint8_t idx )
+{
+    mytap_action_t *action = &mytap_actions[idx];
+
+    dprintf("mytap_begin idx=%d oldstate=%d\n", idx, action->state.state);
+    if( action->fn.on_press )
+        (*action->fn.on_press)( &action->state, action->data );
+
+    action->state.count = 0;
+    action->state.state = MYTAP_STATE_TAPPING;
+    mytap_tapping = idx;
+}
+
+// TAPPING -> new state
+//
+// when tapping sequenced ended
+// - by TAPPING_TERM timeout or
+// - by other key
+void mytap_tapping_end( uint8_t idx )
+{
+    mytap_action_t *action = &mytap_actions[idx];
+
+    if( action->state.pressed ){
+        dprintf("mytap_tapping_end idx=%d oldstate=%d hold\n", idx, action->state.state );
+        action->state.state = MYTAP_STATE_HOLD;
+
+    } else if( action->state.count > ONESHOT_TAP_TOGGLE ){
+        dprintf("mytap_tapping_end idx=%d oldstate=%d abort\n", idx, action->state.state );
+        mytap_release( idx );
+
+    } else if( action->state.count == ONESHOT_TAP_TOGGLE ){
+        dprintf("mytap_tapping_end idx=%d oldstate=%d lock\n", idx, action->state.state );
+        action->state.state = MYTAP_STATE_LOCKED;
+
+    } else {
+        dprintf("mytap_tapping_end oldstate=%d oneshot\n", idx, action->state.state );
+        action->state.state = MYTAP_STATE_ONESHOT;
+    }
+
+    mytap_tapping = -1;
+}
+
+// set all to OFF ... to be called by user
+void mytap_clear(void)
+{
+    dprintf("mytap_clear highest=%d\n", mytap_highest );
+
+    for( int8_t i = 0; i <= mytap_highest; ++i ){
+        mytap_action_t *action = &mytap_actions[i];
+
+        if( action->state.state != MYTAP_STATE_OFF )
+            mytap_release( i );
+    }
+    mytap_tapping = -1;
+    mytap_oneshot_cleanup = false;
+}
+
+void mytap_matrix_scan(void)
+{
+    for( int8_t i = 0; i <= mytap_highest; ++i ){
+        mytap_action_t *action = &mytap_actions[i];
+
+        switch(action->state.state){
+            case MYTAP_STATE_TAPPING:
+                if( timer_elapsed(action->state.timer) > TAPPING_TERM ){
+                    dprintf("mytap_scan idx=%d oldstate=%d tapping_term\n", i, action->state.state );
+                    mytap_tapping_end( i );
+                }
+                break;
+
+            case MYTAP_STATE_ONESHOT:
+                if( mytap_oneshot_cleanup ){
+                    dprintf("mytap_scan idx=%d oldstate=%d oneshot_cleanup\n", i, action->state.state );
+                    mytap_release( i );
+
+                } else if( timer_elapsed(action->state.timer) > ONESHOT_TIMEOUT ){
+                    dprintf("mytap_scan idx=%d oldstate=%d oneshot_timeout\n", i, action->state.state );
+                    mytap_release( i );
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    mytap_oneshot_cleanup = false;
+}
+
+bool mytap_process_record(uint16_t keycode, keyrecord_t *record)
+{
+    switch(keycode){
+        case KC_MYTAP ... KC_MYTAP_MAX:
+        {
+            int8_t idx = keycode - KC_MYTAP;
+            mytap_action_t *action = &mytap_actions[idx];
+
+            if( idx > mytap_highest )
+                mytap_highest = idx;
+
+            action->state.pressed = record->event.pressed;
+
+            if( record->event.pressed ){
+                dprintf("mytap_record idx=%d oldstate=%d oldcount=%d tapping=%d pressed\n",
+                    idx, action->state.state, action->state.count,
+                    mytap_tapping );
+
+                if( action->state.state != MYTAP_STATE_TAPPING )
+                    mytap_tapping_begin( idx );
+
+                action->state.timer = timer_read();
+                ++(action->state.count);
+
+
+            } else {
+                dprintf("mytap_record idx=%d oldstate=%d release\n", idx, action->state.state);
+                if( action->state.state == MYTAP_STATE_HOLD
+                        || timer_elapsed(action->state.timer) > TAPPING_TERM )
+
+                    mytap_release( idx );
+
+            }
+
+            break;
+
+        }
+        default:
+            // TODO- ignore further special keys:
+            // layer keys, space cadet, ...
+            if( record->event.pressed && !IS_MOD(keycode) ){
+                dprint("mytap other pressed\n" );
+
+                if( mytap_tapping != -1 )
+                    mytap_tapping_end( mytap_tapping );
+
+                mytap_oneshot_cleanup = true;
+            }
+            break;
+    }
+
+    return true;
+}
+
+/************************************************************
+ * mytap layer
+ */
+
+typedef struct {
+    uint8_t layer;
+} mytap_layer_data_t;
+
+
+void mytap_layer_press ( mytap_state_t *state, void *data )
+{
+    mytap_layer_data_t *ldata = (mytap_layer_data_t *)data;
+
+    layer_on(ldata->layer);
+}
+
+void mytap_layer_release ( mytap_state_t *state, void *data )
+{
+    mytap_layer_data_t *ldata = (mytap_layer_data_t *)data;
+
+    layer_off(ldata->layer);
+}
+
+/************************************************************
+ * mytap mod
+ */
+
+#define MYTAP_LAYER(layer) { \
+        .fn = { mytap_layer_press, mytap_layer_release }, \
+        .data = (void*)&( (mytap_layer_data_t) { layer } ), \
+    }
+
+typedef struct {
+    uint8_t mod;
+} mytap_mod_data_t;
+
+
+void mytap_mod_press ( mytap_state_t *state, void *data )
+{
+    mytap_mod_data_t *mdata = (mytap_mod_data_t *)data;
+
+    register_mods(mdata->mod);
+}
+
+void mytap_mod_release ( mytap_state_t *state, void *data )
+{
+    mytap_mod_data_t *mdata = (mytap_mod_data_t *)data;
+
+    unregister_mods(mdata->mod);
+}
+
+#define MYTAP_MOD(mod) { \
+        .fn = { mytap_mod_press, mytap_mod_release }, \
+        .data = (void*)&( (mytap_mod_data_t) { mod } ), \
+    }
+
+
+/************************************************************
+ * mytap user config
+ */
+
+enum mytap {
+    TSYM,
+    TNAV,
+    TMOS,
+
+    TLSFT,
+    TLCTL,
+    TLALT,
+    TRALT,
+    TLGUI,
+    TGHK,
+
+    TMAX,
+};
+
+void mytap_sym_layer_press ( mytap_state_t *state, void *data )
+{
+    (void)data;
+
+    mytap_release(TLSFT);
+    layer_on(SYM);
+}
+
+void mytap_sym_layer_release ( mytap_state_t *state, void *data )
+{
+    (void)data;
+
+    layer_off(SYM);
+}
+
+
+mytap_action_t mytap_actions[] = {
+    [TSYM] = {
+        .fn = {
+            .on_press = mytap_sym_layer_press,
+            .on_release = mytap_sym_layer_release,
+        },
+        .data = NULL,
+    },
+    [TNAV] = MYTAP_LAYER( NAV ),
+    [TMOS] = MYTAP_LAYER( MOS ),
+    [TLSFT] = MYTAP_MOD( MOD_LSFT ),
+    [TLCTL] = MYTAP_MOD( MOD_LCTL ),
+    [TLALT] = MYTAP_MOD( MOD_LALT ),
+    [TRALT] = MYTAP_MOD( MOD_RALT ),
+    [TLGUI] = MYTAP_MOD( MOD_LGUI ),
+    [TGHK] = MYTAP_MOD( MOD_LCTL | MOD_LALT | MOD_LGUI ),
+};
+
 
 #define TL_NAV	TG(NAV)
 #define TL_MOS	TG(MOS)
@@ -159,6 +484,10 @@ enum my_keycodes {
 #define OL_MOS	OSL(MOS)
 #define OL_SYM	OSL(SYM)
 
+#define XL_NAV	XT(TNAV)
+#define XL_MOS	XT(TMOS)
+#define XL_SYM	XT(TSYM)
+
 #define OM_LALT	OSM(MOD_LALT)
 #define OM_RALT	OSM(MOD_RALT)
 
@@ -168,14 +497,18 @@ enum my_keycodes {
 
 #define OM_LSFT	OSM(MOD_LSFT)
 
-// known as LCAG .. but only available as LCAG() / LCAG_T()
-//#define OM_GHK F(F_OM_GHK)
 #define OM_GHK OSM( MOD_LCTL | MOD_LALT | MOD_LGUI )
 
+#define XM_LALT	XT(TLALT)
+#define XM_RALT	XT(TRALT)
 
+#define XM_LCTL	XT(TLCTL)
 
+#define XM_LGUI	XT(TLGUI)
 
+#define XM_LSFT	XT(TLSFT)
 
+#define XM_GHK XT(TGHK)
 
 // Layer:
 //
@@ -240,21 +573,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP_80(  // layer 0 : default
         // left hand
         KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_DEL,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           OL_MOS,
-        OL_NAV,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
+        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           XL_MOS,
+        XL_NAV,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
         KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           LSFT(KC_INS),
-        OM_GHK,         KC_NO,          OM_LGUI,        OM_LALT,        OM_LCTL,
+        XM_GHK,         KC_NO,          XM_LGUI,        XM_LALT,        XM_LCTL,
                                                                         // left thumb
                                                                                         KC_APP,         KC_RIGHT,
-                                                                        KC_SPC,         OL_SYM,         KC_LEFT,
-                                                                        KC_SPC,         OL_SYM,         KC_ESC,
+                                                                        KC_SPC,         XL_SYM,         KC_LEFT,
+                                                                        KC_SPC,         XL_SYM,         KC_ESC,
 
         // right hand
         KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
-        OL_MOS,         KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_OUML,
-                        KC_H,           KC_J,           KC_K,           KC_L,           KC_UUML,        OL_NAV,
+        XL_MOS,         KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_OUML,
+                        KC_H,           KC_J,           KC_K,           KC_L,           KC_UUML,        XL_NAV,
         KC_BASE,        KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_AUML,        KC_LSFT,
-                                        OM_LSFT,        OM_LALT,        OM_LGUI,        OM_RALT,        OM_GHK,
+                                        XM_LSFT,        XM_LALT,        XM_LGUI,        XM_RALT,        XM_GHK,
         // right thumb
         KC_UP,          KC_NO,
         KC_DOWN,        KC_BSPC,        KC_ENTER,
@@ -298,7 +631,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_EXLM, KC_LABK, KC_RABK, KC_EQL,  KC_AMPR, KC_SUML,
                 KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_COLN, KC_TRNS,
        KC_TRNS, KC_PLUS, KC_PERC, KC_DQT,  KC_QUOT, KC_SCLN, KC_TRNS,
-                         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                         KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
@@ -389,11 +722,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    // not sufficient to set debug_enable from matrix_init
+    debug_enable=true;
+
+    if( ! mytap_process_record( keycode, record ) )
+        return false;
+
     switch(keycode){
         case KC_BASE:
             if( record->event.pressed ){
                 clear_oneshot_mods();
                 clear_oneshot_locked_mods();
+                mytap_clear();
                 unregister_mods(get_mods());
 
                 reset_oneshot_layer();
@@ -433,6 +774,8 @@ void matrix_scan_user(void) {
 	uint8_t led[] = {
 		0, 0, 0
 	};
+
+    mytap_matrix_scan();
 
 	// layer
 
