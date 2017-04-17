@@ -167,6 +167,8 @@ enum mytap_state {
 typedef struct {
     bool pressed;
     enum mytap_state state;
+    enum mytap_state last;
+    bool locked;
     uint8_t count;
     uint16_t timer;
 } mytap_state_t;
@@ -223,6 +225,7 @@ void mytap_tapping_begin( uint8_t idx )
         (*action->fn.on_press)( &action->state, action->data );
 
     action->state.count = 0;
+    action->state.last = action->state.state;
     action->state.state = MYTAP_STATE_TAPPING;
     mytap_tapping = idx;
 }
@@ -237,6 +240,7 @@ void mytap_tapping_end( uint8_t idx )
     mytap_action_t *action = &mytap_actions[idx];
 
     if( action->state.pressed ){
+        // tapping ended by timeout or non-mytap key
         dprintf("mytap_tapping_end idx=%d oldstate=%d hold\n", idx, action->state.state );
         action->state.state = MYTAP_STATE_HOLD;
 
@@ -247,6 +251,12 @@ void mytap_tapping_end( uint8_t idx )
     } else if( action->state.count == ONESHOT_TAP_TOGGLE ){
         dprintf("mytap_tapping_end idx=%d oldstate=%d lock\n", idx, action->state.state );
         action->state.state = MYTAP_STATE_LOCKED;
+
+    // count < ONESHOT_TAP_TOGGLE:
+
+    } else if( action->state.last == MYTAP_STATE_LOCKED ){
+        dprintf("mytap_tapping_end idx=%d oldstate=%d unlock\n", idx, action->state.state );
+        mytap_release( idx );
 
     } else {
         dprintf("mytap_tapping_end oldstate=%d oneshot\n", idx, action->state.state );
