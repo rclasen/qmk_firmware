@@ -142,18 +142,14 @@ enum my_layer {
 	SYM,	// symbols
 };
 
+#define MYTAP_MAX  16
+
 // for keys with custom "actions" coded in matrix_scan_user
 enum my_keycodes {
 	KC_BASE	= SAFE_RANGE,
+
     KC_MYTAP,
-    KC_MYTAP1,
-    KC_MYTAP2,
-    KC_MYTAP3,
-    KC_MYTAP4,
-    KC_MYTAP5,
-    KC_MYTAP6,
-    KC_MYTAP7,
-    KC_MYTAP_MAX,
+    KC_MYTAP_MAX = KC_MYTAP + MYTAP_MAX,
 };
 
 /************************************************************
@@ -437,6 +433,10 @@ enum mytap {
     TMAX,
 };
 
+#if TMAX > MYTAP_MAX
+#error not enough keycodes for mytap
+#endif
+
 static bool shift_enabled = false;
 
 void mytap_sym_layer_press ( mytap_state_t *state, void *data )
@@ -646,7 +646,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 enum {
     F_0,
+    F_MAX,
 };
+
+#if F_MAX > 31
+#warn youo might have issues with too many fn_actions
+#endif
 
 const uint16_t PROGMEM fn_actions[] = {
     [F_0] = ACTION_MACRO_TAP(M_0),
