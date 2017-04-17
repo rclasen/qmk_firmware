@@ -437,11 +437,13 @@ enum mytap {
     TMAX,
 };
 
+static bool shift_enabled = false;
+
 void mytap_sym_layer_press ( mytap_state_t *state, void *data )
 {
     (void)data;
 
-    mytap_release(TLSFT);
+    unregister_mods(MOD_LSFT);
     layer_on(SYM);
 }
 
@@ -449,8 +451,28 @@ void mytap_sym_layer_release ( mytap_state_t *state, void *data )
 {
     (void)data;
 
+    if(shift_enabled)
+        register_mods(MOD_LSFT);
+
     layer_off(SYM);
 }
+
+void mytap_shift_mod_press ( mytap_state_t *state, void *data )
+{
+    (void)data;
+
+    shift_enabled = true;
+    register_mods(MOD_LSFT);
+}
+
+void mytap_shift_mod_release ( mytap_state_t *state, void *data )
+{
+    (void)data;
+
+    shift_enabled = false;
+    unregister_mods(MOD_LSFT);
+}
+
 
 
 mytap_action_t mytap_actions[] = {
@@ -463,7 +485,13 @@ mytap_action_t mytap_actions[] = {
     },
     [TNAV] = MYTAP_LAYER( NAV ),
     [TMOS] = MYTAP_LAYER( MOS ),
-    [TLSFT] = MYTAP_MOD( MOD_LSFT ),
+    [TLSFT] = {
+        .fn = {
+            .on_press = mytap_shift_mod_press,
+            .on_release = mytap_shift_mod_release,
+        },
+        .data = NULL,
+    },
     [TLCTL] = MYTAP_MOD( MOD_LCTL ),
     [TLALT] = MYTAP_MOD( MOD_LALT ),
     [TRALT] = MYTAP_MOD( MOD_RALT ),
@@ -471,6 +499,163 @@ mytap_action_t mytap_actions[] = {
     [TGHK] = MYTAP_MOD( MOD_LCTL | MOD_LALT | MOD_LGUI ),
 };
 
+/************************************************************
+ * macro user config
+ */
+
+enum {
+    M_0,
+    M_1,
+    M_2,
+    M_3,
+    M_4,
+    M_5,
+    M_6,
+    M_7,
+    M_8,
+    M_9,
+    M_COLN,
+    M_DOT,
+    M_MINS,
+    M_SCLN,
+    M_COMM,
+    M_PLUS,
+};
+
+void mod_tmp( uint16_t keycode, uint8_t suppress, uint8_t add )
+{
+
+    uint8_t mods = get_mods();
+    uint8_t disable = mods & suppress;
+    uint8_t enable = ~mods & add;
+
+    if(disable)
+        unregister_mods(disable);
+    if(enable)
+        register_mods(enable);
+
+    register_code(keycode);
+    unregister_code(keycode);
+
+    if(enable)
+        unregister_mods(enable);
+    if(disable)
+        register_mods(disable);
+}
+
+#define noshiftralt(code) mod_tmp(code, MOD_LSFT | MOD_RSFT | MOD_LSFT, 0 )
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+    switch(id) {
+        case M_0: // ACTION_MACRO_TAP(M_0),
+            if (record->event.pressed) {
+                register_mods(MOD_LSFT);
+            } else {
+                unregister_mods(MOD_LSFT);
+
+                if (record->tap.count && !record->tap.interrupted) {
+                    noshiftralt(KC_0);
+                }
+                record->tap.count = 0;
+            }
+            break;
+
+        case M_1: // M(M_1),
+            if(record->event.pressed)
+                noshiftralt(KC_1);
+            break;
+
+        case M_2: // M(M_2),
+            if(record->event.pressed)
+                noshiftralt(KC_2);
+            break;
+
+        case M_3: // M(M_3),
+            if(record->event.pressed)
+                noshiftralt(KC_3);
+            break;
+
+        case M_4: // M(M_4),
+            if(record->event.pressed)
+                noshiftralt(KC_4);
+            break;
+
+        case M_5: // M(M_5),
+            if(record->event.pressed)
+                noshiftralt(KC_5);
+            break;
+
+        case M_6: // M(M_6),
+            if(record->event.pressed)
+                noshiftralt(KC_6);
+            break;
+
+        case M_7: // M(M_7),
+            if(record->event.pressed)
+                noshiftralt(KC_7);
+            break;
+
+        case M_8: // M(M_8),
+            if(record->event.pressed)
+                noshiftralt(KC_8);
+            break;
+
+        case M_9: // M(M_9),
+            if(record->event.pressed)
+                noshiftralt(KC_9);
+            break;
+
+        case M_COLN: // M(M_COLN),
+            if(record->event.pressed)
+                mod_tmp(KC_SCLN, MOD_RALT, MOD_LSFT);
+            break;
+
+        case M_DOT: // M(M_DOT),
+            if(record->event.pressed)
+                noshiftralt(KC_DOT);
+            break;
+
+        case M_MINS: // M(M_MINS),
+            if(record->event.pressed)
+                noshiftralt(KC_MINS);
+            break;
+
+        case M_SCLN: // M(M_SCLN),
+            if(record->event.pressed)
+                noshiftralt(KC_SCLN);
+            break;
+
+        case M_COMM: // M(M_COMM),
+            if(record->event.pressed)
+                noshiftralt(KC_COMM);
+            break;
+
+        case M_PLUS: // M(M_PLUS),
+            if(record->event.pressed)
+                mod_tmp(KC_EQL, MOD_RALT, MOD_LSFT);
+            break;
+
+    }
+    return MACRO_NONE;
+};
+
+/************************************************************
+ * action user config
+ */
+
+enum {
+    F_0,
+};
+
+const uint16_t PROGMEM fn_actions[] = {
+    [F_0] = ACTION_MACRO_TAP(M_0),
+};
+
+
+/************************************************************
+ * keymap user macros
+ */
 
 #define TL_NAV	TG(NAV)
 #define TL_MOS	TG(MOS)
@@ -547,6 +732,22 @@ mytap_action_t mytap_actions[] = {
 #define KC_LSTQ KC_NO
 #define KC_RSTQ KC_NO
 
+#define MC_0        F(F_0)
+#define MC_1        M(M_1)
+#define MC_2        M(M_2)
+#define MC_3        M(M_3)
+#define MC_4        M(M_4)
+#define MC_5        M(M_5)
+#define MC_6        M(M_6)
+#define MC_7        M(M_7)
+#define MC_8        M(M_8)
+#define MC_9        M(M_9)
+#define MC_COLN     M(M_COLN)
+#define MC_DOT      M(M_DOT)
+#define MC_MINS     M(M_MINS)
+#define MC_SCLN     M(M_SCLN)
+#define MC_COMM     M(M_COMM)
+#define MC_PLUS     M(M_PLUS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -669,10 +870,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // right hand
        // TODO: use Keypad keys:
        KC_TRNS, KC_TAB,  KC_NLCK, KC_SLSH, KC_ASTR, KC_DIV,  KC_MUL,
-       KC_TRNS, KC_MINS, KC_7,    KC_8,    KC_9,    KC_PLUS, KC_TRNS,
-                KC_DOT,  KC_4,    KC_5,    KC_6,    KC_COMM, KC_TRNS,
-       KC_TRNS, KC_COLN, KC_1,    KC_2,    KC_3,    KC_SCLN, KC_TRNS,
-                         SFT_T(KC_0), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS, KC_TRNS,
+                MC_DOT,  MC_4,    MC_5,    MC_6,    MC_COMM, KC_TRNS,
+       KC_TRNS, MC_COLN, MC_1,    MC_2,    MC_3,    MC_SCLN, KC_TRNS,
+                         MC_0,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
@@ -865,3 +1066,5 @@ void matrix_scan_user(void) {
 	}
 
 };
+
+
