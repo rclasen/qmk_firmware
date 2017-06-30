@@ -44,6 +44,8 @@
   mouse:
   - direction, buttons, accel on right hand, independent
 
+- TODO: rctrl for virtualbox/...
+
 - shift/ctrl/layer modifer must be available for each hand and allow
   one-handed operation
 
