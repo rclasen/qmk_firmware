@@ -437,6 +437,7 @@ enum mytap {
 
     TLSFT,
     TLCTL,
+    TRCTL,
     TLALT,
     TRALT,
     TLGUI,
@@ -505,6 +506,7 @@ mytap_action_t mytap_actions[] = {
         .data = NULL,
     },
     [TLCTL] = MYTAP_MOD( MOD_LCTL ),
+    [TRCTL] = MYTAP_MOD( MOD_RCTL ),
     [TLALT] = MYTAP_MOD( MOD_LALT ),
     [TRALT] = MYTAP_MOD( MOD_RALT ),
     [TLGUI] = MYTAP_MOD( MOD_LGUI ),
@@ -694,6 +696,7 @@ const uint16_t PROGMEM fn_actions[] = {
 #define OM_RALT	OSM(MOD_RALT)
 
 #define OM_LCTL	OSM(MOD_LCTL)
+#define OM_RCTL	OSM(MOD_RCTL)
 
 #define OM_LGUI	OSM(MOD_LGUI)
 
@@ -705,6 +708,7 @@ const uint16_t PROGMEM fn_actions[] = {
 #define XM_RALT	XT(TRALT)
 
 #define XM_LCTL	XT(TLCTL)
+#define XM_RCTL	XT(TRCTL)
 
 #define XM_LGUI	XT(TLGUI)
 
@@ -778,7 +782,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  Ins |           |      |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   ä  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | GHK  |      | LGUI | LALT | LCTL |                                       |LShift| LAlt | GUI  | RALT | GHK  |
+ *   | GHK  |      | LGUI | LALT | LCTL |                                       |LShift| LAlt | RCTL | RALT | GHK  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | Menu | right|       |  up  |      |
@@ -805,7 +809,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XL_MOS,         KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_OUML,
                         KC_H,           KC_J,           KC_K,           KC_L,           KC_UUML,        XL_NAV,
         KC_BASE,        KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_AUML,        KC_LSFT,
-                                        XM_LSFT,        XM_LALT,        XM_LGUI,        XM_RALT,        XM_GHK,
+                                        XM_LSFT,        XM_LALT,        XM_RCTL,        XM_RALT,        XM_GHK,
         // right thumb
         KC_UP,          KC_NO,
         KC_DOWN,        KC_BSPC,        KC_ENTER,
@@ -954,6 +958,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 clear_oneshot_locked_mods();
                 mytap_clear();
                 unregister_mods(get_mods());
+                // TODO: caps lock
+                // TODO: num lock
 
                 reset_oneshot_layer();
                 layer_clear();
