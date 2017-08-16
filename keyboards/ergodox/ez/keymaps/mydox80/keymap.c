@@ -446,6 +446,8 @@ enum mytap {
     TMAX,
 };
 
+// TODO& RSFT doesn't work: register_mods( KC_RSFT) registers lsft + rctrl
+
 #if TMAX > MYTAP_MAX
 #error not enough keycodes for mytap
 #endif
@@ -732,27 +734,34 @@ const uint16_t PROGMEM fn_actions[] = {
 // xx_T() momentary modifier / keycode
 
 
-#define KC_UUML RALT(KC_Y)
-#define KC_OUML RALT(KC_P)
-#define KC_AUML RALT(KC_Q)
-#define KC_SUML RALT(KC_S)
+// https://tstarling.com/stuff/ComposeKeys.html
 
-#define KC_DEGR RALT(LSFT(KC_SCLN))
-#define KC_PARA RALT(LSFT(KC_S))
-#define KC_POUN RALT(LSFT(KC_4))
-#define KC_LDTQ RALT(KC_LBRC)
-#define KC_RDTQ RALT(KC_RBRC)
-#define KC_EURO RALT(KC_5)
-#define KC_LSQ RALT(KC_9)
-#define KC_RSQ RALT(KC_0)
-#define KC_LDQ RALT(LSFT(KC_LBRC))
-#define KC_RDQ RALT(LSFT(KC_RBRC))
-#define KC_MUL RALT(KC_EQL)
-#define KC_DIV RALT(LSFT(KC_EQL))
+#define KC_UUML RALT(KC_Y)  // ü - compose "u
+#define KC_OUML RALT(KC_P)  // ö - compose "o
+#define KC_AUML RALT(KC_Q)  // ä - compose "a
+#define KC_SUML RALT(KC_S)  // ß - compose ss
 
-#define KC_LSTQ KC_NO
-#define KC_RSTQ KC_NO
+#define KC_DEGR RALT(LSFT(KC_SCLN)) // ° - compose oo
+#define KC_PARA RALT(LSFT(KC_S))    // § - compose so
+#define KC_POUN RALT(LSFT(KC_4))    // £ - compose -L
+#define KC_LDTQ RALT(KC_LBRC)   // « - compose <<
+#define KC_RDTQ RALT(KC_RBRC)   // » - compose >>
+#define KC_EURO RALT(KC_5)  // € - compose =C
+// open single quote ‚ - compose ,'
+#define KC_LSQ RALT(KC_9)   // ‘ - compose <'
+#define KC_RSQ RALT(KC_0)   // ’ - compose >'
+// open double quote „ - compose ,"
+#define KC_LDQ RALT(LSFT(KC_LBRC))  // “ - compose <"
+#define KC_RDQ RALT(LSFT(KC_RBRC))  // ” - compose >"
+#define KC_MUL RALT(KC_EQL) // × - compose xx
+#define KC_DIV RALT(LSFT(KC_EQL))   // ÷ - compose -:
+// quarter ¼ - compose 14
+// high 4 ⁴ - compose ^4
 
+#define KC_LSTQ KC_NO   // left single triangle quote - compose .>
+#define KC_RSTQ KC_NO   // right single triangle quote - compose .<
+
+// macros/functions that block modifiers:
 #define MC_0        F(F_0)
 #define MC_1        M(M_1)
 #define MC_2        M(M_2)
@@ -779,13 +788,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Tab    |   Q  |   W  |   E  |   R  |   T  | fMOS |           | fMOS |   Y  |   U  |   I  |   O  |   P  |   ö    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | fNAV   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ü  | fNAV   |
- * |--------+------+------+------+------+------|  Ins |           |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------| sIns |           | BASE |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   ä  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | GHK  |      | LGUI | LALT | LCTL |                                       |LShift| LAlt | RCTL | RALT | GHK  |
+ *   | GHK  | RALT | LGUI | LALT | LCTL |                                       |LShift| fNAV | RCTL | RALT | GHK  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | Menu | right|       |  up  |      |
+ *                                        | Menu | right|       |  up  | PAUSE|
  *                                 ,------|------|------|       |------+------+------.
  *                                 | Space| fSYM | left |       | down | BSPC | Enter|
  *                                 +      +      +------+       +------+      +      +
@@ -797,8 +806,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_DEL,
         KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           XL_MOS,
         XL_NAV,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
-        KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           LSFT(KC_INS),
-        XM_GHK,         KC_NO,          XM_LGUI,        XM_LALT,        XM_LCTL,
+        XM_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           LSFT(KC_INS),
+        XM_GHK,         KC_RALT,        XM_LGUI,        XM_LALT,        XM_LCTL,
                                                                         // left thumb
                                                                                         KC_APP,         KC_RIGHT,
                                                                         KC_SPC,         XL_SYM,         KC_LEFT,
@@ -807,11 +816,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
         KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
         XL_MOS,         KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_OUML,
-                        KC_H,           KC_J,           KC_K,           KC_L,           KC_UUML,        XL_NAV,
-        KC_BASE,        KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_AUML,        KC_LSFT,
-                                        XM_LSFT,        XM_LALT,        XM_RCTL,        XM_RALT,        XM_GHK,
+                        KC_H,           KC_J,           KC_K,           KC_L,           KC_UUML,        KC_NO,
+        KC_BASE,        KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_AUML,        KC_RSFT,
+                                        XM_LSFT,        XL_NAV,         XM_RCTL,        KC_RALT,        XM_GHK,
         // right thumb
-        KC_UP,          KC_NO,
+        KC_UP,          KC_PAUS,
         KC_DOWN,        KC_BSPC,        KC_ENTER,
         KC_TAB,         KC_BSPC,        KC_ENTER
     ),
