@@ -2,9 +2,7 @@
 #include "action_layer.h"
 #include "print.h"
 
-enum {
-    BASE    = 0,
-};
+#include <mykeys.h>
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -20,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | shift|   z  |   x  |   c  |   v  |   b  | ins  |
  * |------+------+------+------+------+------+------+------.
  * |      |      |  lgui| lalt | lctrl| space|      | esc  |
- * '-------------------------------------------------------.
+ * '-------------------------------------------------------'
  *
  *        .------------------------------------------------.
  *        | print|   6  |   7  |   8  |   9  |   0  |   -  |
@@ -36,40 +34,186 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = KEYMAP( \
         // left hand
-        KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_DEL,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_F1,
-        KC_F2,          KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           KC_F3,
-        KC_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           LSFT(KC_INS),
-        KC_F4,          KC_F5,          KC_LGUI,        KC_LALT,        KC_LCTL,        KC_SPC,         KC_F6,          KC_ESC,
+        KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_NO,
+        KC_NO,          KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           XM_GHK,
+        KC_TAB,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           KC_NO,
+        XM_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           LSFT(KC_INS),
+        KC_NO,          XM_LGUI,        XL_MOS,         XM_LALT,        XM_LCTL,        KC_SPC,         XL_NAV,         KC_ESC,
 
         // right hand
-                        KC_PSCR,        KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
-                        KC_F7,          KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_F8,
-                        KC_F9,          KC_H,           KC_J,           KC_K,           KC_L,           KC_F10,         KC_F11,
-                        KC_F12,         KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_F13,         KC_LSFT,
-        KC_TAB,         KC_BSPC,        KC_ENTER,       KC_LSFT,        KC_LALT,        KC_LGUI,        KC_RALT,        KC_F14
+                        KC_NO,          KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
+                        KC_PSCR,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_NO,
+                        KC_NO,          KC_H,           KC_J,           KC_K,           KC_L,           MC_CUML,        KC_ENTER,
+                        KC_BASE,        KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_COMP,        KC_NO,
+        KC_RALT,        KC_BSPC,        XL_SYM,         XM_LSFT,        XL_NAV,         XM_RCTL,        KC_NO,          KC_NO
  ),
+/* Keymap 1: Symbol Layer
+ *
+ * TODO: add more exotic characters
+ *
+ * ,------------------------------------------------.
+ * |   °  |  §   |  £   |  «   |  »   |  EUR |      |
+ * |------+------+------+------+------+------+------|
+ * |      |  @   |  _   |  [   |  ]   |   ^  |      |
+ * |------+------+------+------+------+------+------|
+ * |      |  \   |  /   |  {   |  }   |   *  |      |
+ * |------+------+------+------+------+------+------|
+ * |      |  #   |  $   |  |   |  ~   |   `  |      |
+ * |------+------+------+------+------+------+------+------.
+ * |      |      |      |      |      |      |      |      |
+ * `-------------------------------------------------------'
+
+ *        ,------------------------------------------------.
+ *        |      |      |  “   |  ”   |  ‘   |  ’   |      |
+ *        |------+------+------+------+------+------+------|
+ *        |      |  !   |  <   |  >   |  =   |  &   |      |
+ *        |------+------+------+------+------+------+------|
+ *        |      |  ?   |  (   |  )   |  -   |  :   |      |
+ *        |------+------+------+------+------+------+------|
+ *        |      |  +   |  %   |  "   |  '   |  ;   |      |
+ * ,------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |
+ * `-------------------------------------------------------'
+
+ */
+[SYM] = KEYMAP(
+       // left hand
+       KC_DEGR, KC_PARA, KC_POUN, KC_RDTQ, KC_LDTQ, KC_EURO, KC_TRNS,
+       KC_TRNS, KC_AT,   KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC, KC_TRNS,
+       KC_TRNS, KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_ASTR, KC_TRNS,
+       KC_NO,   KC_HASH, KC_DLR,  KC_PIPE, KC_TILD, KC_GRV,  KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+
+       // right hand
+                KC_TRNS, KC_TRNS, KC_LDQ,  KC_RDQ,  KC_LSQ,  KC_RSQ,  KC_TRNS,
+                KC_TRNS, KC_EXLM, KC_LABK, KC_RABK, KC_EQL,  KC_AMPR, KC_TRNS,
+                KC_TRNS, KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_COLN, KC_TRNS,
+                KC_TRNS, KC_PLUS, KC_PERC, KC_DQT,  KC_QUOT, KC_SCLN, KC_NO,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+),
+/* keymap 2: navigation and keypad
+ *
+ * ,------------------------------------------------.
+ * |      |      |      |  >   |   <  |      |      |
+ * |------+------+------+------+------+-------------|
+ * |      | PgUp | BSpac| up   | Del  | PgDn |      |
+ * |------+------+------+------+------+------|      |
+ * |      | Home | left | down | right| End  |------|
+ * |------+------+------+------+------+------|      |
+ * |      | Esc  | Tab  | Ins  | Enter| MENU |      |
+ * |------+------+------+------+------+------+------+------.
+ * |      |      |      |      |      |      |      |      |
+ * `-------------------------------------------------------'
+
+ *        ,------------------------------------------------.
+ *        |      | Tab  |NumLck|  /   |  *   |  ÷   |   ×  |
+ *        |------+------+------+------+------+------+------|
+ *        |      |  -   |  7   |  8   |  9   |  +   |      |
+ *        |      |------+------+------+------+------+------|
+ *        |------|  .   |  4   |  5   |  6   |  ,   |      |
+ *        |      |------+------+------+------+------+------|
+ *        |      |  0   |  1   |  2   |  3   |  :   |      |
+ * ,------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |
+ * `-------------------------------------------------------'
+ */
+[NAV] = KEYMAP(
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_LSTQ, KC_RSTQ, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, KC_TRNS,
+       KC_TRNS, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,  KC_TRNS,
+       KC_TRNS, KC_ESC,  KC_TAB,  KC_INS,  KC_ENTER,KC_APP,  KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       // right hand
+       // TODO: use Keypad keys:
+                KC_TRNS, KC_TAB,  KC_NLCK, KC_SLSH, KC_ASTR, KC_DIV,  KC_MUL,
+                KC_TRNS, MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS, KC_TRNS,
+                KC_TRNS, MC_DOT,  MC_4,    MC_5,    MC_6,    MC_COMM, KC_TRNS,
+                KC_TRNS, MC_0,    MC_1,    MC_2,    MC_3,    MC_COLN, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+),
+/* Keymap 3: Media and mouse keys
+ *
+ * TODO: more media keys
+ *
+ * ,------------------------------------------------.
+ * |RESET |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------|
+ * |      |  F1  |  F2  |  F3  |  F4  |  F5  |      |
+ * |------+------+------+------+------+------|      |
+ * |      |  F6  |  F7  |  F8  |  F9  |  F10 |------|
+ * |------+------+------+------+------+------|      |
+ * |      |  F11 |  F12 |      |      | CAPS |      |
+ * |------+------+------+------+------+------+------+------.
+ * |      |      |      |      |      |      |      |      |
+ * `-------------------------------------------------------'
+
+ *        ,------------------------------------------------.
+ *        |      |      |      |      |      |      | VolD |
+ *        |------+------+------+------+------+------+------|
+ *        |      |      |      | Mup  |      | Mclk | VolUp|
+ *        |------+------+------+------+------+------+------|
+ *        |      |      | Mleft| Mdown| Mrigh| Lclk |      |
+ *        |------+------+------+------+------+------+------|
+ *        |      | mprev| mstop| mplay| mnext| Rclk |      |
+ * ,------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |
+ * `-------------------------------------------------------'
+ */
+[MOS] = KEYMAP(
+       RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
+       KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_TRNS,
+       KC_TRNS, KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, KC_CAPS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       // right hand
+                KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD,
+                KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_TRNS, KC_BTN3, KC_VOLU,
+                KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, KC_TRNS,
+                KC_TRNS, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_BTN2, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+),
 
 };
 
-void matrix_init_user(void) {
-    debug_enable=true;
-    debug_matrix=true;
-    debug_keyboard=true;
-    print("miu\n");
+static uint8_t usbled = 0;
+
+void led_set_kb( uint8_t usb_led ){
+	usbled = usb_led;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-    // not sufficient to set debug_enable from matrix_init
-    debug_enable=true;
-    debug_matrix=true;
-    debug_keyboard=true;
+#define MOD_ACTIVE(bits) ( keyboard_report->mods & bits || (\
+	(get_oneshot_mods() & bits) \
+	&& !has_oneshot_mods_timed_out() \
+	) )
 
-    if( keycode == KC_F13 ){
-        print("huhu\n");
-    }
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
 
-    return true;
-}
+	uint8_t led = 0;
+
+    mytap_matrix_scan();
+
+	// layer
+
+	if( layer_state ){
+		led |= 1UL<<7;
+	}
+
+	// modifier
+	if( MOD_ACTIVE( MOD_BIT(KC_LSFT|KC_RSFT|KC_LCTL|KC_RCTL|KC_LALT|KC_RALT|KC_LGUI|KC_RGUI) ) ){
+		led |= 1UL<<4;
+	}
+
+	// finally: set led on/off/brightness
+
+	if( led ){
+		diverge_led_back_set( led );
+		diverge_led_back_on();
+	} else {
+		diverge_led_back_off();
+	}
+
+};
+
 
