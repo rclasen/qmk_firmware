@@ -9,8 +9,8 @@
 #include <avr/interrupt.h>
 #endif
 
-inline void diverge_local_led_back_on(void)    { DDRB |=  (1<<5); PORTB |=  (1<<5); }
-inline void diverge_local_led_back_off(void)   { DDRB &= ~(1<<5); PORTB &= ~(1<<5); }
+inline void diverge_local_led_back_on(void)    { DDRD |=  (1<<5); PORTD |=  (1<<5); }
+inline void diverge_local_led_back_off(void)   { DDRD &= ~(1<<5); PORTD &= ~(1<<5); }
 inline void diverge_local_led_back_set(uint8_t n)    { OCR1A = n; }
 
 inline void diverge_remote_led_back_on(void)   { /* TODO */ }
