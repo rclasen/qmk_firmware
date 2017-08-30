@@ -46,8 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS   { D4,  D7,  E6,  B4,  B5 }
 #define MATRIX_ROW_PINS   { F4,  F5,  F6,  F7,  B1,  B3,  B2,  B6 }
 
-// TODO: correct LED port name
-#define LED_PIN 5
+// LED port name
+//#define LED_PIN 5 // PD5
 
 #define CATERINA_BOOTLOADER
 

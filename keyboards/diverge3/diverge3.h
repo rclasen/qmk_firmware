@@ -9,8 +9,31 @@
 #include <avr/interrupt.h>
 #endif
 
-// TODO: test mapping
-// TODO: led support
+inline void diverge_local_led_back_on(void)    { DDRB |=  (1<<5); PORTB |=  (1<<5); }
+inline void diverge_local_led_back_off(void)   { DDRB &= ~(1<<5); PORTB &= ~(1<<5); }
+inline void diverge_local_led_back_set(uint8_t n)    { OCR1A = n; }
+
+inline void diverge_remote_led_back_on(void)   { /* TODO */ }
+inline void diverge_remote_led_back_off(void)  { /* TODO */ }
+inline void diverge_remote_led_back_set(uint8_t n)   { /* TODO */ }
+
+inline void diverge_led_back_on(void)
+{
+    diverge_local_led_back_on();
+    diverge_remote_led_back_on();
+}
+
+inline void diverge_led_back_off(void)
+{
+    diverge_local_led_back_off();
+    diverge_remote_led_back_off();
+}
+
+inline void diverge_led_back_set(uint8_t n)
+{
+    diverge_local_led_back_set( n );
+    diverge_remote_led_back_set( n );
+}
 
 //Standard Keymap
 #define KEYMAP( \
