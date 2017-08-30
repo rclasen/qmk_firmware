@@ -9,27 +9,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* BASE
  *
  * .------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  | del  |
+ * |   `  |   1  |   2  |   3  |   4  |   5  |      |
  * |------+------+------+------+-------------+------|
- * |  tab |   q  |   w  |   e  |   e  |   r  |      |
+ * |      |   q  |   w  |   e  |   e  |   r  | GHK  |
  * |------+------+------+------+-------------+------|
- * |      |   a  |   s  |   d  |   d  |   f  |      |
+ * | tab  |   a  |   s  |   d  |   d  |   f  | sINS |
  * |------+------+------+------+------|------+------|
- * | shift|   z  |   x  |   c  |   v  |   b  | ins  |
+ * | tab  |   z  |   x  |   c  |   v  |   b  |      |
  * |------+------+------+------+------+------+------+------.
- * |      |      |  lgui| lalt | lctrl| space|      | esc  |
+ * | lsft | lgui | fMOS | lalt | lctl | space| fNAV | esc  |
  * '-------------------------------------------------------'
  *
  *        .------------------------------------------------.
- *        | print|   6  |   7  |   8  |   9  |   0  |   -  |
+ *        |      |   6  |   7  |   8  |   9  |   0  |   -  |
  *        +------+------+------+------+-------------+------|
- *        |      |   y  |   u  |   i  |   o  |   p  |      |
+ *        | print|   y  |   u  |   i  |   o  |   p  |      |
  *        +------+------+------+------+-------------+------|
- *        |      |   j  |   k  |   k  |   l  |      |      |
+ *        | COMP |   j  |   k  |   k  |   l  | CUML | enter|
  *        +------+------+------+------+------|------+------|
- *        |      |   n  |   m  |   ,  |   ,  |      |      |
+ *        | BASE |   n  |   m  |   ,  |   ,  | COMP | enter|
  * .------+------+------+------+------+------+------+------|
- * | tab  | BSPC | enter| shift| lalt | lgui | ralt |      |
+ * | ralt | BSPC | fSYM | shift| fNAV | rctl |      |      |
  * `-------------------------------------------------------'
  */
 [BASE] = KEYMAP( \
@@ -37,14 +37,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_NO,
         KC_NO,          KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           XM_GHK,
         KC_TAB,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           KC_NO,
-        XM_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           LSFT(KC_INS),
-        KC_NO,          XM_LGUI,        XL_MOS,         XM_LALT,        XM_LCTL,        KC_SPC,         XL_NAV,         KC_ESC,
+        KC_TAB,         KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           LSFT(KC_INS),
+        XM_LSFT,        XM_LGUI,        XL_MOS,         XM_LALT,        XM_LCTL,        KC_SPC,         XL_NAV,         KC_ESC,
 
         // right hand
                         KC_NO,          KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,
                         KC_PSCR,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_NO,
-                        KC_NO,          KC_H,           KC_J,           KC_K,           KC_L,           MC_CUML,        KC_ENTER,
-                        KC_BASE,        KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_COMP,        KC_NO,
+                        KC_COMP,        KC_H,           KC_J,           KC_K,           KC_L,           MC_CUML,        KC_ENTER,
+                        KC_BASE,        KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_COMP,        KC_ENTER,
         KC_RALT,        KC_BSPC,        XL_SYM,         XM_LSFT,        XL_NAV,         XM_RCTL,        KC_NO,          KC_NO
  ),
 /* Keymap 1: Symbol Layer
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        |      |  ?   |  (   |  )   |  -   |  :   |      |
  *        |------+------+------+------+------+------+------|
  *        |      |  +   |  %   |  "   |  '   |  ;   |      |
- * ,------+------+------+------+------+------+------+------|
+ * ,------+------+------+------+- -----+------+------+------|
  * |      |      |      |      |      |      |      |      |
  * `-------------------------------------------------------'
 
@@ -174,6 +174,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    // not sufficient to set debug_enable from matrix_init
+    debug_enable=true;
+
+    if( ! mytap_process_record( keycode, record ) )
+        return false;
+
+    switch(keycode){
+        case KC_BASE:
+            if( record->event.pressed ){
+                clear_oneshot_mods();
+                clear_oneshot_locked_mods();
+                mytap_clear();
+                unregister_mods(get_mods());
+                // TODO: caps lock
+                // TODO: num lock
+
+                reset_oneshot_layer();
+                layer_clear();
+            }
+            return true;
+
+    }
+
+    return true;
+}
+
 
 static uint8_t usbled = 0;
 
