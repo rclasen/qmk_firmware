@@ -7,7 +7,9 @@ void matrix_init_kb(void) {
     MCUCR |= (1<<JTD);
     MCUCR |= (1<<JTD);
 
-    // TODO: init timer for led PWM
+    // TODO: init timer for back led PWM
+    TCCR3A |= 1 << WGM00 | 1 << WGM01 | 1 << COM3A1;
+    TCCR3B |= 1 << CS00;
 
     matrix_init_user();
 }

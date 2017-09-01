@@ -216,33 +216,55 @@ void led_set_kb( uint8_t usb_led ){
 	&& !has_oneshot_mods_timed_out() \
 	) )
 
+static uint8_t led = 0;
+
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-	uint8_t led = 0;
+	uint8_t new = 0;
 
     mytap_matrix_scan();
 
 	// layer
 
 	if( layer_state ){
-		led |= 1UL<<7;
+		new |= 1UL<<7;
 	}
 
 	// modifier
 	if( MOD_ACTIVE( MOD_BIT(KC_LSFT|KC_RSFT|KC_LCTL|KC_RCTL|KC_LALT|KC_RALT|KC_LGUI|KC_RGUI) ) ){
-		led |= 1UL<<4;
+		new |= 1UL<<4;
 	}
 
 	// finally: set led on/off/brightness
 
-	if( led ){
-		diverge_led_back_set( led );
-		diverge_led_back_on();
-	} else {
-		diverge_led_back_off();
-	}
+#if 1
+    if( layer_state & 1UL<<NAV ){
+        diverge_local_led_rx_on();
+    } else {
+        diverge_local_led_rx_off();
+    }
 
-};
+    if( layer_state & 1UL<<MOS ){
+        diverge_local_led_back_on();
+    } else {
+        diverge_local_led_back_off();
+    }
+
+#else
+    if( led != new ){
+        if( new ){
+            diverge_led_back_set( new );
+            diverge_led_back_on();
+
+        } else {
+            diverge_led_back_off();
+
+        }
+
+        led = new;
+	}
+#endif
+}
 
 
