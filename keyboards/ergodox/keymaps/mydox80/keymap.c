@@ -222,8 +222,8 @@ void led_set_kb( uint8_t usb_led ){
 }
 
 
-#define MOD_ACTIVE(bits) ( keyboard_report->mods & bits || (\
-	(get_oneshot_mods() & bits) \
+#define MOD_ACTIVE(bits) ( keyboard_report->mods & (bits) || (\
+	(get_oneshot_mods() & (bits)) \
 	&& !has_oneshot_mods_timed_out() \
 	) )
 

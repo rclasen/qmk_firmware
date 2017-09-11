@@ -211,8 +211,8 @@ void led_set_kb( uint8_t usb_led ){
 }
 
 
-#define MOD_ACTIVE(bits) ( keyboard_report->mods & bits || (\
-	(get_oneshot_mods() & bits) \
+#define MOD_ACTIVE(bits) ( keyboard_report->mods & (bits) || (\
+	(get_oneshot_mods() & (bits)) \
 	&& !has_oneshot_mods_timed_out() \
 	) )
 
@@ -232,7 +232,13 @@ void matrix_scan_user(void) {
 	}
 
 	// modifier
-	if( MOD_ACTIVE( MOD_BIT(KC_LSFT|KC_RSFT|KC_LCTL|KC_RCTL|KC_LALT|KC_RALT|KC_LGUI|KC_RGUI) ) ){
+	if( MOD_ACTIVE(
+        MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)
+        | MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)
+        | MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT)
+        | MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)
+    ) ){
+
 		new |= 1UL<<4;
 	}
 
