@@ -10,8 +10,9 @@
  */
 
 enum myap_keycodes {
-    KC_MYTAP = SAFE_RANGE,
-    KC_MYTAP_MAX = KC_MYTAP + MYTAP_MAX,
+    KC_MYTAP_FIRST = SAFE_RANGE,
+    KC_MYTAP_LAST = KC_MYTAP_FIRST + MYTAP_MAX,
+    KC_MYTAP_SAFE,
 };
 
 enum mytap_state {
@@ -61,7 +62,7 @@ typedef struct {
 
 extern mytap_action_t mytap_actions[];
 
-#define XT(n) (KC_MYTAP + n)
+#define XT(n) (KC_MYTAP_FIRST + n)
 
 /************************************************************
  * mytap layer

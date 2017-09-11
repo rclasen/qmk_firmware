@@ -1,5 +1,13 @@
 /*
 
+total symbols:
+  26      letters
++ 10 = 36 digits
++ 32 = 68 symbols
++ 12 = 80 F-keys
++ 11 to 15 = 91 nav
+
+
 - dox is missing keys for:
   - esc
   - backspace
@@ -144,7 +152,7 @@ enum my_layer {
 
 // for keys with custom "actions" coded in matrix_scan_user
 enum my_keycodes {
-    KC_BASE = KC_MYTAP_MAX,
+    KC_BASE = KC_MYTAP_SAFE,
 };
 
 // Compose keycode

@@ -113,9 +113,9 @@ void mytap_matrix_scan(void)
 bool mytap_process_record(uint16_t keycode, keyrecord_t *record)
 {
     switch(keycode){
-        case KC_MYTAP ... KC_MYTAP_MAX:
+        case KC_MYTAP_FIRST ... KC_MYTAP_LAST:
         {
-            int8_t idx = keycode - KC_MYTAP;
+            int8_t idx = keycode - KC_MYTAP_FIRST;
             mytap_action_t *action = &mytap_actions[idx];
 
             if( idx > mytap_highest )
@@ -171,6 +171,8 @@ void mytap_clear(void)
 
     for( int8_t i = 0; i <= mytap_highest; ++i ){
         mytap_action_t *action = &mytap_actions[i];
+
+        dprintf("mytap_clear i=%d\n", i );
 
         if( action->state.state != MYTAP_STATE_OFF )
             mytap_release( i );
