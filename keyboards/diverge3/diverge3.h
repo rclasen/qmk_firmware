@@ -9,18 +9,18 @@
 #include <avr/interrupt.h>
 #endif
 
-// arduino D17, avr PB5, timer none
+// arduino D17, portb, bit0, avr PB5, timer none
 inline void diverge_local_led_rx_on(void)          { DDRB |=  (1<<0); PORTB &= ~(1<<0); }
 inline void diverge_local_led_rx_off(void)         { DDRB &= ~(1<<0); PORTB |=  (1<<0); }
 
 #if 0
 // used by matrix.c to indicate i2c link:
-// arduino D24, avr PD5, timer none
+// arduino D24, portd, bit5, avr PD5, timer none
 inline void diverge_local_led_tx_on(void)          { DDRD |=  (1<<5); PORTD &= ~(1<<5); }
 inline void diverge_local_led_tx_off(void)         { DDRD &= ~(1<<5); PORTD |=  (1<<5); }
 #endif
 
-// arduino D5, avr PC6, pin 5, timer 3A
+// arduino D5, portc, bit6, avr PC6, pin 5, timer 3A
 inline void diverge_local_led_back_on(void)        { DDRC |=  (1<<6); PORTC |=  (1<<6); }
 inline void diverge_local_led_back_off(void)       { DDRC &= ~(1<<6); PORTC &= ~(1<<6); }
 inline void diverge_local_led_back_set(uint8_t n)  { OCR3A = n; }
