@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        +------+------+------+------+------|------+------|
  *        | BASE |   n  |   m  |   ,  |   ,  | COMP | enter|
  * .------+------+------+------+------+------+------+------|
- * | ralt | BSPC | space| fSYM | fMOS | rctl | MENU |      |
+ * | ralt | BSPC | space| fSYM | fMOS | rctl |      | rsft |
  * `-------------------------------------------------------'
  */
 [BASE] = KEYMAP( \
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KC_PSCR,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_NO,
                         KC_COMP,        KC_H,           KC_J,           KC_K,           KC_L,           MC_CUML,        KC_ENTER,
                         KC_BASE,        KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_COMP,        KC_ENTER,
-        KC_RALT,        KC_BSPC,        KC_SPC,         XL_SYM,         XL_MOS,         XM_RCTL,        KC_APP,         KC_NO
+        KC_RALT,        KC_BSPC,        KC_SPC,         XL_SYM,         XL_MOS,         XM_RCTL,        KC_NO,          KC_RSFT
  ),
 /* Keymap 1: Symbol Layer
  *
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|      |
  * |      | Home | left | down | right| End  |------|
  * |------+------+------+------+------+------|      |
- * |      | Esc  | Tab  | Ins  | Enter| sIns |      |
+ * |      | Esc  | Tab  | Ins  | Enter| space|      |
  * |------+------+------+------+------+------+------+------.
  * |      |      |      |      |      |      |      |      |
  * `-------------------------------------------------------'
@@ -114,14 +114,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        |      |------+------+------+------+------+------|
  *        |      |  0   |  1   |  2   |  3   |  :   |      |
  * ,------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |  0   |      |      |      |
  * `-------------------------------------------------------'
  */
 [NAV] = KEYMAP(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_LSTQ, KC_RSTQ, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, KC_TRNS,
        KC_TRNS, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,  KC_TRNS,
-       KC_TRNS, KC_ESC,  KC_TAB,  KC_INS,  KC_ENTER,LSFT(KC_INS), KC_TRNS,
+       KC_TRNS, KC_ESC,  KC_TAB,  KC_INS,  KC_ENTER,KC_SPACE,KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        // right hand
        // TODO: use Keypad keys:
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|      |
  * |      |  F6  |  F7  |  F8  |  F9  |  F10 |------|
  * |------+------+------+------+------+------|      |
- * |      |  F11 |  F12 |      |      | CAPS |      |
+ * |      |  F11 |  F12 | MENU |      | CAPS |      |
  * |------+------+------+------+------+------+------+------.
  * |      |      |      |      |      |      |      |      |
  * `-------------------------------------------------------'
@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
        KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_TRNS,
-       KC_TRNS, KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, KC_CAPS, KC_TRNS,
+       KC_TRNS, KC_F11,  KC_F12,  KC_APP,  KC_TRNS, KC_CAPS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        // right hand
                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD,
