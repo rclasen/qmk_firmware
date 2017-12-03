@@ -3,6 +3,8 @@
 
 #include "../../config.h"
 
+#define TAPPING_TERM 200
+
 #define PREVENT_STUCK_MODIFIERS
 
 #define ONESHOT_TAP_TOGGLE 2
