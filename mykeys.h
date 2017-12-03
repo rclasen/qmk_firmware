@@ -156,8 +156,8 @@ enum my_keycodes {
 };
 
 // Compose keycode
-#define KC_COMP KC_PAUSE
-//#define KC_COMP KC_RALT
+//#define KC_COMP KC_PAUSE
+#define KC_COMP KC_RALT
 
 
 /************************************************************
@@ -475,6 +475,9 @@ const uint16_t PROGMEM fn_actions[] = {
 
 
 // https://tstarling.com/stuff/ComposeKeys.html
+
+// TODO: replace altgr KC_* with compose macros...
+// or purge KC_* from keymaps
 
 #define KC_UUML RALT(KC_Y)  // ü - compose "u
 #define KC_OUML RALT(KC_P)  // ö - compose "o
