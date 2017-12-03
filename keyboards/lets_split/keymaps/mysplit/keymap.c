@@ -16,7 +16,6 @@ inline void letssplit_local_led_tx_on(void)          { DDRD |=  (1<<5); PORTD &=
 inline void letssplit_local_led_tx_off(void)         { DDRD &= ~(1<<5); PORTD |=  (1<<5); }
 #endif
 
-#if 1
 #define KEYMAP_HAND( \
     l00, l01, l02, l03, l04, l05, \
     l10, l11, l12, l13, l14, l15, \
@@ -36,27 +35,6 @@ inline void letssplit_local_led_tx_off(void)         { DDRD &= ~(1<<5); PORTD |=
     l35, l34, l33, l32, l31, l30, \
     r30, r31, r32, r33, r34, r35 \
     )
-#else
-#define KEYMAP_HAND( \
-    l00, l01, l02, l03, l04, l05, \
-    l10, l11, l12, l13, l14, l15, \
-    l20, l21, l22, l23, l24, l25, \
-    l30, l31, l32, l33, l34, l35, \
-    r00, r01, r02, r03, r04, r05, \
-    r10, r11, r12, r13, r14, r15, \
-    r20, r21, r22, r23, r24, r25, \
-    r30, r31, r32, r33, r34, r35 \
-    ) KEYMAP( \
-    l00, l01, l02, l03, l04, l05, \
-    r00, r01, r02, r03, r04, r05, \
-    l10, l11, l12, l13, l14, l15, \
-    r10, r11, r12, r13, r14, r15, \
-    l20, l21, l22, l23, l24, l25, \
-    r20, r21, r22, r23, r24, r25, \
-    l30, l31, l32, l33, l34, l35, \
-    r30, r31, r32, r33, r34, r35 \
-    )
-#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -81,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
         KC_PSCR,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,
         KC_BASE,        KC_H,           KC_J,           KC_K,           KC_L,           KC_COMP,
-        KC_NO,          KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_ENTER,
+        XXXXXXX,        KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_ENTER,
         KC_BSPC,        KC_SPACE,       XL_SYM,         XL_MOS,         XM_RCTL,        XM_LGUI
     ),
 /* Keymap 1: Symbol Layer
@@ -100,15 +78,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [SYM] = KEYMAP_HAND(
        // left hand
-       KC_AT,   KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC, KC_TRNS,
-       KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_ASTR, KC_TRNS,
-       KC_HASH, KC_DLR,  KC_PIPE, KC_TILD, KC_GRV,  KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_AT,   KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC, _______,
+       KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_ASTR, _______,
+       KC_HASH, KC_DLR,  KC_PIPE, KC_TILD, KC_GRV,  _______,
+       _______, _______, _______, _______, _______, _______,
        // right hand
-       KC_TRNS, KC_EXLM, KC_LABK, KC_RABK, KC_EQL,  KC_AMPR,
-       KC_TRNS, KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_COLN,
-       KC_TRNS, KC_PLUS, KC_PERC, KC_DQT,  KC_QUOT, KC_SCLN,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+       _______, KC_EXLM, KC_LABK, KC_RABK, KC_EQL,  KC_AMPR,
+       _______, KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_COLN,
+       _______, KC_PLUS, KC_PERC, KC_DQT,  KC_QUOT, KC_SCLN,
+       _______, _______, _______, _______, _______, _______
 ),
 /* keymap 2: navigation and keypad
  *
@@ -123,16 +101,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'           `-----------------------------------------'
  */
 [NAV] = KEYMAP_HAND(
-       KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, KC_TRNS,
-       KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,  KC_TRNS,
-       KC_ESC,  KC_TAB,  KC_INS,  KC_ENTER,KC_SPACE,KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, _______,
+       KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,  _______,
+       KC_ESC,  KC_TAB,  KC_INS,  KC_ENTER,KC_SPACE,_______,
+       _______, _______, _______, _______, _______, _______,
        // right hand
        // TODO: use Keypad keys:
-       KC_TRNS, MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS,
-       KC_TRNS, MC_DOT,  MC_4,    MC_5,    MC_6,    MC_COMM,
-       KC_TRNS, KC_COLN, MC_1,    MC_2,    MC_3,    KC_ENTER,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_0,    KC_TRNS, KC_TRNS
+       _______, MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS,
+       _______, MC_DOT,  MC_4,    MC_5,    MC_6,    MC_COMM,
+       _______, KC_COLN, MC_1,    MC_2,    MC_3,    KC_ENTER,
+       _______, _______, _______, KC_0,    _______, _______
 ),
 /* Keymap 3: Media and mouse keys
  *
@@ -149,15 +127,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'           `-----------------------------------------'
  */
 [MOS] = KEYMAP_HAND(
-       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
-       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_TRNS,
-       KC_F11,  KC_F12,  KC_APP,  KC_PSCR, KC_CAPS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,
+       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
+       KC_F11,  KC_F12,  KC_APP,  KC_PSCR, KC_CAPS, _______,
+       _______, _______, _______, _______, _______, _______,
        // right hand
-       KC_TRNS, KC_NLCK, KC_VOLD, KC_VOLU, KC_MUTE, KC_BTN3,
-       KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1,
-       KC_TRNS, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_BTN2,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+       _______, KC_NLCK, KC_VOLD, KC_VOLU, KC_MUTE, KC_BTN3,
+       _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1,
+       _______, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_BTN2,
+       _______, _______, _______, _______, _______, _______
 ),
 };
 

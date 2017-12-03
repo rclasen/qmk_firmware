@@ -476,34 +476,6 @@ const uint16_t PROGMEM fn_actions[] = {
 
 // https://tstarling.com/stuff/ComposeKeys.html
 
-// TODO: replace altgr KC_* with compose macros...
-// or purge KC_* from keymaps
-
-#define KC_UUML RALT(KC_Y)  // ü - compose "u
-#define KC_OUML RALT(KC_P)  // ö - compose "o
-#define KC_AUML RALT(KC_Q)  // ä - compose "a
-#define KC_SUML RALT(KC_S)  // ß - compose ss
-
-#define KC_DEGR RALT(LSFT(KC_SCLN)) // ° - compose oo
-#define KC_PARA RALT(LSFT(KC_S))    // § - compose so
-#define KC_POUN RALT(LSFT(KC_4))    // £ - compose -L
-#define KC_LDTQ RALT(KC_LBRC)   // « - compose <<
-#define KC_RDTQ RALT(KC_RBRC)   // » - compose >>
-#define KC_EURO RALT(KC_5)  // € - compose =C
-// open single quote ‚ - compose ,'
-#define KC_LSQ RALT(KC_9)   // ‘ - compose <'
-#define KC_RSQ RALT(KC_0)   // ’ - compose >'
-// open double quote „ - compose ,"
-#define KC_LDQ RALT(LSFT(KC_LBRC))  // “ - compose <"
-#define KC_RDQ RALT(LSFT(KC_RBRC))  // ” - compose >"
-#define KC_MUL RALT(KC_EQL) // × - compose xx
-#define KC_DIV RALT(LSFT(KC_EQL))   // ÷ - compose -:
-// quarter ¼ - compose 14
-// high 4 ⁴ - compose ^4
-
-#define KC_LSTQ KC_NO   // left single triangle quote - compose .>
-#define KC_RSTQ KC_NO   // right single triangle quote - compose .<
-
 // macros/functions that block modifiers:
 #define MC_0        F(F_0)
 #define MC_1        M(M_1)
@@ -523,4 +495,7 @@ const uint16_t PROGMEM fn_actions[] = {
 #define MC_PLUS     M(M_PLUS)
 #define MC_CUML     M(M_CUML)
 
+
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
 
