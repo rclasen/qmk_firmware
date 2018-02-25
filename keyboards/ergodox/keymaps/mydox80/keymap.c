@@ -9,18 +9,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   `    |   1  |   2  |   3  |   4  |   5  |  NO  |           |  NO  |   6  |   7  |   8  |   9  |   0  | VolUp  |
+ * |   `    |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  | VolUp  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | NO     |   Q  |   W  |   E  |   R  |   T  |  GHK |           | Print|   Y  |   U  |   I  |   O  |   P  | VolDown|
+ * |        |   Q  |   W  |   E  |   R  |   T  |  GHK |           | Print|   Y  |   U  |   I  |   O  |   P  | VolDown|
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Tab    |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  | COMP |  CUML  |
  * |--------+------+------+------+------+------| sIns |           | BASE |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | Enter| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |  NO  | Tab  | fMOS | LALT | LCTL |                                       | fSYM | fMOS | RCTL | LGUI |  NO  |
+ *   |      | Tab  | fMOS | LALT | LCTL |                                       | fSYM | fMOS | RCTL | LGUI |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |  NO  | right|       |  up  | COMP |
+ *                                        | MENU | right|       |  up  | COMP |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |LShift| fNAV | left |       | down | BSPC | Space|
  *                                 +      +      +------+       +------+      +      +
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XM_LSFT,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,           LSFT(KC_INS),
         XXXXXXX,        KC_TAB,         XL_MOS,         XM_LALT,        XM_LCTL,
                                                                         // left thumb
-                                                                                        XXXXXXX,        KC_RIGHT,
+                                                                                        KC_APP,         KC_RIGHT,
                                                                         XM_LSFT,        XL_NAV,         KC_LEFT,
                                                                         XM_LSFT,        XL_NAV,         KC_ESC,
 

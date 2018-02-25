@@ -26,11 +26,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.1460711"
-     inkscape:cx="1161.141"
-     inkscape:cy="71.622184"
+     inkscape:zoom="0.9306876"
+     inkscape:cx="557.35909"
+     inkscape:cy="240.38059"
      inkscape:document-units="px"
-     inkscape:current-layer="layer8"
+     inkscape:current-layer="layer9"
      showgrid="false"
      fit-margin-top="5"
      fit-margin-left="5"
@@ -1842,6 +1842,49 @@
          id="tspan7145-0-5-6"
          x="1029.0233"
          y="571.84918">CUml</tspan></text>
+    <g
+       style="stroke:#00000f;stroke-opacity:0.94117647;display:inline"
+       transform="matrix(0.72844928,0.0076615,-0.00615999,0.9060081,921.68005,379.03812)"
+       id="g9595-3"
+       inkscape:transform-center-x="-11.830872"
+       inkscape:transform-center-y="-6.5632713">
+      <rect
+         x="-661.11346"
+         y="311.767"
+         width="24.579987"
+         height="33.154156"
+         ry="0.449202"
+         rx="0.44920897"
+         id="rect9597-6"
+         style="color:#000000;fill:none;stroke:#00000f;stroke-width:1.94269967;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.94117647;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <path
+         style="color:#000000;fill:none;stroke:#00000f;stroke-width:1.94269967;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.94117647;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="m -657.14248,318.61997 16.52558,0"
+         id="path9599-7"
+         inkscape:connector-curvature="0" />
+      <path
+         style="color:#000000;fill:none;stroke:#00000f;stroke-width:1.94269967;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.94117647;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="m -657.14248,331.88535 16.52558,0"
+         id="path9601-5"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path9603-3"
+         d="m -657.14248,338.51809 16.52558,0"
+         style="color:#000000;fill:none;stroke:#00000f;stroke-width:1.94269967;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.94117647;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path9605-5"
+         transform="matrix(1.4991834,0,0,1.4991834,-847.34641,-305.80743)"
+         d="m 124.52344,418.68945 c -0.166,0 -0.30078,0.13284 -0.30078,0.29883 l 0,3.96875 c 0,0.166 0.13478,0.30078 0.30078,0.30078 l 15.79492,0 c 0.166,0 0.30078,-0.13478 0.30078,-0.30078 l 0,-3.96875 c 0,-0.16599 -0.13478,-0.29883 -0.30078,-0.29883 l -15.79492,0 z m 2.34765,1.59766 11.02344,0 a 0.648435,0.648435 0 0 1 0,1.29687 l -11.02344,0 a 0.648435,0.648435 0 0 1 0,-1.29687 z"
+         style="color:#000000;fill:#000000;fill-opacity:1;stroke:#00000f;stroke-width:1.29583859;stroke-opacity:0.94117647;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <path
+         sodipodi:nodetypes="cccccccccc"
+         inkscape:connector-curvature="0"
+         id="path9607-6"
+         d="m -629.66448,344.6134 -4.54632,-6.85974 0.75027,-0.49728 2.46526,-1.63381 -8.65297,-4.90946 1.25727,9.81095 2.4652,-1.63383 0.64315,-0.42625 4.54628,6.85981 z"
+         style="color:#000000;fill:#000000;fill-opacity:1;stroke:#00000f;stroke-width:0.80000007;stroke-opacity:0.94117647;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
   </g>
   <g
      inkscape:groupmode="layer"
