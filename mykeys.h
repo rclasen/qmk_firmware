@@ -1,5 +1,23 @@
 /*
 
+use case:
+- mostly unix: vim, fvwm (with custom key mappings)
+- some windows: putty, excel, outlook (with autohotkey "fixes")
+
+preamble:
+- most application hotkeys are $modifiers+$alpha.
+- ... or can be treated equivalent if you have keys like End/up/insert
+  on a layer of the alphas
+- this allows holding the modifiers with a thumb while all alphas are
+  accessible by the remaining fingers... even on the same hand.
+  Eliminating the need for modifiers on both sides.
+- combination of modifiers can be achieved by oneshot/locking or
+  chording 2 neighboring keys.
+- for ergonomics you either need to have your hands floating while
+  typing... or finger travel must be minimal to avoid the need to move
+  your wrists. I'm unable to use floating, so I have to use least
+  possible keys with $many layers.
+
 total symbols:
   26      letters
 + 10 = 36 digits
