@@ -3,20 +3,44 @@
 use case:
 - mostly unix: vim, fvwm (with custom key mappings)
 - some windows: putty, excel, outlook (with autohotkey "fixes")
+- mostly programming or english text.
+- sometimes german with it's diacrics.
 
 preamble:
 - most application hotkeys are $modifiers+$alpha.
 - ... or can be treated equivalent if you have keys like End/up/insert
   on a layer of the alphas
-- this allows holding the modifiers with a thumb while all alphas are
-  accessible by the remaining fingers... even on the same hand.
-  Eliminating the need for modifiers on both sides.
+- holding a key with a thumb barely impacts the movement of other
+  fingers of the same hand. If you use thumbs for modifiers + layers,
+  you have no need for alternating between left/right modifiers.
+  Actually, there's no need for modifiers on both sides.
 - combination of modifiers can be achieved by oneshot/locking or
   chording 2 neighboring keys.
 - for ergonomics you either need to have your hands floating while
   typing... or finger travel must be minimal to avoid the need to move
   your wrists. I'm unable to use floating, so I have to use least
   possible keys with $many layers.
+
+I started with OS set to DE or US-international keyboards... but DE is a
+pain for programming (well, on regular keyboards) and US-international
+on windows is unusable due to it's dead keys. Installing custom keyboard
+mappings (msklc) is possible, but requires admin privileges.
+
+I've now switched to plain US with compose (builtin on x11, portable
+wincompose on windows). In the beginning I replaced my symbol/diacric
+Macros with compose sequences. Though, remembering the key mapping of
+rarely used symbols was harder to remember than the quite intuitive
+compose sequences. Getting rid of the macros freed a lot of keys and
+simplified the layout massively.
+
+I did consider an alternative alpha layout, too (adnw, neo2, dvorak,
+colemak, ...) but decided, against this. It's already severly painful to
+switch to a regular keyboard ... but it's kind of ok to be slow on
+modifiers/symbols. For alphas the slowdown caused by swithching to a
+"regular staggering" already is more as I can accept. Unless somebody
+messed up an installation, all OSes have US layouts... while other
+layouts might be a pain to get. BIOS usually are unable to do anything
+else but US - making it the obvious choice to me.
 
 total symbols:
   26      letters
@@ -39,6 +63,12 @@ total symbols:
   - NAV - layer nav/keypad
   - MSF - layer mouse/Fx
   - GHK - global hotkey
+
+- I got severely confused with multiple "shift" like operations on one
+  thumb: i.e. regular shift (for upper case) and my symbol layer.
+
+- most of the time you need symbols while typing (=both hands on
+  keyboard). There's less use for symbols while mousing.
 
 - mouse is used with right hand. This needs the following keys on left
   side:
@@ -67,10 +97,10 @@ total symbols:
 
 - TODO: rctrl for virtualbox/...
 
-- shift/ctrl/layer modifer must be available for each hand and allow
+- shift/ctrl/layer modifer should be available for each hand and allow
   one-handed operation
 
-- on each hand for alternation:
+- on each hand for alternation (if needed):
   - shift
   - SYM - layer symbol
   - ctrl ?
@@ -89,6 +119,7 @@ total symbols:
   - altgr-shift-anything - even more strange characters
     -> altgr and shift need different fingers
   - alt-print/sysrq-X - linux sysrq
+  - typing symbols
 
 frequent/easy to use:
 = space		tap	1hold	l,r?
