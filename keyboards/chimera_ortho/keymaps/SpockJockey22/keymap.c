@@ -127,7 +127,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     /* include some kind of library or header */
     case 0:
       if (record->event.pressed) {
-        SEND_STRING("rubalcava.eric@gmail.com");
+        SEND_STRING("email@gmail.com");
         return MACRO( T(LEFT), END);
       }
       break;
