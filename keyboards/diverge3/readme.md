@@ -1,4 +1,6 @@
-* diverge3
+# diverge3
+
+TODO: no support for backlight on slave, yet.
 
 There are 2 ways to get QMK running on a diverge:
 
