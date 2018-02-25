@@ -28,10 +28,10 @@ mappings (msklc) is possible, but requires admin privileges.
 
 I've now switched to plain US with compose (builtin on x11, portable
 wincompose on windows). In the beginning I replaced my symbol/diacric
-Macros with compose sequences. Though, remembering the key mapping of
-rarely used symbols was harder to remember than the quite intuitive
-compose sequences. Getting rid of the macros freed a lot of keys and
-simplified the layout massively.
+Macros with compose sequences. Though, the key mapping of rarely used
+symbols was harder to remember than the quite intuitive compose
+sequences. Getting rid of the macros freed a lot of keys and simplified
+the layout massively.
 
 I did consider an alternative alpha layout, too (adnw, neo2, dvorak,
 colemak, ...) but decided, against this. It's already severly painful to
