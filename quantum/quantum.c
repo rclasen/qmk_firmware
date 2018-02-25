@@ -209,7 +209,7 @@ bool process_record_quantum(keyrecord_t *record) {
   // Shift / paren setup
 
   switch(keycode) {
-    case RESET:
+    case KC_RST:
       if (record->event.pressed) {
         reset_keyboard();
       }
