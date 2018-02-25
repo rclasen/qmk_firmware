@@ -26,11 +26,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.9917577"
-     inkscape:cx="800.39361"
-     inkscape:cy="170.3222"
+     inkscape:zoom="1.1460711"
+     inkscape:cx="1161.141"
+     inkscape:cy="71.622184"
      inkscape:document-units="px"
-     inkscape:current-layer="layer5"
+     inkscape:current-layer="layer8"
      showgrid="false"
      fit-margin-top="5"
      fit-margin-left="5"
@@ -39,7 +39,7 @@
      inkscape:window-width="1914"
      inkscape:window-height="771"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="404"
      inkscape:window-maximized="0" />
   <defs
      id="defs8739">
@@ -908,7 +908,7 @@
     <path
        sodipodi:nodetypes="ccc"
        style="color:#000000;fill:none;stroke:#000000;stroke-width:1.99812078;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;marker-end:url(#Arrow2Mend-13-8-55-1-4-3);visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       d="m 1057.6978,147.3855 0,10.3801 -23.7,2e-4"
+       d="m 980.57484,193.04227 0,10.3801 -23.7,2e-4"
        id="path10025-4"
        inkscape:connector-curvature="0" />
     <text
@@ -1824,24 +1824,24 @@
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:bold;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
        x="970.86462"
-       y="626.06415"
+       y="571.15265"
        id="text7143-7-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan7145-0-5"
          x="970.86462"
-         y="626.06415">Comp</tspan></text>
+         y="571.15265">Comp</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:bold;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       x="971.02692"
-       y="569.99823"
+       x="1029.0233"
+       y="571.84918"
        id="text7143-7-7-3"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan7145-0-5-6"
-         x="971.02692"
-         y="569.99823">CUml</tspan></text>
+         x="1029.0233"
+         y="571.84918">CUml</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -3193,17 +3193,6 @@
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:bold;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       x="995.7428"
-       y="230.80215"
-       id="text4659"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4661"
-         x="995.7428"
-         y="230.80215">;</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:12px;font-style:normal;font-weight:bold;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#0000ff;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
        x="883.05762"
        y="55.122845"
        id="text4663"
@@ -3445,6 +3434,12 @@
          id="tspan4661-6"
          x="775.60114"
          y="228.39255">:</tspan></text>
+    <path
+       sodipodi:nodetypes="ccc"
+       style="color:#000000;fill:none;stroke:#0000ff;stroke-width:0.91799999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;marker-end:url(#Arrow2Mend-13-8-55-1-4-3);visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       d="m 997.82195,226.41805 0,4.92933 -10.5444,9e-5"
+       id="path10025-4-6-7-5"
+       inkscape:connector-curvature="0" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -3589,14 +3584,14 @@
     <text
        xml:space="preserve"
        style="font-size:10px;font-style:normal;font-weight:bold;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#3b753b;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       x="980.19727"
-       y="236.82497"
+       x="974.00232"
+       y="236.49776"
        id="text4786"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4788"
-         x="980.19727"
-         y="236.82497">M2</tspan></text>
+         x="974.00232"
+         y="236.49776">M2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:10px;font-style:normal;font-weight:bold;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#3b753b;fill-opacity:1;stroke:none;display:inline;font-family:Sans;-inkscape-font-specification:Sans Bold"
