@@ -19,6 +19,7 @@ enum chimera_ortho_layers
 
 #define KC_NMPD TG(_NUMPAD)
 #define KC_SYMB TG(_SYMBOLS)
+#define KC_SYM2 MO(_SYMBOLS)
 #define KC_SPFN LT(_NAV,KC_EQL)
 #define KC_SCTL MT(MOD_LCTL, KC_LBRC)
 #define KC_SCTR MT(MOD_LCTL, KC_RBRC)
@@ -48,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
      LSFT, A  , S  , D  , F  , G  ,NMPD,      NMPD, H  , J  , K  , L  ,SCLN,RSFT,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-     SYMB, Z  , X  , C  , V  , B  ,CAD ,      SYMB, N  , M  ,COMM,DOT ,SLSH,ENT ,
+     SYM2, Z  , X  , C  , V  , B  ,CAD ,      SYMB, N  , M  ,COMM,DOT ,SLSH,ENT ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
                          SPFN,SPC ,                SPC ,BSPC
   // \------------------+----+----+---/       \---+----+----+-------------------/
