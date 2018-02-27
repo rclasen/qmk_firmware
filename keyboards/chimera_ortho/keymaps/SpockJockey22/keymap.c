@@ -14,12 +14,14 @@ enum chimera_ortho_layers
 	_NUMPAD,
 	_SYMBOLS,
 	_MACROS,
+	_MOUSE,
 	_NAV
 };
 
 #define KC_NMPD TG(_NUMPAD)
 #define KC_SYMB TG(_SYMBOLS)
 #define KC_SYM2 MO(_SYMBOLS)
+#define KC_MOUS MO(_MOUSE)
 #define KC_SPFN LT(_NAV,KC_EQL)
 #define KC_SCTL MT(MOD_LCTL, KC_LBRC)
 #define KC_SCTR MT(MOD_LCTL, KC_RBRC)
@@ -49,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
      LSFT, A  , S  , D  , F  , G  ,NMPD,      NMPD, H  , J  , K  , L  ,SCLN,RSFT,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-     SYM2, Z  , X  , C  , V  , B  ,CAD ,      SYMB, N  , M  ,COMM,DOT ,SLSH,ENT ,
+     SYM2, Z  , X  , C  , V  , B  ,MOUS,      SYMB, N  , M  ,COMM,DOT ,SLSH,ENT ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
                          SPFN,SPC ,                SPC ,BSPC
   // \------------------+----+----+---/       \---+----+----+-------------------/
@@ -113,6 +115,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
                              ,    ,                    ,    
   // \------------------+----+----+---/       \---+----+----+-------------------/
+  ),
+
+  [_MOUSE] = KC_KEYMAP(  
+  //,----+----+----+----+----+----+----.     ,----+----+----+----+----+----+----.
+         ,    ,    ,    ,    ,    ,    ,          ,    ,    ,MS_U,    ,    ,    ,
+  //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
+         ,    ,    ,    ,    ,    ,    ,          ,    ,MS_L,MS_D,MS_R,    ,    ,
+  //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
+         ,    ,    ,    ,    ,    ,    ,          ,    ,WH_U,WH_D,    ,    ,SCAP,
+  //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
+                             ,    ,                BTN1,BTN2
+  // \------------------+----+----+---/       \---+----+----+-------------------/
   )
 
 };
@@ -128,7 +142,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     /* include some kind of library or header */
     case 0:
       if (record->event.pressed) {
-        SEND_STRING("email@gmail.com");
+        SEND_STRING("email.address@gmail.com");
         return MACRO( T(LEFT), END);
       }
       break;
