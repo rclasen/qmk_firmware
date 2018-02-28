@@ -32,11 +32,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .------------------------------------------------.
  * |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |
+ * |      | PgUp |BSpace|  up  | Del  | PgDn |      |
  * |------+------+------+------+------+------+------|
- * | GHK  |      |      |      |      |      | Print|
+ * | GHK  | Home | left | down | right| End  | Print|
  * |------+------+------+------+------+------+------|
- * | sIns |      |      |      |      |      | BASE |
+ * | sIns | Esc  | Tab  | Ins  | Enter| Space| BASE |
  * '------------------------------------------------'
  *
  *        .-----------------------------------------.
@@ -75,9 +75,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // center
         XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
-        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
-        XM_GHK,     XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_PSCR,
-        LSFT(KC_INS),XXXXXXX,   XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_BASE,
+        XXXXXXX,    KC_PGUP,    KC_BSPC,    KC_UP,      KC_DEL,     KC_PGDN,    XXXXXXX,
+        XM_GHK,     KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,   KC_END,     KC_PSCR,
+        LSFT(KC_INS),KC_ESC,    KC_TAB,     KC_INS,     KC_ENTER,   KC_SPACE,   KC_BASE,
 
         // right hand
                     KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,
