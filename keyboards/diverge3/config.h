@@ -39,55 +39,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 4 (vcc) to A3 (GND) works when top right of right half is pressed
 
 // wiring of each half
-// pro micro pin labels:
+// pro micro / arduino pin labels:
 //#define MATRIX_COL_PINS { 4,   6,   7,   8,   9 }
 //#define MATRIX_ROW_PINS { A3,  A2,  A1,  A0,  15,  14,  16,  10 }
-// QMK pin names:
+// avr / QMK pin names:
 #define MATRIX_COL_PINS   { D4,  D7,  E6,  B4,  B5 }
 #define MATRIX_ROW_PINS   { F4,  F5,  F6,  F7,  B1,  B3,  B2,  B6 }
 
-// LED port name
-//#define LED_PIN 5 // PD5
+// backlight
+// arduino D5, portc, bit6, avr PC6, pin 5, timer 3A
+#define BACKLIGHT_PIN C6
+#define BACKLIGHT_LEVELS 5
+// add BACKLIGHT_ENABLE=yes to your keymap rules.mk/Makefule
+
 
 #define CATERINA_BOOTLOADER
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-//#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-//#define LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
 #define IS_COMMAND() ( \
         keyboard_report->mods == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
         keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
-
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-// #define NO_DEBUG
-
-/* disable print */
-// #define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 
 #endif

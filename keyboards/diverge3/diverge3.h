@@ -21,6 +21,7 @@ inline void diverge_local_led_tx_off(void)         { DDRD &= ~(1<<5); PORTD |=  
 #endif
 
 // arduino D5, portc, bit6, avr PC6, pin 5, timer 3A
+// conflicts with use as backlight
 inline void diverge_local_led_back_on(void)        { DDRC |=  (1<<6); PORTC |=  (1<<6); }
 inline void diverge_local_led_back_off(void)       { DDRC &= ~(1<<6); PORTC &= ~(1<<6); }
 inline void diverge_local_led_back_set(uint8_t n)  { OCR3A = n; }
