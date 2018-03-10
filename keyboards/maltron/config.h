@@ -33,16 +33,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 19
 
-#warning "TODO: PINS HAVENT BEEN DEFINED, YET"
-
-// COLS: Left to right, ROWS: Top to bottom
-#define MATRIX_ROW_PINS { D0, D1, D2, D3, 0, 0 }
-#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, 0, /* left */ \
-                          F7, 0, 0, 0, 0, 0, 0,/* center */ \
-                          B7, B3, B2, B1, B0, 0 } /* right */
+// ROWS: Top to bottom
+// COLS: Left to right,
+#define MATRIX_ROW_PINS { C5, C4, C3, C2, C1, C0 }
+#define MATRIX_COL_PINS { B6, B5, B4, B3, B2, B1,       /* left */ \
+                          B0, E7, E6, E1, E0, D7, D5,   /* center */ \
+                          D4, D3, D2, D1, D0, B7 }      /* right */
 
 /* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
+#define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
