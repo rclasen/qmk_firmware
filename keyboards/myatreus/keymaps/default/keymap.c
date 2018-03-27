@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS,
                 MC_DOT,  MC_4,    MC_5,    MC_6,    MC_COMM,
                 MC_COLN, MC_1,    MC_2,    MC_3,    MC_SCLN,
-       _______, _______, KC_0,    _______, _______, _______
+       _______, _______, _______, KC_0,    _______, _______
 ),
 /* Keymap 3: Media and mouse keys
  *
