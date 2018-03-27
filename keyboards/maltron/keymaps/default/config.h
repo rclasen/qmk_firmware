@@ -4,4 +4,6 @@
 #include "../../config.h"
 #include <myconfig.h>
 
+#define RGBLIGHT_ANIMATIONS
+
 #endif

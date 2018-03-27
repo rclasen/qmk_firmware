@@ -74,8 +74,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                 KC_ESC,
 
         // center
-        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,
-        XXXXXXX,    KC_PGUP,    KC_BSPC,    KC_UP,      KC_DEL,     KC_PGDN,    XXXXXXX,
+        RGB_TOG,    RGB_HUI,    RGB_HUD,    RGB_SAI,    RGB_SAD,    RGB_VAI,    RGB_VAD,
+        RGB_MOD,    KC_PGUP,    KC_BSPC,    KC_UP,      KC_DEL,     KC_PGDN,    XXXXXXX,
         XM_GHK,     KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,   KC_END,     KC_PSCR,
         LSFT(KC_INS),KC_ESC,    KC_TAB,     KC_INS,     KC_ENTER,   KC_SPACE,   KC_BASE,
 
