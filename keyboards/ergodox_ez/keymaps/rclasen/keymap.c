@@ -178,7 +178,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
 
     // not sufficient to set debug_enable from matrix_init
     debug_enable=true;
@@ -217,7 +218,8 @@ void matrix_init_user(void) {
 
 static uint8_t usbled = 0;
 
-void led_set_kb( uint8_t usb_led ){
+void led_set_kb( uint8_t usb_led )
+{
 	usbled = usb_led;
 }
 
@@ -228,7 +230,8 @@ void led_set_kb( uint8_t usb_led ){
 	) )
 
 // Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
+void matrix_scan_user(void)
+{
 
 	uint8_t led[] = {
 		0, 0, 0

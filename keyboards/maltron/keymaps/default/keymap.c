@@ -349,7 +349,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
 
     // not sufficient to set debug_enable from matrix_init
     debug_enable=true;
@@ -379,7 +380,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 // Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
+void matrix_scan_user(void)
+{
 
     mytap_matrix_scan();
 
