@@ -4,6 +4,8 @@
 
 #include <mykeys.h>
 
+// TODO keys: (TAB), (ESC), GHK, print, base, menu
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* BASE
@@ -42,8 +44,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC,        KC_SPC,         XL_SYM,         XL_MOS,         XM_RCTL,        XM_LGUI
  ),
 /* Keymap 1: Symbol Layer
- *
- * TODO: add more exotic characters
  *
  * ,-----------------------------------
  * |  @   |  _   |  [   |  ]   |   ^  |

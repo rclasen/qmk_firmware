@@ -93,8 +93,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  ),
 /* Keymap 1: Symbol Layer
  *
- * TODO: add more exotic characters
- *
  * ,-----------------------------------------.
  * |      |      |      |      |      |      |
  * |------+------+------+------+-------------|

@@ -4,6 +4,8 @@
 
 #include <mykeys.h>
 
+// TODO keys: (ESC), GHK, GUI, rctl, print, base, menu
+
 #define KEYMAP_HAND( \
     l00, l01, l02, l03, l04, l05, \
     l10, l11, l12, l13, l14, l15, \
@@ -59,8 +61,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XL_SYM,  KC_SPC,  XXXXXXX
  ),
 /* Keymap 1: Symbol Layer
- *
- * TODO: add more exotic characters
  *
  * .-----------------------------------------.
  * |      |  @   |  _   |  [   |  ]   |   ^  |
