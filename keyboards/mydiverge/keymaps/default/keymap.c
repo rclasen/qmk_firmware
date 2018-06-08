@@ -175,7 +175,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
 
     // not sufficient to set debug_enable from matrix_init
     debug_enable=true;
@@ -204,9 +205,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
+#ifdef BACKLIGHT_ENABLE
+
 static uint8_t usbled = 0;
 
-void led_set_kb( uint8_t usb_led ){
+void led_set_kb( uint8_t usb_led )
+{
 	usbled = usb_led;
 }
 
@@ -218,12 +222,16 @@ void led_set_kb( uint8_t usb_led ){
 
 static uint8_t led = 0;
 
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
+# endif
 
-	uint8_t new = 0;
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void)
+{
 
     mytap_matrix_scan();
+
+#ifdef BACKLIGHT_ENABLE
+	uint8_t new = 0;
 
 	// layer
 
@@ -245,17 +253,11 @@ void matrix_scan_user(void) {
 	// finally: set led on/off/brightness
 
     if( led != new ){
-        if( new ){
-            diverge_led_back_set( new );
-            diverge_led_back_on();
-
-        } else {
-            diverge_led_back_off();
-
-        }
-
+        backlight_set( new );
         led = new;
 	}
+#endif
+
 }
 
 
