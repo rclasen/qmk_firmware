@@ -1,5 +1,5 @@
 #include "config.h"
-#include "diverge3.h"
+#include "mydiverge.h"
 
 void matrix_init_kb(void) {
     // JTAG disable for PORT F. write JTD bit twice within four
