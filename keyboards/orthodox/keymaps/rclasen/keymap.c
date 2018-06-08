@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+-------------|
  * | tab  |   a  |   s  |   d  |   d  |   f  |
  * |------+------+------+------+------+------+-------------.
- * | tab  |   z  |   x  |   c  |   v  |   b  | fNAV | lalt |
+ * | lsft |   z  |   x  |   c  |   v  |   b  | fNAV | lalt |
  * '----------------------------------+------+------+------|
  *                                    |      | lsft | lctl |
  *                                    ---------------------'
@@ -38,9 +38,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *               .-----------------------------------------.
  *               |   y  |   u  |   i  |   o  |   p  | vold |
  *               |------+------+------+-------------+------|
- *               |   j  |   k  |   k  |   l  | COMP | CUML |
+ *               |   j  |   k  |   k  |   l  | COMP |      |
  * .-------------+------+------+------+------|------+------|
- * | fMOS | BSPC |   n  |   m  |   ,  |   ,  | enter| CUML |
+ * | fMOS | BSPC |   n  |   m  |   ,  |   ,  | enter| rsft |
  * |------+------+------+------+---------------------------'
  * | fSYM | space|      |
  * '--------------------'
@@ -49,13 +49,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-        KC_TAB,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    XL_NAV,  XM_LALT,
+        XM_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    XL_NAV,  XM_LALT,
                                                      XXXXXXX, XM_LSFT, XM_LCTL,
 
         // right hand
                           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_VOLD,
-                          KC_H,    KC_J,    KC_K,    KC_L,    KC_COMP, MC_CUML,
-        XL_MOS,  KC_BSPC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,MC_CUML,
+                          KC_H,    KC_J,    KC_K,    KC_L,    KC_COMP, XXXXXXX,
+        XL_MOS,  KC_BSPC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,KC_RSFT,
         XL_SYM,  KC_SPC,  XXXXXXX
  ),
 /* Keymap 1: Symbol Layer
