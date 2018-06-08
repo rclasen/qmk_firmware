@@ -1,20 +1,8 @@
-#include "lets_split.h"
-#include "debug.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
-#include "eeconfig.h"
 
 #include <mykeys.h>
 
-// arduino D17, portb, bit0, avr PB5, timer none
-inline void letssplit_local_led_rx_on(void)          { DDRB |=  (1<<0); PORTB &= ~(1<<0); }
-inline void letssplit_local_led_rx_off(void)         { DDRB &= ~(1<<0); PORTB |=  (1<<0); }
-
-#if 0
-// used by matrix.c to indicate i2c link:
-// arduino D24, portd, bit5, avr PD5, timer none
-inline void letssplit_local_led_tx_on(void)          { DDRD |=  (1<<5); PORTD &= ~(1<<5); }
-inline void letssplit_local_led_tx_off(void)         { DDRD &= ~(1<<5); PORTD |=  (1<<5); }
-#endif
 
 #define KEYMAP_HAND( \
     l00, l01, l02, l03, l04, l05, \
@@ -141,9 +129,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
-    // not sufficient to set debug_enable from matrix_init
-    debug_enable=true;
-
     if( ! mytap_process_record( keycode, record ) )
         return false;
 
@@ -167,19 +152,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-#if 0
-    debug_enable=true;
-#endif
-
-    letssplit_local_led_rx_off();
-};
-
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-
 
     mytap_matrix_scan();
 

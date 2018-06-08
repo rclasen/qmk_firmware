@@ -1,4 +1,4 @@
-#include "maltron.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "print.h"
 
