@@ -34,6 +34,8 @@ My keymaps (have ASCII art in keymap.c):
 * [lets split](/keyboards/lets_split/keymaps/rclasen/) - note that I start
   with the alphas on the outermost columns! I'm surprised how good I get
   along without column stagger.
+* [levinson](/keyboards/levinson/keymaps/rclasen/) - same as lets split,
+  but with backlight.
 * [atreus](/keyboards/myatreus/keymaps/default/) - handwired atreus. Great
   staggering, but thumb keys are too far up. I could use a bigger angle
   between the halves, but it's a good compromise to be portable
@@ -46,7 +48,6 @@ My keymaps (have ASCII art in keymap.c):
   changing posture.
 
 upcoming:
-* levinson
 * iris
 * orthodox
 * if I can get hold of it: minidox

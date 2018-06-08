@@ -3,7 +3,6 @@
 
 #include <mykeys.h>
 
-
 #define KEYMAP_HAND( \
     l00, l01, l02, l03, l04, l05, \
     l10, l11, l12, l13, l14, l15, \
@@ -127,7 +126,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
 
     if( ! mytap_process_record( keycode, record ) )
         return false;
@@ -153,12 +153,57 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 
+#ifdef BACKLIGHT_ENABLE
+
+static uint8_t usbled = 0;
+
+void led_set_kb( uint8_t usb_led )
+{
+	usbled = usb_led;
+}
+
+
+#define MOD_ACTIVE(bits) ( keyboard_report->mods & (bits) || (\
+	(get_oneshot_mods() & (bits)) \
+	&& !has_oneshot_mods_timed_out() \
+	) )
+
+static uint8_t led = 0;
+
+#endif
+
 // Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
+void matrix_scan_user(void)
+{
 
     mytap_matrix_scan();
 
-};
+#ifdef BACKLIGHT_ENABLE
+	uint8_t new = 0;
 
+	// layer
 
+	if( layer_state ){
+		new |= 1UL<<7;
+	}
 
+	// modifier
+	if( MOD_ACTIVE(
+        MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)
+        | MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)
+        | MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT)
+        | MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)
+    ) ){
+
+		new |= 1UL<<4;
+	}
+
+	// finally: set led on/off/brightness
+
+    if( led != new ){
+        backlight_set( new );
+        led = new;
+	}
+#endif
+
+}
