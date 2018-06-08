@@ -75,20 +75,3 @@ CUSTOM_MATRIX = yes
 LAYOUTS = ortho_4x12
 
 DEFAULT_FOLDER = lets_split/rev2
-
-avrdude: build
-	ls /dev/tty* > /tmp/1; \
-	echo Please reset the keyboard ; \
-	while sleep 1 ; do  \
-	ls /dev/tty* > /tmp/2; \
-	USB=`diff /tmp/1 /tmp/2 | grep '>' | sed -e 's/> //'`; \
-	[ -n "$$USB" ] && break; \
-	done ; \
-	echo found new tty: $$USB ; \
-	avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex
-
-avrd: build
-	read foo; \
-	avrdude -p $(MCU) -c avr109 -P /dev/ttyACM0 -U flash:w:$(BUILD_DIR)/$(TARGET).hex
-
-.PHONY: avrdude

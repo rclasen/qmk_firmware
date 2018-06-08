@@ -68,5 +68,3 @@ EXTRAKEY_ENABLE ?= yes	# Audio control and System control(+450)
 
 USB ?= /dev/cu.usbmodem1411
 
-upload: build
-	$(ATREUS_UPLOAD_COMMAND)

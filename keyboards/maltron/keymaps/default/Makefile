@@ -1,11 +1,11 @@
-# Having a file like this allows you to override Makefile definitions
-# for your own particular keymap
 
-include myrules.mk
-RGBLIGHT_ENABLE := yes
+TOP	:= ../../../..
+BOARD	:= maltron
+MAP	:= default
+FLASH	:= teensy
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
+build:
+	make -C $(TOP) $(BOARD):$(MAP)
 
-# run "make avrdude" to flash keyboard
+$(FLASH) flash:
+	make -C $(TOP) $(BOARD):$(MAP):$(FLASH)

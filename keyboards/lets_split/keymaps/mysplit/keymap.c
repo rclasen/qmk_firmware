@@ -25,14 +25,14 @@ inline void letssplit_local_led_tx_off(void)         { DDRD &= ~(1<<5); PORTD |=
     r10, r11, r12, r13, r14, r15, \
     r20, r21, r22, r23, r24, r25, \
     r30, r31, r32, r33, r34, r35 \
-    ) KEYMAP( \
-    l05, l04, l03, l02, l01, l00, \
+    ) LAYOUT_ortho_4x12( \
+    l00, l01, l02, l03, l04, l05, \
     r00, r01, r02, r03, r04, r05, \
-    l15, l14, l13, l12, l11, l10, \
+    l10, l11, l12, l13, l14, l15, \
     r10, r11, r12, r13, r14, r15, \
-    l25, l24, l23, l22, l21, l20, \
+    l20, l21, l22, l23, l24, l25, \
     r20, r21, r22, r23, r24, r25, \
-    l35, l34, l33, l32, l31, l30, \
+    l30, l31, l32, l33, l34, l35, \
     r30, r31, r32, r33, r34, r35 \
     )
 

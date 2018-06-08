@@ -1,8 +1,11 @@
 
-include myrules.mk
+TOP	:= ../../../..
+BOARD	:= lets_split
+MAP	:= mysplit
+FLASH	:= avrdude
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
+build:
+	make -C $(TOP) $(BOARD):$(MAP)
 
-# run "make avrdude" to flash keyboard
+$(FLASH) flash:
+	make -C $(TOP) $(BOARD):$(MAP):$(FLASH)

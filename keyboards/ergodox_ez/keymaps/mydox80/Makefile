@@ -1,10 +1,11 @@
-# Having a file like this allows you to override Makefile definitions
-# for your own particular keymap
 
-include myrules.mk
+TOP	:= ../../../..
+BOARD	:= ergodox_ez
+MAP	:= mydox80
+FLASH	:= teensy
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
+build:
+	make -C $(TOP) $(BOARD):$(MAP)
 
-# run "make teensy" to flash keyboard
+$(FLASH) flash:
+	make -C $(TOP) $(BOARD):$(MAP):$(FLASH)

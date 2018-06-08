@@ -60,16 +60,3 @@ BACKLIGHT_ENABLE := yes      # Enable keyboard backlight functionality
 USE_I2C := yes
 
 CUSTOM_MATRIX = yes
-
-avrdude: build
-	ls /dev/tty* > /tmp/1; \
-	echo Please reset the keyboard ; \
-	while sleep 1 ; do  \
-	ls /dev/tty* > /tmp/2; \
-	USB=`diff /tmp/1 /tmp/2 | grep '>' | sed -e 's/> //'`; \
-	[ -n "$$USB" ] && break; \
-	done ; \
-	echo found new tty: $$USB ; \
-	avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex
-
-.PHONY: avrdude
