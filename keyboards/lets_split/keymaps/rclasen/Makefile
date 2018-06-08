@@ -1,7 +1,7 @@
 
 TOP	:= ../../../..
 BOARD	:= lets_split
-MAP	:= mysplit
+MAP	:= rclasen
 FLASH	:= avrdude
 
 build:

@@ -21,16 +21,34 @@ Even on the "bigger" keyboards (ergodox, ...) I use only few of the
 extra keys.
 
 My keymaps (have ASCII art in keymap.c):
-* [ergodox](/keyboards/ergodox/keymaps/mydox80/) - that's what I started with. Still the master for keymap changes. Still my daily driver... but has too many keys I don't use and my tenting stands make it quite unportable. Staggering is too low and the thumb cluster needs improvements. While you can get fitting keycaps, it's still quite limited.
-* [diverge3](/keyboards/diverge3/keymaps/default/) - ported the lets split firmware to unikeyboards diverge3. Needs extra pullup resistors to work. Staggering feels strange... especially for pinky. Thumb cluster feels good.
-* [lets split](/keyboards/lets_split/keymaps/mysplit/) - note that I start with the alphas on the outermost columns! I'm surprised how good I get along without column stagger.
-* [atreus](/keyboards/myatreus/keymaps/default/) - handwired atreus. Great staggering, but thumb keys are too far up. I could use a bigger angle between the halves, but it's a good compromise to be portable (=transporting and setting up split boards somehow feels anoying).
+* [ergodox](/keyboards/ergodox/keymaps/rclasen/) - that's what I started
+  with. Still the master for keymap changes. Still my daily driver... but
+  has too many keys I don't use and my tenting stands make it quite
+  unportable. Staggering is too low and the thumb cluster needs
+  improvements. While you can get fitting keycaps, it's still quite
+  limited.
+* [diverge3](/keyboards/mydiverge/keymaps/default/) - ported the lets
+  split firmware to unikeyboards diverge3. Needs extra pullup resistors to
+  work. Staggering feels strange... especially for pinky. Thumb cluster
+  feels good.
+* [lets split](/keyboards/lets_split/keymaps/rclasen/) - note that I start
+  with the alphas on the outermost columns! I'm surprised how good I get
+  along without column stagger.
+* [atreus](/keyboards/myatreus/keymaps/default/) - handwired atreus. Great
+  staggering, but thumb keys are too far up. I could use a bigger angle
+  between the halves, but it's a good compromise to be portable
+  (=transporting and setting up split boards somehow feels anoying). Could
+  use 1 or to extra keys.
+* [maltron](/keyboards/myatreus/keymaps/default/) - handwired Maltron.
+  Thumb cluster is hard to use when resting your palm -> made it
+  impossible for me to use it for long enough to get used to the dwells.
+  Angle between halvs is ok, but I do miss adjusting the angle when
+  changing posture.
 
 upcoming:
 * levinson
 * iris
 * orthodox
-* maltron - diy handwired with teensy2++
 * if I can get hold of it: minidox
 * maybe dactyl/manuform?
 * custom split... using atreus staggering and a diverge-like thumb cluster?

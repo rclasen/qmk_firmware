@@ -1,7 +1,7 @@
 
 TOP	:= ../../../..
 BOARD	:= ergodox_ez
-MAP	:= mydox80
+MAP	:= rclasen
 FLASH	:= teensy
 
 build:
