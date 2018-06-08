@@ -1,34 +1,37 @@
-# Quantum Mechanical Keyboard Firmware
+# Local hacks/keymaps for Quantum Mechanical Keyboard Firmware
 
-[![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
-[![Build Status](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
-[![Discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/Uq7gcHh)
-[![Docs Status](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
-[![GitHub contributors](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
-[![GitHub forks](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
+based on an old version of [QMK](https://github.com/qmk/qmk_firmware).
 
-This is a keyboard firmware based on the [tmk\_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR and ARM controllers, and more specifically, the [OLKB product line](https://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/).
+Comes with my own OneShot implementation as I could't get the following
+working with the original one:
 
-## Documentation
+* consistent behavior for Modifiers and layers
+* allow "queueing" multiple oneshot operations
+* consistent un/lock behavior
 
-* [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
+I'm trying to keep my keymaps "similar". For simplifying this, all of
+them use the [shared definitions](/mykeys.h). The shared definitions
+also include some explanations/requirements I used to build the layout.
 
-The docs are hosted on [Gitbook](https://www.gitbook.com/book/qmk/firmware/details) and [GitHub](/docs/) (they are synced). You can request changes by making a fork and [pull request](https://github.com/qmk/qmk_firmware/pulls), or by clicking the "suggest an edit" link on any page of the docs.
+Most notably, I'm trying to move all modifiers/layers to the thumbs.
+Thumb keys are arranged to allow holding 2 of them at once.
 
-## Supported Keyboards
+The layout tries to eliminate keys where I'd move my wrists too much:
+Even on the "bigger" keyboards (ergodox, ...) I use only few of the
+extra keys.
 
-* [Planck](/keyboards/planck/)
-* [Preonic](/keyboards/preonic/)
-* [ErgoDox EZ](/keyboards/ergodox_ez/)
-* [Clueboard](/keyboards/clueboard/)
-* [Cluepad](/keyboards/clueboard/17/)
+My keymaps (have ASCII art in keymap.c):
+* [ergodox](/keyboards/ergodox/keymaps/mydox80/) - that's what I started with. Still the master for keymap changes. Still my daily driver... but has too many keys I don't use and my tenting stands make it quite unportable. Staggering is too low and the thumb cluster needs improvements. While you can get fitting keycaps, it's still quite limited.
+* [diverge3](/keyboards/diverge3/keymaps/default/) - ported the lets split firmware to unikeyboards diverge3. Needs extra pullup resistors to work. Staggering feels strange... especially for pinky. Thumb cluster feels good.
+* [lets split](/keyboards/lets_split/keymaps/mysplit/) - note that I start with the alphas on the outermost columns! I'm surprised how good I get along without column stagger.
+* [atreus](/keyboards/myatreus/keymaps/default/) - handwired atreus. Great staggering, but thumb keys are too far up. I could use a bigger angle between the halves, but it's a good compromise to be portable (=transporting and setting up split boards somehow feels anoying).
 
-The project also includes community support for [lots of other keyboards](/keyboards/).
-
-## Maintainers
-
-QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, [Hasu](https://github.com/tmk). The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/jackhumbert), the Ergodox EZ by [Erez Zukerman](https://github.com/ezuk), and the Clueboard by [Zach White](https://github.com/skullydazed).
-
-## Official website
-
-[http://qmk.fm](http://qmk.fm) is the official website of QMK, where you can find links to this page, the documentation, and the keyboards supported by QMK.
+upcoming:
+* levinson
+* iris
+* orthodox
+* maltron - diy handwired with teensy2++
+* if I can get hold of it: minidox
+* maybe dactyl/manuform?
+* custom split... using atreus staggering and a diverge-like thumb cluster?
+* custom "atreus" with bluetooth, bigger angle and moved thumb keys?
