@@ -29,8 +29,10 @@ My keymaps (have ASCII art in keymap.c):
   limited.
 * [diverge3](/keyboards/mydiverge/keymaps/default/) - ported the lets
   split firmware to unikeyboards diverge3. Needs extra pullup resistors to
-  work. Staggering feels strange... especially for pinky. Thumb cluster
-  feels good.
+  get i2c working - official diverg3 QMK uses serial. Staggering feels
+  strange... especially for pinky. Thumb cluster feels good.
+* [iris](/keyboards/iris/keymaps/default/) - need to try.
+* [orthodox](/keyboards/orthodox/keymaps/default/) - need to try.
 * [lets split](/keyboards/lets_split/keymaps/rclasen/) - note that I start
   with the alphas on the outermost columns! I'm surprised how good I get
   along without column stagger.
@@ -48,8 +50,7 @@ My keymaps (have ASCII art in keymap.c):
   changing posture.
 
 upcoming:
-* iris
-* orthodox
+* ergotravel
 * if I can get hold of it: minidox
 * maybe dactyl/manuform?
 * custom split... using atreus staggering and a diverge-like thumb cluster?
