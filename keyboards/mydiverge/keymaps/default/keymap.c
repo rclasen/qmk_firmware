@@ -11,7 +11,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |      |
  * |------+------+------+------+-------------+------|
- * |      |   q  |   w  |   e  |   e  |   r  | GHK  |
+ * | GHK  |   q  |   w  |   e  |   e  |   r  | GHK  |
  * |------+------+------+------+-------------+------|
  * | tab  |   a  |   s  |   d  |   d  |   f  | sINS |
  * |------+------+------+------+------|------+------|
@@ -35,8 +35,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP( \
         // left hand
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX,
-        XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XM_GHK,
-        KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    LSFT(KC_INS),
+        XM_GHK,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XM_GHK,
+        KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    S_INS,
         KC_TAB,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_APP,
         XM_LSFT, KC_TAB,  XL_MOS,  XM_LALT, XM_LCTL, XM_LSFT, XL_NAV,  KC_ESC,
 
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------|
  * |      | Home | left | down | right| End  |      |
  * |------+------+------+------+------+------+------|
- * |      | Esc  | Tab  | Ins  | Enter| space|      |
+ * |      | Esc  | sIns | Ins  | Enter| space|      |
  * |------+------+------+------+------+------+------+------.
  * |      |      |      |      |      |      |      |      |
  * `-------------------------------------------------------'
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, _______, _______, _______, _______, _______,
        _______, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, _______,
        _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,  _______,
-       _______, KC_ESC,  KC_TAB,  KC_INS,  KC_ENTER,KC_SPACE,_______,
+       _______, KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,_______,
        _______, _______, _______, _______, _______, _______, _______, _______,
        // right hand
        // TODO: use Keypad keys:

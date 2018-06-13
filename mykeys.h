@@ -467,6 +467,7 @@ const uint16_t PROGMEM fn_actions[] = {
  * keymap user macros
  */
 
+#define S_INS   LSFT(KC_INS)
 #define TL_NAV	TG(NAV)
 #define TL_MOS	TG(MOS)
 #define TL_SYM	TG(SYM)

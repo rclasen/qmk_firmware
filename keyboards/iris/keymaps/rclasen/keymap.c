@@ -4,7 +4,7 @@
 
 #include <mykeys.h>
 
-// TODO keys: (ESC), GHK, GUI, rctl, print, base, menu
+// TODO keys: (ESC), (GHK), GUI, rctl, (print), base, (menu)
 
 #define KEYMAP_HAND( \
     l00, l01, l02, l03, l04, l05, \
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .-----------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |
  * |------+------+------+------+-------------|
- * |      |   q  |   w  |   e  |   e  |   r  |
+ * | GHK  |   q  |   w  |   e  |   e  |   r  |
  * |------+------+------+------+-------------|
  * | tab  |   a  |   s  |   d  |   d  |   f  |
  * |------+------+------+------+------+------+------.
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP_HAND( \
         // left hand
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
-        XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
+        XM_GHK,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
         XM_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    XL_NAV,
                                             XM_LALT, XM_LCTL, XM_LSFT,
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|
  * |      | Home | left | down | right| End  |
  * |------+------+------+------+------+------+------.
- * |      | Esc  | Tab  | Ins  | Enter| space|      |
+ * |      | Esc  | sIns | Ins  | Enter| space|      |
  * '---------------------------+------+------+------|
  *                             |      |      |      |
  *                             '--------------------'
@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, _______, _______, _______, _______,
        _______, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN,
        _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
-       _______, KC_ESC,  KC_TAB,  KC_INS,  KC_ENTER,KC_SPACE,_______,
+       _______, KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,_______,
                                            _______, _______, _______,
        // right hand
        // TODO: use Keypad keys:

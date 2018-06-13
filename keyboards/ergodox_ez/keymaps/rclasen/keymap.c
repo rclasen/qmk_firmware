@@ -11,7 +11,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.
  * |   `    |   1  |   2  |   3  |   4  |   5  |      |
  * |--------+------+------+------+------+-------------|
- * |        |   Q  |   W  |   E  |   R  |   T  |  GHK |
+ * | GHK    |   Q  |   W  |   E  |   R  |   T  |  GHK |
  * |--------+------+------+------+------+------|      |
  * | Tab    |   A  |   S  |   D  |   F  |   G  |------|
  * |--------+------+------+------+------+------| sIns |
@@ -49,9 +49,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = KEYMAP_80(  // layer 0 : default
         // left hand
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX,
-        XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XM_GHK,
+        XM_GHK,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XM_GHK,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
-        XM_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    LSFT(KC_INS),
+        XM_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    S_INS,
         XXXXXXX, KC_TAB,  XL_MOS,  XM_LALT, XM_LCTL,
                                             // left thumb
                                                      KC_APP,  KC_RIGHT,
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |  
  * |        | Home | left | down | right| End  |------|  
  * |--------+------+------+------+------+------|      |  
- * |        | Esc  | Tab  | Ins  | Enter| space|      |  
+ * |        | Esc  | sIns | Ins  | Enter| space|      |
  * `--------+------+------+------+------+-------------'  
  *   |      |      |      |      |      |                
  *   `----------------------------------'                
@@ -171,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, _______, _______, _______, _______, _______,
        _______, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, _______,
        _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
-       _______, KC_ESC,  KC_TAB,  KC_INS,  KC_ENTER,KC_SPACE,_______,
+       _______, KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,_______,
        _______, _______, _______, _______, _______,
                                                     _______, _______,
                                            _______, _______, _______,
