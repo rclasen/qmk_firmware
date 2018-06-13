@@ -32,16 +32,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = KEYMAP( \
         // left hand
-        KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,
-        KC_A,           KC_S,           KC_D,           KC_F,           KC_G,
-        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,
-        KC_TAB,         XL_MOS,         XM_LALT,        XM_LCTL,        XM_LSFT,        XL_NAV,
+        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
+        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
+        KC_TAB,  XL_MOS,  XM_LALT, XM_LCTL, XM_LSFT, XL_NAV,
 
         // right hand
-                        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,
-                        KC_H,           KC_J,           KC_K,           KC_L,           KC_COMP,
-                        KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_ENTER,
-        KC_BSPC,        KC_SPC,         XL_SYM,         XL_MOS,         XM_RCTL,        XM_LGUI
+                 KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+                 KC_H,    KC_J,    KC_K,    KC_L,    KC_COMP,
+                 KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,
+        KC_BSPC, KC_SPC,  XL_SYM,  XL_MOS,  XM_RCTL, XM_LGUI
  ),
 /* Keymap 1: Symbol Layer
  *
