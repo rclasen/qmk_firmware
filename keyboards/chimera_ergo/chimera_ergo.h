@@ -57,11 +57,11 @@
                       k48, k49,      k50, k51 \
 ) \
 { \
-	{ KC_NO,    KC_NO,    KC_##k26, KC_##k15, KC_##k28, KC_##k01,      KC_##k42, KC_##k31, KC_##k20, KC_##k33, KC_NO,    KC_NO     }, \
-	{ KC_##k00, KC_NO,    KC_##k14, KC_##k27, KC_##k16, KC_##k36,      KC_##k47, KC_##k19, KC_##k32, KC_##k21, KC_NO,    KC_##k11  }, \
+	{ KC_##k03,    KC_##k40,    KC_##k26, KC_##k15, KC_##k28, KC_##k01,      KC_##k42, KC_##k31, KC_##k20, KC_##k33, KC_##k08,    KC_##k10     }, \
+	{ KC_##k00, KC_##k37,    KC_##k14, KC_##k27, KC_##k16, KC_##k36,      KC_##k47, KC_##k19, KC_##k32, KC_##k21, KC_##k46,    KC_##k11  }, \
 	{ KC_##k12, KC_##k25, KC_##k02, KC_##k39, KC_##k17, KC_##k49,      KC_##k50, KC_##k18, KC_##k44, KC_##k09, KC_##k34, KC_##k23  }, \
 	{ KC_##k24, KC_##k13, KC_##k38, KC_##k04, KC_##k05, KC_##k48,      KC_##k51, KC_##k06, KC_##k07, KC_##k45, KC_##k22, KC_##k35  },  \
-	{ KC_##k29, KC_##k41, KC_##k03, KC_##k40, KC_##k37, KC_NO,         KC_##k30, KC_##k43, KC_##k08, KC_##k10, KC_##k46, KC_NO     }, \
+	{ KC_##k29, KC_##k41, KC_##k03, KC_##k40, KC_##k37, KC_G,         KC_##k30, KC_##k43, KC_##k08, KC_##k10, KC_##k46, KC_H     }, \
 }
 
 #define KEYMAP( \
