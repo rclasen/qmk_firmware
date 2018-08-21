@@ -4,7 +4,7 @@
 
 #include <mykeys.h>
 
-// TODO keys: (TAB), (ESC), (sIns), GHK, (print), base, (menu)
+// TODO keys: (TAB), (ESC), (sIns), (GHK), (print), base, (menu)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|
  * | Esc  | sIns | Ins  | Enter| space|
  * |------+------+------+------+------+------.
- * |      |      |      |      |      |      |
+ * | GHK  |      |      |      |      |      |
  * `-----------------------------------------'
 
  *        ,----------------------------------.
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN,
        KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
        KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,
-       _______, _______, _______, _______, _______, _______,
+       XM_GHK,  _______, _______, _______, _______, _______,
        // right hand
        // TODO: use Keypad keys:
                 MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS,

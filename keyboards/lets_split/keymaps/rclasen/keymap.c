@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+
  * | Esc  | sIns | Ins  | Enter| space|      |
  * |------+------+------+------+------+------+
- * |      |      |      |      |      |      |
+ * | GHK  |      |      |      |      |      |
  * `-----------------------------------------'
  *        ,-----------------------------------------.
  *        |      |  -   |  7   |  8   |  9   |  +   |
@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, _______,
        KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,  _______,
        KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,_______,
-       _______, _______, _______, _______, _______, _______,
+       XM_GHK,  _______, _______, _______, _______, _______,
        // right hand
        // TODO: use Keypad keys:
        _______, MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS,
