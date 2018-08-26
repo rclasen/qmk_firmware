@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        |------+------+------+------+------|
  *        | mprev| mstop| mplay| mnext| Rclk |
  * ,------+------+------+------+------+------|
- * |      |      |      |      |      |      |
+ * |      |      |      |      |      | RESET|
  * `-----------------------------------------'
  */
 [MOS] = KEYMAP(
@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_NLCK, KC_VOLD, KC_VOLU, KC_MUTE, KC_BTN3,
                 KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1,
                 KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_BTN2,
-       _______, _______, _______, _______, _______, _______
+       _______, _______, _______, _______, _______, KC_RST
 ),
 
 };

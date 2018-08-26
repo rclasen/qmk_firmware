@@ -53,8 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // add BACKLIGHT_ENABLE=yes to your keymap rules.mk/Makefule
 
 
-#define CATERINA_BOOTLOADER
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
 

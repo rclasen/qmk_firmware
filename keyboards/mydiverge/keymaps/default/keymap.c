@@ -4,8 +4,6 @@
 
 #include <mykeys.h>
 
-// TODO: RESET doesn't work!!!
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
