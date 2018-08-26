@@ -188,7 +188,7 @@ right main:
 
 */
 
-#include <process_mytap.c>
+#include <process_myevent.c>
 
 // this determins the order of layers:
 enum my_layer {
@@ -201,7 +201,7 @@ enum my_layer {
 
 // for keys with custom "actions" coded in matrix_scan_user
 enum my_keycodes {
-    KC_BASE = KC_MYTAP_SAFE,
+    KC_BASE = KC_MYEVENT_SAFE,
 };
 
 // Compose keycode
@@ -210,10 +210,10 @@ enum my_keycodes {
 
 
 /************************************************************
- * mytap user config
+ * myevent user config
  */
 
-enum mytap {
+enum myevent {
     TSYM,
     TNAV,
     TMOS,
@@ -226,76 +226,105 @@ enum mytap {
     TLGUI,
     TGHK,
 
+    TA,
+    TS,
+    TD,
+    TF,
+    //TV,
+
+    TF6,
+    TF7,
+    TF8,
+    TF9,
+
+    T4,
+    T5,
+    T6,
+    TCOMM,
+
+    //TM,
+    TJ,
+    TK,
+    TL,
+    TCOMP,
+
     TMAX,
 };
 
 // TODO& RSFT doesn't work: register_mods( KC_RSFT) registers lsft + rctrl
 
-#if TMAX > MYTAP_MAX
-#error not enough keycodes for mytap
-#endif
+#define STATIC_ASSERT( condition, name )\
+        typedef char assert_failed_ ## name [ (condition) ? 1 : -1 ];
+
+STATIC_ASSERT(TMAX < MYEVENT_MAX, not_enough_keycodes_for_myevent );
 
 static bool shift_enabled = false;
 
-void mytap_sym_layer_press ( mytap_state_t *state, void *data )
+void myevent_sym_layer( bool start, void *data )
 {
     (void)data;
 
-    unregister_mods(MOD_LSFT);
-    layer_on(SYM);
+    if( start ){
+        unregister_mods(MOD_LSFT);
+        layer_on(SYM);
+
+    } else {
+        if(shift_enabled)
+            register_mods(MOD_LSFT);
+
+        layer_off(SYM);
+    }
 }
 
-void mytap_sym_layer_release ( mytap_state_t *state, void *data )
+void myevent_shift_mod( bool start, void *data )
 {
     (void)data;
 
-    if(shift_enabled)
+    if( start ){
+        shift_enabled = true;
         register_mods(MOD_LSFT);
 
-    layer_off(SYM);
-}
-
-void mytap_shift_mod_press ( mytap_state_t *state, void *data )
-{
-    (void)data;
-
-    shift_enabled = true;
-    register_mods(MOD_LSFT);
-}
-
-void mytap_shift_mod_release ( mytap_state_t *state, void *data )
-{
-    (void)data;
-
-    shift_enabled = false;
-    unregister_mods(MOD_LSFT);
+    } else {
+        shift_enabled = false;
+        unregister_mods(MOD_LSFT);
+    }
 }
 
 
+myevent_action_t myevent_actions[] = {
+    [TSYM] = MYEVENT_ONESHOT( myevent_sym_layer, NULL ),
+    [TNAV] = MYEVENT_ONESHOT_LAYER( NAV ),
+    [TMOS] = MYEVENT_ONESHOT_LAYER( MOS ),
+    [TLSFT] = MYEVENT_ONESHOT( myevent_shift_mod, NULL ),
+    [TLCTL] = MYEVENT_ONESHOT_MOD( MOD_LCTL ),
+    [TRCTL] = MYEVENT_ONESHOT_MOD( MOD_RCTL ),
+    [TLALT] = MYEVENT_ONESHOT_MOD( MOD_LALT ),
+    [TRALT] = MYEVENT_ONESHOT_MOD( MOD_RALT ),
+    [TLGUI] = MYEVENT_ONESHOT_MOD( MOD_LGUI ),
+    [TGHK] = MYEVENT_ONESHOT_MOD( MOD_LCTL | MOD_LALT | MOD_LGUI ),
 
-mytap_action_t mytap_actions[] = {
-    [TSYM] = {
-        .fn = {
-            .on_press = mytap_sym_layer_press,
-            .on_release = mytap_sym_layer_release,
-        },
-        .data = NULL,
-    },
-    [TNAV] = MYTAP_LAYER( NAV ),
-    [TMOS] = MYTAP_LAYER( MOS ),
-    [TLSFT] = {
-        .fn = {
-            .on_press = mytap_shift_mod_press,
-            .on_release = mytap_shift_mod_release,
-        },
-        .data = NULL,
-    },
-    [TLCTL] = MYTAP_MOD( MOD_LCTL ),
-    [TRCTL] = MYTAP_MOD( MOD_RCTL ),
-    [TLALT] = MYTAP_MOD( MOD_LALT ),
-    [TRALT] = MYTAP_MOD( MOD_RALT ),
-    [TLGUI] = MYTAP_MOD( MOD_LGUI ),
-    [TGHK] = MYTAP_MOD( MOD_LCTL | MOD_LALT | MOD_LGUI ),
+    [TA] = MYEVENT_TAPHOLD_MOD( MOD_LGUI, KC_A ),
+    [TS] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_S ),
+    [TD] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_D ),
+    [TF] = MYEVENT_TAPHOLD_MOD( MOD_LSFT, KC_F ),
+//  [TV] = MYEVENT_TAPHOLD_MOD( TODO, KC_V ),
+
+    [TF6] = MYEVENT_TAPHOLD_MOD( MOD_LGUI, KC_F6 ),
+    [TF7] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_F7 ),
+    [TF8] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_F8 ),
+    [TF9] = MYEVENT_TAPHOLD_MOD( MOD_LSFT, KC_F9 ),
+
+//  [TM] = MYEVENT_TAPHOLD_MOD( TODO, KC_M ),
+    [TJ] = MYEVENT_TAPHOLD_MOD( MOD_LSFT, KC_J ), // TODO: RSFT doesn't work
+    [TK] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_K ), // TODO: RCTL doesn't work
+    [TL] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_L ),
+    [TCOMP] = MYEVENT_TAPHOLD_MOD( MOD_LGUI, KC_COMP),
+
+    // TODO: custom taphold for MC_xx behavior
+    [T4] = MYEVENT_TAPHOLD_MOD( MOD_LSFT, KC_4 ), // TODO: RSFT doesn't work
+    [T5] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_5 ), // TODO: RCTL doesn't work
+    [T6] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_6 ),
+    [TCOMM] = MYEVENT_TAPHOLD_MOD( MOD_LGUI, KC_COMM),
 };
 
 /************************************************************
@@ -480,9 +509,9 @@ const uint16_t PROGMEM fn_actions[] = {
 #define OL_MOS	OSL(MOS)
 #define OL_SYM	OSL(SYM)
 
-#define XL_NAV	XT(TNAV)
-#define XL_MOS	XT(TMOS)
-#define XL_SYM	XT(TSYM)
+#define XL_NAV	XE(TNAV)
+#define XL_MOS	XE(TMOS)
+#define XL_SYM	XE(TSYM)
 
 #define OM_LALT	OSM(MOD_LALT)
 #define OM_RALT	OSM(MOD_RALT)
@@ -496,17 +525,39 @@ const uint16_t PROGMEM fn_actions[] = {
 
 #define OM_GHK OSM( MOD_LCTL | MOD_LALT | MOD_LGUI )
 
-#define XM_LALT	XT(TLALT)
-#define XM_RALT	XT(TRALT)
+#define XM_LALT	XE(TLALT)
+#define XM_RALT	XE(TRALT)
 
-#define XM_LCTL	XT(TLCTL)
-#define XM_RCTL	XT(TRCTL)
+#define XM_LCTL	XE(TLCTL)
+#define XM_RCTL	XE(TRCTL)
 
-#define XM_LGUI	XT(TLGUI)
+#define XM_LGUI	XE(TLGUI)
 
-#define XM_LSFT	XT(TLSFT)
+#define XM_LSFT	XE(TLSFT)
 
-#define XM_GHK XT(TGHK)
+#define XM_GHK XE(TGHK)
+
+#define TX_A    XE(TA)
+#define TX_S    XE(TS)
+#define TX_D    XE(TD)
+#define TX_F    XE(TF)
+//#define TX_V    XE(TV)
+
+#define TX_F6   XE(TF6)
+#define TX_F7   XE(TF7)
+#define TX_F8   XE(TF8)
+#define TX_F9   XE(TF9)
+
+//#define TX_M    XE(TM)
+#define TX_J    XE(TJ)
+#define TX_K    XE(TK)
+#define TX_L    XE(TL)
+#define TX_COMP XE(TCOMP)
+
+#define TX_4    XE(T4)
+#define TX_5    XE(T5)
+#define TX_6    XE(T6)
+#define TX_COMM XE(TCOMM)
 
 // Layer:
 //
