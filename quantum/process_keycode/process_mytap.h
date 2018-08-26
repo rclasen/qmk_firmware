@@ -9,7 +9,7 @@
  * internal structures
  */
 
-enum myap_keycodes {
+enum mytap_keycodes {
     KC_MYTAP_FIRST = SAFE_RANGE,
     KC_MYTAP_LAST = KC_MYTAP_FIRST + MYTAP_MAX,
     KC_MYTAP_SAFE,
