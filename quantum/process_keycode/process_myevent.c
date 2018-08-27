@@ -49,6 +49,7 @@ void myevent_clear(void)
 // foreign = no modifier, no tapping. 
 void myevent_end_foreign ( void )
 {
+    // TODO: avoid recursion
     for( int8_t i = 0; i <= _myevent_highest; ++i ){
         myevent_action_t *action = &myevent_actions[i];
 
@@ -215,15 +216,15 @@ void myevent_matrix_scan(void)
  * oneshot
  */
 
-void myevent_oneshot_event ( myevent_state_t *state, void *data )
+void myevent_oneshot_event ( myevent_state_t *state, void *edata )
 {
-    myevent_oneshot_data_t *adata = (myevent_oneshot_data_t *)data;
+    myevent_oneshot_data_t *odata = (myevent_oneshot_data_t *)edata;
 
     switch(state->state){
      case MYEVENT_STATE_DOWN:
         if( state->count == 1 ){
             dprintf("myevent_oneshot start\n");
-            (*adata->fn)( true, adata->data );
+            (*odata->fn)( true, odata->data );
         }
 
         break;
@@ -245,7 +246,7 @@ void myevent_oneshot_event ( myevent_state_t *state, void *data )
 
         } else {
             dprintf("myevent_oneshot clear\n");
-            (*adata->fn)( false, adata->data );
+            (*odata->fn)( false, odata->data );
         }
 
         break;
@@ -260,17 +261,17 @@ void myevent_oneshot_event ( myevent_state_t *state, void *data )
  * oneshot layer
  */
 
-void myevent_oneshot_layer ( bool start, void *data )
+void myevent_oneshot_layer ( bool start, void *odata )
 {
-    myevent_oneshot_layer_data_t *adata = (myevent_oneshot_layer_data_t *)data;
+    myevent_oneshot_layer_data_t *ldata = (myevent_oneshot_layer_data_t *)odata;
 
     if( start ){
         dprintf("myevent_oneshot_layer start\n");
-        layer_on( adata-> layer );
+        layer_on( ldata-> layer );
 
     } else {
         dprintf("myevent_oneshot_layer clear\n");
-        layer_off( adata->layer );
+        layer_off( ldata->layer );
     }
 }
 
@@ -279,17 +280,17 @@ void myevent_oneshot_layer ( bool start, void *data )
  * oneshot modifier
  */
 
-void myevent_oneshot_mod ( bool start, void *data )
+void myevent_oneshot_mod ( bool start, void *odata )
 {
-    myevent_oneshot_mod_data_t *adata = (myevent_oneshot_mod_data_t *)data;
+    myevent_oneshot_mod_data_t *mdata = (myevent_oneshot_mod_data_t *)odata;
 
     if( start ){
         dprintf("myevent_oneshot_mod start\n");
-        register_mods( adata-> mod );
+        register_mods( mdata-> mod );
 
     } else {
         dprintf("myevent_oneshot_mod clear\n");
-        unregister_mods( adata->mod );
+        unregister_mods( mdata->mod );
     }
 }
 
@@ -297,18 +298,18 @@ void myevent_oneshot_mod ( bool start, void *data )
  * taphold
  */
 
-void myevent_taphold_event ( myevent_state_t *state, void *data )
+void myevent_taphold_event ( myevent_state_t *state, void *edata )
 {
-    myevent_taphold_data_t *adata = (myevent_taphold_data_t *)data;
+    myevent_taphold_data_t *tdata = (myevent_taphold_data_t *)edata;
 
     switch(state->state){
      case MYEVENT_STATE_DOWN:
         if( state->count > 1 ){
             dprintf("myevent_taphold tap/hold\n");
-            (*adata->fn)( true, false, adata->data );
+            (*tdata->fn)( true, false, tdata->data );
             myevent_end_foreign();
-            (*adata->fn)( true, true, adata->data );
-            adata->state = MYEVENT_TAPHOLD_TAP;
+            (*tdata->fn)( true, true, tdata->data );
+            tdata->state = MYEVENT_TAPHOLD_TAP;
         }
 
         break;
@@ -316,48 +317,48 @@ void myevent_taphold_event ( myevent_state_t *state, void *data )
      case MYEVENT_STATE_DOWN_END:
         if( state->count == 1 ){
             dprintf("myevent_taphold hold\n");
-            (*adata->fn)( false, true, adata->data );
-            adata->state = MYEVENT_TAPHOLD_HOLD;
+            (*tdata->fn)( false, true, tdata->data );
+            tdata->state = MYEVENT_TAPHOLD_HOLD;
         }
 
         break;
 
      case MYEVENT_STATE_DOWN_OTHER:
-        if( adata->state != MYEVENT_TAPHOLD_HOLD ){
+        if( tdata->state != MYEVENT_TAPHOLD_HOLD ){
             dprintf("myevent_taphold tap/other\n");
             myevent_end_foreign();
-            (*adata->fn)( true, true, adata->data );
-            adata->state = MYEVENT_TAPHOLD_TAP;
+            (*tdata->fn)( true, true, tdata->data );
+            tdata->state = MYEVENT_TAPHOLD_TAP;
         }
 
         break;
 
      case MYEVENT_STATE_UP:
-        if( adata->state == MYEVENT_TAPHOLD_NONE ){
+        if( tdata->state == MYEVENT_TAPHOLD_NONE ){
             dprintf("myevent_taphold tap/tap\n");
-            (*adata->fn)( true, true, adata->data );
+            (*tdata->fn)( true, true, tdata->data );
             myevent_end_foreign();
-            adata->state = MYEVENT_TAPHOLD_TAP;
+            tdata->state = MYEVENT_TAPHOLD_TAP;
         }
 
         break;
 
      case MYEVENT_STATE_IDLE:
-        switch( adata->state ){
+        switch( tdata->state ){
          case MYEVENT_TAPHOLD_TAP:
             dprintf("myevent_taphold tap/clear\n");
-            (*adata->fn)( true, false, adata->data );
+            (*tdata->fn)( true, false, tdata->data );
             break;
 
          case MYEVENT_TAPHOLD_HOLD:
             dprintf("myevent_taphold hold/clear\n");
-            (*adata->fn)( false, false, adata->data );
+            (*tdata->fn)( false, false, tdata->data );
             break;
 
          default:
             break;
         }
-        adata->state = MYEVENT_TAPHOLD_NONE;
+        tdata->state = MYEVENT_TAPHOLD_NONE;
 
         break;
 
@@ -371,21 +372,21 @@ void myevent_taphold_event ( myevent_state_t *state, void *data )
  */
 
 
-void myevent_taphold_layer( bool tap, bool start, void *data )
+void myevent_taphold_layer( bool tap, bool start, void *tdata )
 {
-    myevent_taphold_layer_data_t *tdata = (myevent_taphold_layer_data_t *)data;
+    myevent_taphold_layer_data_t *ldata = (myevent_taphold_layer_data_t *)tdata;
 
     if( tap ){
         if( start ){
-            register_code( tdata->kc );
+            register_code( ldata->kc );
         } else {
-            unregister_code( tdata->kc );
+            unregister_code( ldata->kc );
         }
     } else {
         if( start ){
-            layer_on( tdata->layer );
+            layer_on( ldata->layer );
         } else {
-            layer_off( tdata->layer );
+            layer_off( ldata->layer );
         }
     }
 }
@@ -395,25 +396,25 @@ void myevent_taphold_layer( bool tap, bool start, void *data )
  */
 
 
-void myevent_taphold_mod( bool tap, bool start, void *data )
+void myevent_taphold_mod( bool tap, bool start, void *tdata )
 {
-    myevent_taphold_mod_data_t *tdata = (myevent_taphold_mod_data_t *)data;
+    myevent_taphold_mod_data_t *mdata = (myevent_taphold_mod_data_t *)tdata;
 
     if( tap ){
         if( start ){
-            dprintf("myevent_taphold_mod tap/start %d\n", tdata->kc);
-            register_code( tdata->kc );
+            dprintf("myevent_taphold_mod tap/start %d\n", mdata->kc);
+            register_code( mdata->kc );
         } else {
-            dprintf("myevent_taphold_mod tap/clear %d\n", tdata->kc);
-            unregister_code( tdata->kc );
+            dprintf("myevent_taphold_mod tap/clear %d\n", mdata->kc);
+            unregister_code( mdata->kc );
         }
     } else {
         if( start ){
-            dprintf("myevent_taphold_mod hold/start %d\n", tdata->mod);
-            register_mods( tdata->mod );
+            dprintf("myevent_taphold_mod hold/start %d\n", mdata->mod);
+            register_mods( mdata->mod );
         } else {
-            dprintf("myevent_taphold_mod hold/clear %d\n", tdata->mod);
-            unregister_mods( tdata->mod );
+            dprintf("myevent_taphold_mod hold/clear %d\n", mdata->mod);
+            unregister_mods( mdata->mod );
         }
     }
 }

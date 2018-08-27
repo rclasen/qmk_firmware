@@ -1,6 +1,32 @@
 #ifndef PROCESS_MYEVENT_H
 #define PROCESS_MYEVENT_H
 
+/************************************************************
+ * summary
+ *
+ * backend for:
+ *   - oneshot with hold + lock
+ *   - hold/tap tap: kc1 hold: kc2
+ *   - tapdance: different kc based on # of taps
+ *   - ... whatever
+ *
+ * events:
+ *   - eventkey pressed
+ *   - tapping timeout (=hold, stop tapping)
+ *   - other eventkey pressed (=stop tapping)
+ *   - foreign key pressed (=hold, stop tapping)
+ *
+ *   - eventkey released
+ *   - tapping timeout (=stop tapping)
+ *   - custom timeout - eg. for oneshot (=stop tapping)
+ *   - other eventkey pressed (=stop tapping)
+ *   - other key pressed (=stop tapping)
+ *
+ *   - idle (=cleanup)
+ *
+ * check end of file for an example.
+ */
+
 #ifndef MYEVENT_MAX
 #define MYEVENT_MAX 32
 #endif
@@ -31,30 +57,9 @@
 
 
 /************************************************************
- * summary
- *
- * backend for:
- *   - oneshot with hold + lock
- *   - mod-tap tap: kc1 hold: kc2
- *   - tapdance: different kc based on # of taps
- *
- * events:
- *   - eventkey pressed
- *   - tapping timeout (=hold, stop tapping)
- *   - other eventkey pressed (=stop tapping)
- *   - foreign key pressed (=hold, stop tapping)
- *
- *   - eventkey released
- *   - tapping timeout (=stop tapping)
- *   - custom timeout - eg. for oneshot (=stop tapping)
- *   - other eventkey pressed (=stop tapping)
- *   - other key pressed (=stop tapping)
- *
- *   - idle (=cleanup)
- */
-
-/************************************************************
  * globals hooks
+ *
+ * call them from your keymap.
  */
 
 bool myevent_process_record(uint16_t keycode, keyrecord_t *record);
@@ -66,6 +71,9 @@ void myevent_matrix_scan(void);
 
 // abort and cleanup all actions:
 void myevent_clear(void);
+
+// for custom actions: tell the backend that a foreign key was pressed
+void myevent_end_foreign ( void );
 
 /************************************************************
  * internal structures
@@ -105,7 +113,7 @@ typedef struct {
  * fn_state is called on each state transistion (in state->state).
  */
 
-typedef void (*myevent_fn_state_t)( myevent_state_t *state, void *data );
+typedef void (*myevent_fn_state_t)( myevent_state_t *state, void *edata );
 
 typedef struct {
     myevent_state_t state;
@@ -118,17 +126,27 @@ extern myevent_action_t myevent_actions[];
 #define XE(n) (KC_MYEVENT_FIRST + n)
 
 /************************************************************
+ *
  * oneshot
+ *
+ * in addition to chording multiple modifier/layer keys, allow to type
+ * them in sequence.
+ *
+ * - activate layer/modifier on first press
+ * - keep layer/modifier activated for MYEVENT_ONESHOT_TIMEOUT after first
+ *   release
+ * - lock layer/modifier after MYEVENT_ONESHOT_TOGGLE number of presses
+ * - unlock/deactivat layer/modifier on long press
  */
 
-typedef void (*myevent_oneshot_fn_t)( bool start, void *data );
+typedef void (*myevent_oneshot_fn_t)( bool start, void *odata );
 
 typedef struct {
     myevent_oneshot_fn_t fn;
     void *data;
 } myevent_oneshot_data_t;
 
-void myevent_oneshot_event ( myevent_state_t *state, void *data );
+void myevent_oneshot_event ( myevent_state_t *state, void *odata );
 
 #define MYEVENT_ONESHOT(fname, odata) { \
     .fn_state       = myevent_oneshot_event, \
@@ -140,18 +158,13 @@ void myevent_oneshot_event ( myevent_state_t *state, void *data );
 
 /************************************************************
  * oneshot layer
- *
- * - activate layer on first press
- * - keep layer activated for MYEVENT_ONESHOT_TIMEOUT after first release
- * - lock layer after MYEVENT_ONESHOT_TOGGLE number of presses
- * - unlock/deactivat layer on long 
  */
 
 typedef struct {
     uint8_t layer;
 } myevent_oneshot_layer_data_t;
 
-void myevent_oneshot_layer( bool start, void *data );
+void myevent_oneshot_layer( bool start, void *ldata );
 
 #define MYEVENT_ONESHOT_LAYER(layer) MYEVENT_ONESHOT( \
         myevent_oneshot_layer, \
@@ -165,7 +178,7 @@ typedef struct {
     uint8_t mod;
 } myevent_oneshot_mod_data_t;
 
-void myevent_oneshot_mod( bool start, void *data );
+void myevent_oneshot_mod( bool start, void *mdata );
 
 #define MYEVENT_ONESHOT_MOD(mod) MYEVENT_ONESHOT( \
         myevent_oneshot_mod, \
@@ -173,10 +186,24 @@ void myevent_oneshot_mod( bool start, void *data );
 
 
 /************************************************************
+ *
  * taphold
+ *
+ * send different keycodes when a key is quickly tapped or if it's hold
+ * down. Commonly this is used have a character (on tap) and a modifier
+ * (on hold) on one key.
+ *
+ * - if taphold key is pressed/released quickly once, send tap keycode
+ * - if a foreign key is pressed while taphold key is pressed for less
+ *   than MYEVENT_TAPPING_TIMEOUT, send tap keycode. This allows
+ *   fluent/fast typing.
+ * - if taphold key is tapped once and then hold down, send the tap
+ *   keycode while key is pressed.
+ * - if taphold key is hold down for MYEVENT_TAPPING_TIMEOUT, send hold
+ *   keycode while it's pressed.
  */
 
-typedef void (*myevent_taphold_fn_t)( bool tap, bool start, void *data );
+typedef void (*myevent_taphold_fn_t)( bool tap, bool start, void *tdata );
 
 enum myevent_taphold_state {
     MYEVENT_TAPHOLD_NONE,
@@ -190,13 +217,13 @@ typedef struct {
     void *data;
 } myevent_taphold_data_t;
 
-void myevent_taphold_event ( myevent_state_t *state, void *data );
+void myevent_taphold_event ( myevent_state_t *state, void *tdata );
 
-#define MYEVENT_TAPHOLD(fname, odata) { \
+#define MYEVENT_TAPHOLD(fname, tdata) { \
     .fn_state       = myevent_taphold_event, \
     .data           = (void*)&( (myevent_taphold_data_t) { \
             .fn = fname, \
-            .data = odata, \
+            .data = tdata, \
             } ), \
 }
 
@@ -209,7 +236,7 @@ typedef struct {
     uint8_t kc;
 } myevent_taphold_layer_data_t;
 
-void myevent_taphold_layer( bool tap, bool start, void *data );
+void myevent_taphold_layer( bool tap, bool start, void *ldata );
 
 #define MYEVENT_TAPHOLD_LAYER(l, keycode) MYEVENT_TAPHOLD( \
         myevent_taphold_layer, \
@@ -227,7 +254,7 @@ typedef struct {
     uint8_t kc;
 } myevent_taphold_mod_data_t;
 
-void myevent_taphold_mod( bool tap, bool start, void *data );
+void myevent_taphold_mod( bool tap, bool start, void *mdata );
 
 #define MYEVENT_TAPHOLD_MOD(modifier, keycode) MYEVENT_TAPHOLD( \
         myevent_taphold_mod, \
@@ -241,6 +268,7 @@ void myevent_taphold_mod( bool tap, bool start, void *data );
 
 myevent_action_t myevent_actions[] = {
     [ESYM] = {
+        // custom tapping function:
         .fn_state = myevent_sym_layer_event,
         .data = NULL,
     },
@@ -249,7 +277,7 @@ myevent_action_t myevent_actions[] = {
     [EF] = MYEVENT_TAPHOLD_MOD( MOD_LSFT, KC_F ),
 };
 
-// use XT(TSYM) in keymap
+// use XT(ESYM) in keymap
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if( ! myevent_process_record( keycode, record ) )
