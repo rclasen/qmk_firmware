@@ -260,7 +260,7 @@ STATIC_ASSERT(TMAX < MYEVENT_MAX, not_enough_keycodes_for_myevent );
 
 static bool shift_enabled = false;
 
-void myevent_sym_layer( myevent_oneshot_action_t action, void *odata )
+void oneshot_layer_sym( myevent_oneshot_action_t action, void *odata )
 {
     (void)odata;
 
@@ -279,7 +279,7 @@ void myevent_sym_layer( myevent_oneshot_action_t action, void *odata )
     }
 }
 
-void myevent_shift_mod( myevent_oneshot_action_t action, void *odata )
+void oneshot_mod_shift( myevent_oneshot_action_t action, void *odata )
 {
     (void)odata;
 
@@ -296,12 +296,103 @@ void myevent_shift_mod( myevent_oneshot_action_t action, void *odata )
     }
 }
 
+typedef struct {
+    uint16_t    kc;
+} taphold_mod_shift_data_t;
+
+void taphold_mod_shift( myevent_taphold_action_t action, void *tdata )
+{
+    taphold_mod_shift_data_t *mdata = (taphold_mod_shift_data_t *)tdata;
+
+    switch(action){
+     case MYEVENT_TAPHOLD_TAP_START:
+        register_code( mdata->kc );
+        break;
+
+     case MYEVENT_TAPHOLD_TAP_STOP:
+        unregister_code( mdata->kc );
+        break;
+
+     case MYEVENT_TAPHOLD_HOLD_START:
+        shift_enabled = true;
+        register_mods(MOD_LSFT);
+        break;
+
+     case MYEVENT_TAPHOLD_HOLD_STOP:
+        shift_enabled = false;
+        unregister_mods(MOD_LSFT);
+        break;
+    }
+}
+
+#define TAPHOLD_MOD_SHIFT(keycode) MYEVENT_TAPHOLD( \
+        taphold_mod_shift, \
+        (void*)&( (taphold_mod_shift_data_t) { \
+            .kc = keycode, \
+            } ) )
+
+typedef struct {
+    uint16_t kc;
+    uint8_t mod;
+    uint8_t disable;
+} taphold_mod_noshift_data_t;
+
+void taphold_mod_noshift( myevent_taphold_action_t action, void *tdata )
+{
+    taphold_mod_noshift_data_t *mdata = (taphold_mod_noshift_data_t *)tdata;
+
+    switch(action){
+     case MYEVENT_TAPHOLD_TAP_START: {
+         uint8_t mods = get_mods();
+         mdata->disable = mods & (MOD_LSFT | MOD_RSFT );
+
+         if(mdata->disable)
+             unregister_mods(mdata->disable);
+
+         register_code(mdata->kc);
+
+         break;
+     }
+
+     case MYEVENT_TAPHOLD_TAP_STOP:
+        unregister_code(mdata->kc);
+
+        if(mdata->disable)
+            register_mods(mdata->disable);
+
+        break;
+
+     case MYEVENT_TAPHOLD_HOLD_START:
+        if( mdata->mod & MOD_LSFT )
+            shift_enabled = true;
+
+        register_mods(mdata->mod);
+
+        break;
+
+     case MYEVENT_TAPHOLD_HOLD_STOP:
+        if( mdata->mod & MOD_LSFT )
+            shift_enabled = false;
+
+        unregister_mods(mdata->mod);
+
+        break;
+    }
+}
+
+#define TAPHOLD_MOD_NOSHIFT(modifier, keycode) MYEVENT_TAPHOLD( \
+        taphold_mod_shift, \
+        (void*)&( (taphold_mod_noshift_data_t) { \
+            .kc = keycode, \
+            .mod = modifier, \
+            } ) )
+
 
 myevent_action_t myevent_actions[] = {
-    [TSYM] = MYEVENT_ONESHOT( myevent_sym_layer, NULL ),
+    [TSYM] = MYEVENT_ONESHOT( oneshot_layer_sym, NULL ),
     [TNAV] = MYEVENT_ONESHOT_LAYER( NAV ),
     [TMOS] = MYEVENT_ONESHOT_LAYER( MOS ),
-    [TLSFT] = MYEVENT_ONESHOT( myevent_shift_mod, NULL ),
+    [TLSFT] = MYEVENT_ONESHOT( oneshot_mod_shift, NULL ),
     [TLCTL] = MYEVENT_ONESHOT_MOD( MOD_LCTL ),
     [TRCTL] = MYEVENT_ONESHOT_MOD( MOD_RCTL ),
     [TLALT] = MYEVENT_ONESHOT_MOD( MOD_LALT ),
@@ -310,26 +401,23 @@ myevent_action_t myevent_actions[] = {
     [TGHK] = MYEVENT_ONESHOT_MOD( MOD_LCTL | MOD_LALT | MOD_LGUI ),
 
     [TA] = MYEVENT_TAPHOLD_MOD( MOD_LGUI, KC_A ),
-    [TS] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_S ),
-    [TD] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_D ),
-    [TF] = MYEVENT_TAPHOLD_MOD( MOD_LSFT, KC_F ),
-//  [TV] = MYEVENT_TAPHOLD_MOD( TODO, KC_V ),
+    [TS] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_S ),
+    [TD] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_D ),
+    [TF] = TAPHOLD_MOD_SHIFT( KC_F ),
 
     [TF6] = MYEVENT_TAPHOLD_MOD( MOD_LGUI, KC_F6 ),
-    [TF7] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_F7 ),
-    [TF8] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_F8 ),
-    [TF9] = MYEVENT_TAPHOLD_MOD( MOD_LSFT, KC_F9 ),
+    [TF7] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_F7 ),
+    [TF8] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_F8 ),
+    [TF9] = TAPHOLD_MOD_SHIFT( KC_F9 ),
 
-//  [TM] = MYEVENT_TAPHOLD_MOD( TODO, KC_M ),
-    [TJ] = MYEVENT_TAPHOLD_MOD( MOD_LSFT, KC_J ), // TODO: RSFT doesn't work
-    [TK] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_K ), // TODO: RCTL doesn't work
-    [TL] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_L ),
+    [TJ] = TAPHOLD_MOD_SHIFT( KC_J ), // TODO: RSFT doesn't work
+    [TK] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_K ),
+    [TL] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_L ), // TODO: RCTL doesn't work
     [TCOMP] = MYEVENT_TAPHOLD_MOD( MOD_LGUI, KC_COMP),
 
-    // TODO: custom taphold for MC_xx behavior
-    [T4] = MYEVENT_TAPHOLD_MOD( MOD_LSFT, KC_4 ), // TODO: RSFT doesn't work
-    [T5] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_5 ), // TODO: RCTL doesn't work
-    [T6] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_6 ),
+    [T4] = TAPHOLD_MOD_NOSHIFT( MOD_LSFT, KC_4 ), // TODO: RSFT doesn't work
+    [T5] = TAPHOLD_MOD_NOSHIFT( MOD_LALT, KC_5 ),
+    [T6] = TAPHOLD_MOD_NOSHIFT( MOD_LCTL, KC_6 ), // TODO: RCTL doesn't work
     [TCOMM] = MYEVENT_TAPHOLD_MOD( MOD_LGUI, KC_COMM),
 };
 
