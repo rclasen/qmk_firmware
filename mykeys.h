@@ -260,33 +260,39 @@ STATIC_ASSERT(TMAX < MYEVENT_MAX, not_enough_keycodes_for_myevent );
 
 static bool shift_enabled = false;
 
-void myevent_sym_layer( bool start, void *data )
+void myevent_sym_layer( myevent_oneshot_action_t action, void *odata )
 {
-    (void)data;
+    (void)odata;
 
-    if( start ){
+    switch(action){
+     case MYEVENT_ONESHOT_START:
         unregister_mods(MOD_LSFT);
         layer_on(SYM);
+        break;
 
-    } else {
+     case MYEVENT_ONESHOT_STOP:
         if(shift_enabled)
             register_mods(MOD_LSFT);
 
         layer_off(SYM);
+        break;
     }
 }
 
-void myevent_shift_mod( bool start, void *data )
+void myevent_shift_mod( myevent_oneshot_action_t action, void *odata )
 {
-    (void)data;
+    (void)odata;
 
-    if( start ){
+    switch(action){
+     case MYEVENT_ONESHOT_START:
         shift_enabled = true;
         register_mods(MOD_LSFT);
+        break;
 
-    } else {
+     case MYEVENT_ONESHOT_STOP:
         shift_enabled = false;
         unregister_mods(MOD_LSFT);
+        break;
     }
 }
 

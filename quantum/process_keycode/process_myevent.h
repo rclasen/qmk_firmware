@@ -139,14 +139,19 @@ extern myevent_action_t myevent_actions[];
  * - unlock/deactivat layer/modifier on long press
  */
 
-typedef void (*myevent_oneshot_fn_t)( bool start, void *odata );
+typedef enum {
+    MYEVENT_ONESHOT_START,
+    MYEVENT_ONESHOT_STOP,
+} myevent_oneshot_action_t;
+
+typedef void (*myevent_oneshot_fn_t)( myevent_oneshot_action_t action, void *odata );
 
 typedef struct {
     myevent_oneshot_fn_t fn;
     void *data;
 } myevent_oneshot_data_t;
 
-void myevent_oneshot_event ( myevent_state_t *state, void *odata );
+void myevent_oneshot_event ( myevent_state_t *state, void *edata );
 
 #define MYEVENT_ONESHOT(fname, odata) { \
     .fn_state       = myevent_oneshot_event, \
@@ -164,7 +169,7 @@ typedef struct {
     uint8_t layer;
 } myevent_oneshot_layer_data_t;
 
-void myevent_oneshot_layer( bool start, void *ldata );
+void myevent_oneshot_layer( myevent_oneshot_action_t action, void *odata );
 
 #define MYEVENT_ONESHOT_LAYER(layer) MYEVENT_ONESHOT( \
         myevent_oneshot_layer, \
@@ -178,7 +183,7 @@ typedef struct {
     uint8_t mod;
 } myevent_oneshot_mod_data_t;
 
-void myevent_oneshot_mod( bool start, void *mdata );
+void myevent_oneshot_mod( myevent_oneshot_action_t action, void *odata );
 
 #define MYEVENT_ONESHOT_MOD(mod) MYEVENT_ONESHOT( \
         myevent_oneshot_mod, \
@@ -203,7 +208,14 @@ void myevent_oneshot_mod( bool start, void *mdata );
  *   keycode while it's pressed.
  */
 
-typedef void (*myevent_taphold_fn_t)( bool tap, bool start, void *tdata );
+typedef enum {
+    MYEVENT_TAPHOLD_TAP_START,
+    MYEVENT_TAPHOLD_TAP_STOP,
+    MYEVENT_TAPHOLD_HOLD_START,
+    MYEVENT_TAPHOLD_HOLD_STOP,
+} myevent_taphold_action_t;
+
+typedef void (*myevent_taphold_fn_t)( myevent_taphold_action_t action, void *tdata );
 
 enum myevent_taphold_state {
     MYEVENT_TAPHOLD_NONE,
@@ -217,7 +229,7 @@ typedef struct {
     void *data;
 } myevent_taphold_data_t;
 
-void myevent_taphold_event ( myevent_state_t *state, void *tdata );
+void myevent_taphold_event ( myevent_state_t *state, void *edata );
 
 #define MYEVENT_TAPHOLD(fname, tdata) { \
     .fn_state       = myevent_taphold_event, \
@@ -236,7 +248,7 @@ typedef struct {
     uint8_t kc;
 } myevent_taphold_layer_data_t;
 
-void myevent_taphold_layer( bool tap, bool start, void *ldata );
+void myevent_taphold_layer( myevent_taphold_action_t action, void *tdata );
 
 #define MYEVENT_TAPHOLD_LAYER(l, keycode) MYEVENT_TAPHOLD( \
         myevent_taphold_layer, \
@@ -254,7 +266,7 @@ typedef struct {
     uint8_t kc;
 } myevent_taphold_mod_data_t;
 
-void myevent_taphold_mod( bool tap, bool start, void *mdata );
+void myevent_taphold_mod( myevent_taphold_action_t action, void *tdata );
 
 #define MYEVENT_TAPHOLD_MOD(modifier, keycode) MYEVENT_TAPHOLD( \
         myevent_taphold_mod, \
