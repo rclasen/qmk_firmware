@@ -9,6 +9,8 @@ following working with the original one:
 * allow "queueing" multiple oneshot operations
 * consistent oneshot un/lock behavior
 * avoid interfering with regular typing (TapHold)
+* easy per-keymap customization (eg. suppress shift keys in my symbol
+  layer and on numpad keys of nav layer)
 
 Both use a common [myevent](/quantum/process_keycode/process_myevent.h) backend.
 
