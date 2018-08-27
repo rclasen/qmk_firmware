@@ -226,10 +226,10 @@ void matrix_scan_user(void)
 
 	// modifier
 	if( MOD_ACTIVE(
-        MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)
-        | MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)
-        | MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT)
-        | MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)
+        MB_LSFT | MB_RSFT
+        | MB_LCTL | MB_RCTL
+        | MB_LALT | MB_RALT
+        | MB_LGUI | MB_RGUI
     ) ){
 
 		new |= 1UL<<4;

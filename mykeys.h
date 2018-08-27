@@ -208,6 +208,17 @@ enum my_keycodes {
 //#define KC_COMP KC_PAUSE
 #define KC_COMP KC_RALT
 
+#define MB_LSFT MOD_BIT(KC_LSFT)
+#define MB_LCTL MOD_BIT(KC_LCTL)
+#define MB_LALT MOD_BIT(KC_LALT)
+#define MB_LGUI MOD_BIT(KC_LGUI)
+
+#define MB_RSFT MOD_BIT(KC_RSFT)
+#define MB_RCTL MOD_BIT(KC_RCTL)
+#define MB_RALT MOD_BIT(KC_RALT)
+#define MB_RGUI MOD_BIT(KC_RGUI)
+
+#define MB_SFT (MB_LSFT | MB_RSFT)
 
 /************************************************************
  * myevent user config
@@ -219,6 +230,7 @@ enum myevent {
     TMOS,
 
     TLSFT,
+    TRSFT,
     TLCTL,
     TRCTL,
     TLALT,
@@ -258,7 +270,7 @@ enum myevent {
 
 STATIC_ASSERT(TMAX < MYEVENT_MAX, not_enough_keycodes_for_myevent );
 
-static bool shift_enabled = false;
+static uint8_t shift_saved = 0;
 
 void oneshot_layer_sym( myevent_oneshot_action_t action, void *odata )
 {
@@ -266,43 +278,59 @@ void oneshot_layer_sym( myevent_oneshot_action_t action, void *odata )
 
     switch(action){
      case MYEVENT_ONESHOT_START:
-        unregister_mods(MOD_LSFT);
+        shift_saved = get_mods() & MB_SFT;
+        unregister_mods(MB_SFT);
         layer_on(SYM);
         break;
 
      case MYEVENT_ONESHOT_STOP:
-        if(shift_enabled)
-            register_mods(MOD_LSFT);
+        if(shift_saved)
+            register_mods(shift_saved);
 
         layer_off(SYM);
         break;
     }
 }
 
-void oneshot_mod_shift( myevent_oneshot_action_t action, void *odata )
+void oneshot_mod( myevent_oneshot_action_t action, void *odata )
 {
-    (void)odata;
+    myevent_oneshot_mod_data_t *mdata = (myevent_oneshot_mod_data_t*)odata;
 
     switch(action){
-     case MYEVENT_ONESHOT_START:
-        shift_enabled = true;
-        register_mods(MOD_LSFT);
+     case MYEVENT_ONESHOT_START: {
+        uint8_t mod = layer_state_is(SYM)
+            ? mdata->mod & ~MB_SFT
+            : mdata->mod;
+
+        shift_saved |= mdata->mod & MB_SFT;;
+
+        register_mods(mod);
+
         break;
+     }
 
      case MYEVENT_ONESHOT_STOP:
-        shift_enabled = false;
-        unregister_mods(MOD_LSFT);
+        shift_saved &= ~( mdata->mod & MB_SFT);
+        unregister_mods(mdata->mod);
         break;
     }
 }
 
-typedef struct {
-    uint16_t    kc;
-} taphold_mod_shift_data_t;
+#define ONESHOT_MOD(modifier) MYEVENT_ONESHOT( \
+        oneshot_mod, \
+        (void*)&( (myevent_oneshot_mod_data_t) { \
+            .mod = modifier, \
+            } ) )
 
-void taphold_mod_shift( myevent_taphold_action_t action, void *tdata )
+
+typedef struct {
+    uint16_t kc;
+    uint8_t mod;
+} taphold_mod_data_t;
+
+void taphold_mod( myevent_taphold_action_t action, void *tdata )
 {
-    taphold_mod_shift_data_t *mdata = (taphold_mod_shift_data_t *)tdata;
+    taphold_mod_data_t *mdata = (taphold_mod_data_t *)tdata;
 
     switch(action){
      case MYEVENT_TAPHOLD_TAP_START:
@@ -313,22 +341,30 @@ void taphold_mod_shift( myevent_taphold_action_t action, void *tdata )
         unregister_code( mdata->kc );
         break;
 
-     case MYEVENT_TAPHOLD_HOLD_START:
-        shift_enabled = true;
-        register_mods(MOD_LSFT);
+     case MYEVENT_TAPHOLD_HOLD_START: {
+        uint8_t mod = layer_state_is(SYM)
+            ? mdata->mod & ~MB_SFT
+            : mdata->mod;
+
+        shift_saved |= mdata->mod & MB_SFT;
+
+        register_mods(mod);
+
         break;
+     }
 
      case MYEVENT_TAPHOLD_HOLD_STOP:
-        shift_enabled = false;
-        unregister_mods(MOD_LSFT);
+        shift_saved &= ~(mdata->mod & MB_SFT);
+        unregister_mods(mdata->mod);
         break;
     }
 }
 
-#define TAPHOLD_MOD_SHIFT(keycode) MYEVENT_TAPHOLD( \
-        taphold_mod_shift, \
-        (void*)&( (taphold_mod_shift_data_t) { \
+#define TAPHOLD_MOD(modifier,keycode) MYEVENT_TAPHOLD( \
+        taphold_mod, \
+        (void*)&( (taphold_mod_data_t) { \
             .kc = keycode, \
+            .mod = modifier, \
             } ) )
 
 typedef struct {
@@ -344,7 +380,7 @@ void taphold_mod_noshift( myevent_taphold_action_t action, void *tdata )
     switch(action){
      case MYEVENT_TAPHOLD_TAP_START: {
          uint8_t mods = get_mods();
-         mdata->disable = mods & (MOD_LSFT | MOD_RSFT );
+         mdata->disable = mods & MB_SFT;
 
          if(mdata->disable)
              unregister_mods(mdata->disable);
@@ -362,17 +398,20 @@ void taphold_mod_noshift( myevent_taphold_action_t action, void *tdata )
 
         break;
 
-     case MYEVENT_TAPHOLD_HOLD_START:
-        if( mdata->mod & MOD_LSFT )
-            shift_enabled = true;
+     case MYEVENT_TAPHOLD_HOLD_START: {
+        uint8_t mod = layer_state_is(SYM)
+            ? mdata->mod & ~MB_SFT
+            : mdata->mod;
 
-        register_mods(mdata->mod);
+        shift_saved |= mdata->mod & MB_SFT;
+
+        register_mods(mod);
 
         break;
+     }
 
      case MYEVENT_TAPHOLD_HOLD_STOP:
-        if( mdata->mod & MOD_LSFT )
-            shift_enabled = false;
+        shift_saved &= ~(mdata->mod & MB_SFT);
 
         unregister_mods(mdata->mod);
 
@@ -381,7 +420,7 @@ void taphold_mod_noshift( myevent_taphold_action_t action, void *tdata )
 }
 
 #define TAPHOLD_MOD_NOSHIFT(modifier, keycode) MYEVENT_TAPHOLD( \
-        taphold_mod_shift, \
+        taphold_mod_noshift, \
         (void*)&( (taphold_mod_noshift_data_t) { \
             .kc = keycode, \
             .mod = modifier, \
@@ -392,33 +431,34 @@ myevent_action_t myevent_actions[] = {
     [TSYM] = MYEVENT_ONESHOT( oneshot_layer_sym, NULL ),
     [TNAV] = MYEVENT_ONESHOT_LAYER( NAV ),
     [TMOS] = MYEVENT_ONESHOT_LAYER( MOS ),
-    [TLSFT] = MYEVENT_ONESHOT( oneshot_mod_shift, NULL ),
-    [TLCTL] = MYEVENT_ONESHOT_MOD( MOD_LCTL ),
-    [TRCTL] = MYEVENT_ONESHOT_MOD( MOD_RCTL ),
-    [TLALT] = MYEVENT_ONESHOT_MOD( MOD_LALT ),
-    [TRALT] = MYEVENT_ONESHOT_MOD( MOD_RALT ),
-    [TLGUI] = MYEVENT_ONESHOT_MOD( MOD_LGUI ),
-    [TGHK] = MYEVENT_ONESHOT_MOD( MOD_LCTL | MOD_LALT | MOD_LGUI ),
+    [TLSFT] = ONESHOT_MOD( MB_LSFT ),
+    [TRSFT] = ONESHOT_MOD( MB_RSFT ),
+    [TLCTL] = MYEVENT_ONESHOT_MOD( MB_LCTL ),
+    [TRCTL] = MYEVENT_ONESHOT_MOD( MB_RCTL ),
+    [TLALT] = MYEVENT_ONESHOT_MOD( MB_LALT ),
+    [TRALT] = MYEVENT_ONESHOT_MOD( MB_RALT ),
+    [TLGUI] = MYEVENT_ONESHOT_MOD( MB_LGUI ),
+    [TGHK] = MYEVENT_ONESHOT_MOD( MB_LCTL | MB_LALT | MB_LGUI ),
 
-    [TA] = MYEVENT_TAPHOLD_MOD( MOD_LGUI, KC_A ),
-    [TS] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_S ),
-    [TD] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_D ),
-    [TF] = TAPHOLD_MOD_SHIFT( KC_F ),
+    [TA] = MYEVENT_TAPHOLD_MOD( MB_LGUI, KC_A ),
+    [TS] = MYEVENT_TAPHOLD_MOD( MB_LCTL, KC_S ),
+    [TD] = MYEVENT_TAPHOLD_MOD( MB_LALT, KC_D ),
+    [TF] = TAPHOLD_MOD( MB_LSFT, KC_F ),
 
-    [TF6] = MYEVENT_TAPHOLD_MOD( MOD_LGUI, KC_F6 ),
-    [TF7] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_F7 ),
-    [TF8] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_F8 ),
-    [TF9] = TAPHOLD_MOD_SHIFT( KC_F9 ),
+    [TF6] = MYEVENT_TAPHOLD_MOD( MB_LGUI, KC_F6 ),
+    [TF7] = MYEVENT_TAPHOLD_MOD( MB_LCTL, KC_F7 ),
+    [TF8] = MYEVENT_TAPHOLD_MOD( MB_LALT, KC_F8 ),
+    [TF9] = TAPHOLD_MOD( MB_LSFT, KC_F9 ),
 
-    [TJ] = TAPHOLD_MOD_SHIFT( KC_J ), // TODO: RSFT doesn't work
-    [TK] = MYEVENT_TAPHOLD_MOD( MOD_LALT, KC_K ),
-    [TL] = MYEVENT_TAPHOLD_MOD( MOD_LCTL, KC_L ), // TODO: RCTL doesn't work
-    [TCOMP] = MYEVENT_TAPHOLD_MOD( MOD_LGUI, KC_COMP),
+    [TJ] = TAPHOLD_MOD( MB_RSFT, KC_J ),
+    [TK] = MYEVENT_TAPHOLD_MOD( MB_LALT, KC_K ),
+    [TL] = MYEVENT_TAPHOLD_MOD( MB_RCTL, KC_L ),
+    [TCOMP] = MYEVENT_TAPHOLD_MOD( MB_LGUI, KC_COMP),
 
-    [T4] = TAPHOLD_MOD_NOSHIFT( MOD_LSFT, KC_4 ), // TODO: RSFT doesn't work
-    [T5] = TAPHOLD_MOD_NOSHIFT( MOD_LALT, KC_5 ),
-    [T6] = TAPHOLD_MOD_NOSHIFT( MOD_LCTL, KC_6 ), // TODO: RCTL doesn't work
-    [TCOMM] = MYEVENT_TAPHOLD_MOD( MOD_LGUI, KC_COMM),
+    [T4] = TAPHOLD_MOD_NOSHIFT( MB_RSFT, KC_4 ),
+    [T5] = TAPHOLD_MOD_NOSHIFT( MB_LALT, KC_5 ),
+    [T6] = TAPHOLD_MOD_NOSHIFT( MB_RCTL, KC_6 ),
+    [TCOMM] = MYEVENT_TAPHOLD_MOD( MB_LGUI, KC_COMM),
 };
 
 /************************************************************
@@ -466,16 +506,16 @@ void mod_tmp( uint16_t keycode, uint8_t suppress, uint8_t add )
         register_mods(disable);
 }
 
-#define noshiftralt(code) mod_tmp(code, MOD_LSFT | MOD_RSFT | MOD_LSFT, 0 )
+#define noshiftralt(code) mod_tmp(code, MB_SFT , 0 )
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     switch(id) {
         case M_0: // ACTION_MACRO_TAP(M_0),
             if (record->event.pressed) {
-                register_mods(MOD_LSFT);
+                register_mods(MB_LSFT);
             } else {
-                unregister_mods(MOD_LSFT);
+                unregister_mods(MB_LSFT);
 
                 if (record->tap.count && !record->tap.interrupted) {
                     noshiftralt(KC_0);
@@ -531,7 +571,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
         case M_COLN: // M(M_COLN),
             if(record->event.pressed)
-                mod_tmp(KC_SCLN, MOD_RALT, MOD_LSFT);
+                mod_tmp(KC_SCLN, MB_RALT, MB_LSFT);
             break;
 
         case M_DOT: // M(M_DOT),
@@ -556,7 +596,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
         case M_PLUS: // M(M_PLUS),
             if(record->event.pressed)
-                mod_tmp(KC_EQL, MOD_RALT, MOD_LSFT);
+                mod_tmp(KC_EQL, MB_RALT, MB_LSFT);
             break;
 
         case M_CUML: // M(M_CUML),
@@ -591,33 +631,10 @@ const uint16_t PROGMEM fn_actions[] = {
  */
 
 #define S_INS   LSFT(KC_INS)
-#define TL_NAV	TG(NAV)
-#define TL_MOS	TG(MOS)
-#define TL_SYM	TG(SYM)
-
-#define ML_NAV	MO(NAV)
-#define ML_MOS	MO(MOS)
-#define ML_SYM	MO(SYM)
-
-#define OL_NAV	OSL(NAV)
-#define OL_MOS	OSL(MOS)
-#define OL_SYM	OSL(SYM)
 
 #define XL_NAV	XE(TNAV)
 #define XL_MOS	XE(TMOS)
 #define XL_SYM	XE(TSYM)
-
-#define OM_LALT	OSM(MOD_LALT)
-#define OM_RALT	OSM(MOD_RALT)
-
-#define OM_LCTL	OSM(MOD_LCTL)
-#define OM_RCTL	OSM(MOD_RCTL)
-
-#define OM_LGUI	OSM(MOD_LGUI)
-
-#define OM_LSFT	OSM(MOD_LSFT)
-
-#define OM_GHK OSM( MOD_LCTL | MOD_LALT | MOD_LGUI )
 
 #define XM_LALT	XE(TLALT)
 #define XM_RALT	XE(TRALT)
@@ -628,6 +645,7 @@ const uint16_t PROGMEM fn_actions[] = {
 #define XM_LGUI	XE(TLGUI)
 
 #define XM_LSFT	XE(TLSFT)
+#define XM_RSFT	XE(TRSFT)
 
 #define XM_GHK XE(TGHK)
 

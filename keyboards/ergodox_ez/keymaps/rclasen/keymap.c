@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_VOLU,
         KC_PSCR, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_VOLD,
                  KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP, XXXXXXX,
-        KC_BASE, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,KC_RSFT,
+        KC_BASE, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,XM_RSFT,
                           XL_SYM,  XL_MOS,  XM_RCTL, XM_LGUI, XXXXXXX,
         // right thum
         KC_UP,   KC_COMP,
@@ -340,35 +340,19 @@ void matrix_scan_user(void)
 
 	// modifier
 
-	if( MOD_ACTIVE( MOD_BIT(KC_LSFT) ) ){
+	if( MOD_ACTIVE( MB_LSFT | MB_RSFT ) ){
 		led[2] |= 1UL<<4;
 	}
 
-	if( MOD_ACTIVE( MOD_BIT(KC_RSFT) ) ){
-		led[2] |= 1UL<<4;
-	}
-
-	if( MOD_ACTIVE( MOD_BIT(KC_LCTL) ) ){
+	if( MOD_ACTIVE( MB_LCTL | MB_RCTL ) ){
 		led[2] |= 1UL<<5;
 	}
 
-	if( MOD_ACTIVE( MOD_BIT(KC_RCTL) ) ){
-		led[2] |= 1UL<<5;
-	}
-
-	if( MOD_ACTIVE( MOD_BIT(KC_LALT) ) ){
+	if( MOD_ACTIVE( MB_LALT | MB_RALT ) ){
 		led[2] |= 1UL<<6;
 	}
 
-	if( MOD_ACTIVE( MOD_BIT(KC_RALT) ) ){
-		led[2] |= 1UL<<6;
-	}
-
-	if( MOD_ACTIVE( MOD_BIT(KC_LGUI) ) ){
-		led[2] |= 1UL<<7;
-	}
-
-	if( MOD_ACTIVE( MOD_BIT(KC_RGUI) ) ){
+	if( MOD_ACTIVE( MB_LGUI | MB_RGUI ) ){
 		led[2] |= 1UL<<7;
 	}
 
