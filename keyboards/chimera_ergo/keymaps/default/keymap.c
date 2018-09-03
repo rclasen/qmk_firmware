@@ -19,12 +19,12 @@ enum chimera_ergo_layers
 
 #define KC_NMPD TG(_NUMPAD)
 #define KC_SYMB TG(_SYMBOLS)
-#define KC_SPFN LT(_NAV,KC_EQL)
-#define KC_SCTL MT(MOD_LCTL, KC_LBRC)
-#define KC_SCTR MT(MOD_LCTL, KC_RBRC)
-#define KC_SPLT MT(MOD_LALT, KC_MINS)
-#define KC_SPRT MT(MOD_LALT, KC_1)
-#define KC_GBRC MT(MOD_RGUI, KC_RBRC)
+#define KC_SPFN LT(_NAV,KC_4)
+#define KC_SCTL MT(MOD_LCTL, KC_2)
+#define KC_SCTR MT(MOD_LCTL, KC_9)
+#define KC_SPLT MT(MOD_LALT, KC_3)
+#define KC_SPRT MT(MOD_LALT, KC_8)
+#define KC_GBRC MT(MOD_RGUI, KC_7)
 #define KC_GQOT MT(MOD_LGUI, KC_QUOT)
 #define KC_MESC LT(_MACROS, KC_ESC)
 #define KC_INCL M(0)
@@ -34,8 +34,8 @@ enum chimera_ergo_layers
 #define KC_SCOF M(4)
 #define KC_CAD LALT(LCTL(KC_DEL))
 
-#define LONGPRESS_DELAY 150
-//#define LAYER_TOGGLE_DELAY 300
+#define LONGPRESS_DELAY 5000
+#define LAYER_TOGGLE_DELAY 5000
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
