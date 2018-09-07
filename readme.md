@@ -46,6 +46,8 @@ My keymaps (have ASCII art in keymap.c):
 
 * [orthodox](/keyboards/orthodox/keymaps/default/) - need to try.
 
+* [ergogravel](/keyboards/ergotravel/keymaps/rclasen/) - need to try.
+
 * [lets split](/keyboards/lets_split/keymaps/rclasen/) - note that I start
   with the alphas on the outermost columns! I'm surprised how good I get
   along without column stagger. Though, my thumbs often loose their homing
@@ -68,7 +70,6 @@ My keymaps (have ASCII art in keymap.c):
   changing posture.
 
 upcoming:
-* ergotravel
 * chimera ergo 42
 * if I can get hold of it: minidox
 * maybe dactyl/manuform?
