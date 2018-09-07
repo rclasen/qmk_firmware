@@ -27,7 +27,7 @@ extra keys.
 
 My keymaps (have ASCII art in keymap.c):
 
-* [ergodox](/keyboards/ergodox/keymaps/rclasen/) - that's what I started
+* [ergodox](/keyboards/ergodox_ez/keymaps/rclasen/) - that's what I started
   with. Still the master for keymap changes. Still my daily driver... but
   has too many keys I don't use and my tenting stands make it quite
   unportable. Staggering is too low and the thumb cluster needs
@@ -42,9 +42,9 @@ My keymaps (have ASCII art in keymap.c):
   ignored the outermost column, it got closest to my ideal
   staggering/layout.
 
-* [iris](/keyboards/iris/keymaps/default/) - need to try.
+* [iris](/keyboards/iris/keymaps/rclasen/) - need to try.
 
-* [orthodox](/keyboards/orthodox/keymaps/default/) - need to try.
+* [orthodox](/keyboards/orthodox/keymaps/rclasen/) - need to try.
 
 * [ergogravel](/keyboards/ergotravel/keymaps/rclasen/) - need to try.
 
@@ -63,7 +63,7 @@ My keymaps (have ASCII art in keymap.c):
   good compromise to be portable (=transporting and setting up split
   boards somehow feels anoying). Could use 1 or to extra keys.
 
-* [maltron](/keyboards/myatreus/keymaps/default/) - handwired Maltron.
+* [maltron](/keyboards/maltron/keymaps/default/) - handwired Maltron.
   Thumb cluster is hard to use when resting your palm -> made it
   impossible for me to use it for long enough to get used to the dwells.
   Angle between halvs is ok, but I do miss adjusting the angle when
