@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | RALT | BSPC | Space|
  * `--------------------'
  */
-[BASE] = KEYMAP_80(  // layer 0 : default
+[BASE] = LAYOUT_ergodox_80(  // layer 0 : default
         // left hand
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX,
         XM_GHK,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XM_GHK,
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |
  * `--------------------'
  */
-[SYM] = KEYMAP_80(
+[SYM] = LAYOUT_ergodox_80(
        // left hand
        _______, _______, _______, _______, _______, _______, _______,
        _______, KC_AT,   KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC, _______,
@@ -167,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |          |
  * `------------------------'
  */
-[NAV] = KEYMAP_80(
+[NAV] = LAYOUT_ergodox_80(
        _______, _______, _______, _______, _______, _______, _______,
        _______, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, _______,
        _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
@@ -228,7 +228,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |          |
  * `------------------------'
  */
-[MOS] = KEYMAP_80(
+[MOS] = LAYOUT_ergodox_80(
        _______, _______, _______, _______, _______, _______, _______,
        KC_RST,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_RST,
        _______, TX_F6,   TX_F7,   TX_F8,   TX_F9,   KC_F10,
