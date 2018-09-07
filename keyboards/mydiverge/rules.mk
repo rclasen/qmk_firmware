@@ -1,7 +1,3 @@
-SRC += matrix.c \
-	   i2c.c \
-	   split_util.c
-
 # MCU name
 #MCU = at90usb1287
 MCU = atmega32u4
@@ -61,4 +57,4 @@ EXTRAKEY_ENABLE ?= yes       # Audio control and System control(+450)
 BACKLIGHT_ENABLE := yes      # Enable keyboard backlight functionality
 USE_I2C := yes
 
-CUSTOM_MATRIX = yes
+SPLIT_KEYBOARD = yes
