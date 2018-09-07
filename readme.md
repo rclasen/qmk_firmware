@@ -46,6 +46,8 @@ My keymaps (have ASCII art in keymap.c):
 
 * [orthodox](/keyboards/orthodox/keymaps/rclasen/) - need to try.
 
+* [chimera ergo 42](/keyboards/chimera_ergo_42/keymaps/rclasen/) - need to try.
+
 * [ergogravel](/keyboards/ergotravel/keymaps/rclasen/) - need to try.
 
 * [lets split](/keyboards/lets_split/keymaps/rclasen/) - note that I start
@@ -70,7 +72,6 @@ My keymaps (have ASCII art in keymap.c):
   changing posture.
 
 upcoming:
-* chimera ergo 42
 * if I can get hold of it: minidox
 * maybe dactyl/manuform?
 * custom split... using hybrid atreus/diverge layout
