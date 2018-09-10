@@ -29,7 +29,7 @@ doxygen/
 /util/win_downloaded
 /keyboards/*/Makefile
 /keyboards/*/*/Makefile
-/keyboards/*/*/*/Makefile
+#/keyboards/*/*/*/Makefile
 /keyboards/*/*/*/*/Makefile
 /keyboards/*/*/*/*/*/Makefile
 /keyboards/*/keymaps/Makefile
