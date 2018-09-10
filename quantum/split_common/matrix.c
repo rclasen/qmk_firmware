@@ -222,7 +222,7 @@ int i2c_transaction(void) {
             if (err) goto i2c_error;
             
             // Write backlight 
-            i2c_master_write(get_backlight_level());
+            i2c_master_write( backlight_config.enable ? backlight_config.level : 0 );
             
             BACKLIT_DIRTY = false;
         }
