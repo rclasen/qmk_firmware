@@ -336,18 +336,12 @@ void matrix_slave_scan(void) {
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         i2c_slave_buffer[I2C_KEYMAP_START+i] = matrix[offset+i];
     }   
-#ifdef BACKLIGHT_ENABLE
-    // Read backlight level sent from master and update level on slave
-    backlight_set(i2c_slave_buffer[0]);
-#endif
 #else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];
     }
-#ifdef BACKLIGHT_ENABLE
-    // Read backlight level sent from master and update level on slave
-    backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
-#endif
+    // hack to tell keyboard_slave_loop to set backlight:
+    BACKLIT_DIRTY = true; // TODO: actual check to avoid eeprom writes
 #endif
 
     matrix_slave_scan_user();
