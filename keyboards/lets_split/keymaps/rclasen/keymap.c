@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right hand
         KC_PSCR, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
-        KC_BASE, KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP,
+        MC_BASE, KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP,
         XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,
         KC_BSPC, KC_SPACE,XL_SYM,  XL_MOS,  XM_RCTL, XM_LGUI
     ),
@@ -168,23 +168,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
     if( ! myevent_process_record( keycode, record ) )
         return false;
-
-    switch(keycode){
-        case KC_BASE:
-            if( record->event.pressed ){
-                clear_oneshot_mods();
-                clear_oneshot_locked_mods();
-                myevent_clear();
-                unregister_mods(get_mods());
-                // TODO: caps lock
-                // TODO: num lock
-
-                reset_oneshot_layer();
-                layer_clear();
-            }
-            return true;
-
-    }
 
     return true;
 }

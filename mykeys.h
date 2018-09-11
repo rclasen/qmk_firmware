@@ -212,9 +212,9 @@ enum my_layer {
 	) )
 
 // for keys with custom "actions" coded in matrix_scan_user
-enum my_keycodes {
-    KC_BASE = KC_MYEVENT_SAFE,
-};
+//enum my_keycodes {
+//    KC_TODO = KC_MYEVENT_SAFE,
+//};
 
 // Compose keycode
 //#define KC_COMP KC_PAUSE
@@ -527,6 +527,7 @@ enum {
     M_COMM,
     M_PLUS,
     M_CUML,
+    M_BASE,
 };
 
 void mod_tmp( uint16_t keycode, uint8_t suppress, uint8_t add )
@@ -648,6 +649,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 return MACRO(T(COMP), D(LSFT), T(QUOT), U(LSFT), END);
             break;
 
+        case M_BASE: // M(M_BASE),
+            if( record->event.pressed ){
+                clear_oneshot_mods();
+                clear_oneshot_locked_mods();
+                myevent_clear();
+                unregister_mods(get_mods());
+                // TODO: caps lock
+                // TODO: num lock
+
+                reset_oneshot_layer();
+                layer_clear();
+            }
+            break;
+
     }
     return MACRO_NONE;
 };
@@ -751,6 +766,7 @@ const uint16_t PROGMEM fn_actions[] = {
 #define MC_COMM     M(M_COMM)
 #define MC_PLUS     M(M_PLUS)
 #define MC_CUML     M(M_CUML)
+#define MC_BASE     M(M_BASE)
 
 
 #define _______ KC_TRNS

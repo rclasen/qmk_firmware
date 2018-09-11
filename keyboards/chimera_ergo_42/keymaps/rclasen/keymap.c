@@ -176,23 +176,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if( ! myevent_process_record( keycode, record ) )
         return false;
 
-    switch(keycode){
-        case KC_BASE:
-            if( record->event.pressed ){
-                clear_oneshot_mods();
-                clear_oneshot_locked_mods();
-                myevent_clear();
-                unregister_mods(get_mods());
-                // TODO: caps lock
-                // TODO: num lock
-
-                reset_oneshot_layer();
-                layer_clear();
-            }
-            return true;
-
-    }
-
     return true;
 }
 
