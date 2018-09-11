@@ -50,6 +50,8 @@ My keymaps (have ASCII art in keymap.c):
 
 * [ergogravel](/keyboards/ergotravel/keymaps/rclasen/) - need to try.
 
+* [dactyl manuform](/keyboards/mydactyform/keymaps/default/) - need to try.
+
 * [lets split](/keyboards/lets_split/keymaps/rclasen/) - note that I start
   with the alphas on the outermost columns! I'm surprised how good I get
   along without column stagger. Though, my thumbs often loose their homing
@@ -73,7 +75,6 @@ My keymaps (have ASCII art in keymap.c):
 
 upcoming:
 * if I can get hold of it: minidox
-* maybe dactyl/manuform?
 * custom split... using hybrid atreus/diverge layout
 * custom "atreus" with bluetooth, bigger angle and moved thumb keys?
 * custom bluetooth split (chimera? something using a blue micro?)
