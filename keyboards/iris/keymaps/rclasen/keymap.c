@@ -1,7 +1,3 @@
-#include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "print.h"
-
 #include <mykeys.h>
 
 // TODO keys: (ESC), (GHK), GUI, rctl, (print), base, (menu)
@@ -28,20 +24,20 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* BASE
+/* keymap: BASE
  *
  * .-----------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |
- * |------+------+------+------+-------------|
+ * |------+------+------+------+------+------|
  * | GHK  |   q  |   w  |   e  |   e  |   r  |
- * |------+------+------+------+-------------|
+ * |------+------+------+------+------+------|
  * | tab  |   a  |   s  |   d  |   d  |   f  |
  * |------+------+------+------+------+------+------.
  * | lsft |   z  |   x  |   c  |   v  |   b  | ESC  |
  * '------------------------+--+------+------+---+--'
  *                          | fMOS | lsft | fNAV |
  *                          '--------------------'
- *
+
  *        .-----------------------------------------.
  *        |   6  |   7  |   8  |   9  |   0  | volup|
  *        |------+------+------+------+------+------|
@@ -54,6 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    | space| fSYM | fMOS |
  *    '--------------------'
  */
+
 [BASE] = KEYMAP_HAND( \
         // left hand
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
@@ -69,7 +66,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,XM_RSFT,
             KC_SPC,  XL_SYM,  XL_MOS
  ),
-/* Keymap 1: Symbol Layer
+
+/* keymap: Symbol Layer
  *
  * .-----------------------------------------.
  * |      |      |      |      |      |      |
@@ -94,8 +92,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--+---+------+------+--+------------------------'
  *    |      |      |      |
  *    '--------------------'
-
  */
+
 [SYM] = KEYMAP_HAND(
        // left hand
        _______, _______, _______, _______, _______, _______,
@@ -111,7 +109,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, KC_PLUS, KC_PERC, KC_DQT,  KC_QUOT, KC_SCLN, _______,
            _______, _______, _______
 ),
-/* keymap 2: navigation and keypad
+
+/* keymap: navigation and keypad
  *
  * .-----------------------------------------.
  * |      |      |      |      |      |      |
@@ -121,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      | Home | left | down | right| End  |
  * |------+------+------+------+------+------+------.
  * |      | Esc  | sIns | Ins  | Enter| space|      |
- * '------------------------+--+------+------+---+--+
+ * '------------------------+--+------+------+---+--'
  *                          |      |      |      |
  *                          '--------------------'
 
@@ -133,27 +132,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        |  .   |  4   |  5   |  6   |  ,   |      |
  * .------+------+------+------+------+------+------|
  * |      |  :   |  1   |  2   |  3   | Enter|      |
- * +--+---+------+------+--+------------------------'
+ * '--+---+------+------+--+------------------------'
  *    |      |      |  0   |
  *    '--------------------'
  */
+
 [NAV] = KEYMAP_HAND(
        _______, _______, _______, _______, _______, _______,
        _______, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN,
        _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
        _______, KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,_______,
                                        _______, _______, _______,
+
        // right hand
-       // TODO: use Keypad keys:
                 KC_TAB,  KC_NLCK, KC_SLSH, KC_ASTR, _______, _______,
                 MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS, _______,
                 MC_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, _______,
        _______, MC_COLN, MC_1,    MC_2,    MC_3,    KC_ENTER,_______,
            _______, _______, KC_0
 ),
-/* Keymap 3: Media and mouse keys
- *
- * TODO: more media keys
+
+/* keymap: Media and mouse keys
  *
  * .-----------------------------------------.
  * |      |      |      |      |      |      |
@@ -163,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |  F6  |  F7  |  F8  |  F9  |  F10 |
  * |------+------+------+------+------+------+------.
  * |      |  F11 |  F12 | MENU | print| CAPS |      |
- * '------------------------+--+------+------+---+--+
+ * '------------------------+--+------+------+---+--'
  *                          |      |      |      |
  *                          '--------------------'
 
@@ -175,16 +174,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        | Mleft| Mdown| Mup  | Mrigh| Lclk |      |
  * .------+------+------+------+------+------+------|
  * |      | mprev| mstop| mplay| mnext| Rclk |      |
- * +--+---+------+------+--+------------------------'
+ * '--+---+------+------+--+------------------------'
  *    |      |      |      |
  *    '--------------------'
  */
+
 [MOS] = KEYMAP_HAND(
        _______, _______, _______, _______, _______, _______,
        KC_RST,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
        _______, TX_F6,   TX_F7,   TX_F8,   TX_F9,   KC_F10,
        _______, KC_F11,  KC_F12,  KC_APP,  KC_PAUS, KC_CAPS, _______,
                                        _______, _______, _______,
+
        // right hand
                 _______, _______, _______, _______, _______, _______,
                 KC_NLCK, KC_VOLD, KC_VOLU, KC_MUTE, KC_BTN3, KC_RST,

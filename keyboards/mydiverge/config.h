@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2018 Rainer Clasen <bj@zuto.de>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // lets_split/matrix.c has DIODE_DIRECTION COL2ROW hardwired...
 // so, hack around this by transposing the keybaord matrix in KEYMAP() // macro
+// TODO: convert to ROW2COL
 
 /* key matrix size */
 // Rows are doubled-up
@@ -39,12 +40,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 4 (vcc) to A3 (GND) works when top right of right half is pressed
 
 // wiring of each half
-// pro micro / arduino pin labels:
-//#define MATRIX_COL_PINS { 4,   6,   7,   8,   9 }
+// pro micro / arduino pin labels - see QMKDIR/drivers/avr/pro_micro.h
 //#define MATRIX_ROW_PINS { A3,  A2,  A1,  A0,  15,  14,  16,  10 }
+//#define MATRIX_COL_PINS { 4,   6,   7,   8,   9 }
 // avr / QMK pin names:
-#define MATRIX_COL_PINS   { D4,  D7,  E6,  B4,  B5 }
 #define MATRIX_ROW_PINS   { F4,  F5,  F6,  F7,  B1,  B3,  B2,  B6 }
+#define MATRIX_COL_PINS   { D4,  D7,  E6,  B4,  B5 }
 
 // backlight
 // arduino D5, portc, bit6, avr PC6, pin 5, timer 3A

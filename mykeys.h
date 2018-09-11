@@ -1,10 +1,14 @@
-#ifndef MYKEYS_H
-#define MYKEYS_H
+#pragma once
+
+#include QMK_KEYBOARD_H
+#include "print.h"
+#include "action_layer.h"
 
 #ifdef BACKLIGHT_ENABLE
-#   include "backlight.h"
-    extern backlight_config_t backlight_config;
+#include "backlight.h"
+extern backlight_config_t backlight_config;
 #endif
+
 #include <process_myevent.c>
 
 /*
@@ -771,8 +775,4 @@ const uint16_t PROGMEM fn_actions[] = {
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-
-
-
-#endif // MYKEYS_H
 
