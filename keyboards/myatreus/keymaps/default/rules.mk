@@ -2,5 +2,3 @@
 # for your own particular keymap
 
 include myrules.mk
-
-# run "make avrdude" to flash keyboard

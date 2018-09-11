@@ -1,3 +1,12 @@
+#ifndef MYKEYS_H
+#define MYKEYS_H
+
+#ifdef BACKLIGHT_ENABLE
+#   include "backlight.h"
+    extern backlight_config_t backlight_config;
+#endif
+#include <process_myevent.c>
+
 /*
 
 use case:
@@ -188,8 +197,6 @@ right main:
 
 */
 
-#include <process_myevent.c>
-
 // this determins the order of layers:
 enum my_layer {
 	BASE = 0,	// default layer
@@ -198,6 +205,11 @@ enum my_layer {
 	SYM,	// symbols
 };
 
+
+#define MOD_ACTIVE(bits) ( keyboard_report->mods & (bits) || (\
+	(get_oneshot_mods() & (bits)) \
+	&& !has_oneshot_mods_timed_out() \
+	) )
 
 // for keys with custom "actions" coded in matrix_scan_user
 enum my_keycodes {
@@ -219,6 +231,38 @@ enum my_keycodes {
 #define MB_RGUI MOD_BIT(KC_RGUI)
 
 #define MB_SFT (MB_LSFT | MB_RSFT)
+
+#ifdef BACKLIGHT_ENABLE
+void mybacklight_layer( void )
+{
+	uint8_t new = 0;
+
+	// layer
+
+	if( layer_state ){
+		new = 2;
+
+	// modifier
+	} else if( MOD_ACTIVE(
+        MB_LSFT | MB_RSFT
+        | MB_LCTL | MB_RCTL
+        | MB_LALT | MB_RALT
+        | MB_LGUI | MB_RGUI
+    ) ){
+
+		new = 1;
+	}
+
+	// finally: set led on/off/brightness
+
+    if( backlight_config.level != new ){
+        backlight_set( new );
+        backlight_config.level = new;
+        backlight_config.enable = new > 0;
+        BACKLIT_DIRTY = true;
+	}
+}
+#endif
 
 /************************************************************
  * myevent user config
@@ -711,4 +755,8 @@ const uint16_t PROGMEM fn_actions[] = {
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+
+
+
+#endif // MYKEYS_H
 

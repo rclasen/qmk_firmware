@@ -193,59 +193,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     return true;
 }
 
-
-#ifdef BACKLIGHT_ENABLE
-
-static uint8_t usbled = 0;
-
-void led_set_kb( uint8_t usb_led )
-{
-	usbled = usb_led;
-}
-
-
-#define MOD_ACTIVE(bits) ( keyboard_report->mods & (bits) || (\
-	(get_oneshot_mods() & (bits)) \
-	&& !has_oneshot_mods_timed_out() \
-	) )
-
-static uint8_t led = 0;
-
-#endif
-
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void)
 {
-
     myevent_matrix_scan();
-
-#ifdef BACKLIGHT_ENABLE
-	uint8_t new = 0;
-
-	// layer
-
-	if( layer_state ){
-		new |= 1UL<<7;
-	}
-
-	// modifier
-	if( MOD_ACTIVE(
-        MB_LSFT | MB_RSFT
-        | MB_LCTL | MB_RCTL
-        | MB_LALT | MB_RALT
-        | MB_LGUI | MB_RGUI
-    ) ){
-
-		new |= 1UL<<4;
-	}
-
-	// finally: set led on/off/brightness
-
-    if( led != new ){
-        backlight_set( new );
-        led = new;
-	}
-#endif
-
 }
 

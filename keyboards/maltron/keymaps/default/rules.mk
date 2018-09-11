@@ -3,5 +3,3 @@
 
 include myrules.mk
 RGBLIGHT_ENABLE := yes
-
-# run "make avrdude" to flash keyboard

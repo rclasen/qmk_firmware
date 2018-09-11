@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // backlight
 // arduino D5, portc, bit6, avr PC6, pin 5, timer 3A
 #define BACKLIGHT_PIN C6
-#define BACKLIGHT_LEVELS 5
+// #define BACKLIGHT_LEVELS 5
 // add BACKLIGHT_ENABLE=yes to your keymap rules.mk/Makefule
 
 
