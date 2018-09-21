@@ -75,6 +75,11 @@ void myevent_end_foreign ( myevent_action_t *current )
         dprintf("myevent_end_foreign edata=%u idx=%d\n", action->data, i );
 
         EMIT(action);
+
+        // TODO: this abuses _IDLE as event *after* other key is processed
+        if( current && action->state.state == MYEVENT_STATE_UP_OTHER ){
+            _myevent_idle( action );
+        }
     }
 }
 
