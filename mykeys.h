@@ -9,7 +9,6 @@
 extern backlight_config_t backlight_config;
 #endif
 
-#include <process_myevent.c>
 
 /*
 

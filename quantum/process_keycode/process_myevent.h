@@ -27,9 +27,6 @@
  * check end of file for an example.
  */
 
-#ifndef MYEVENT_MAX
-#define MYEVENT_MAX 32
-#endif
 
 #ifndef MYEVENT_TAPPING_TIMEOUT
 #ifdef TAPPING_TERM
@@ -56,6 +53,8 @@
 #endif
 
 
+#include "quantum.h"
+
 /************************************************************
  * globals hooks
  *
@@ -78,12 +77,6 @@ void myevent_end_foreign ( void );
 /************************************************************
  * internal structures
  */
-
-enum myevent_keycodes {
-    KC_MYEVENT_FIRST = SAFE_RANGE,
-    KC_MYEVENT_LAST = KC_MYEVENT_FIRST + MYEVENT_MAX,
-    KC_MYEVENT_SAFE,
-};
 
 // *_END -> tapping timeout
 // *_OTHER -> tapping end by foreign key pressed

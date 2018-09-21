@@ -174,16 +174,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     // not sufficient to set debug_enable from matrix_init
     debug_enable=true;
 
-    if( ! myevent_process_record( keycode, record ) )
-        return false;
-
     return true;
 }
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void)
-{
-    myevent_matrix_scan();
-}
-
-

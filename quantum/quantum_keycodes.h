@@ -26,6 +26,12 @@
 #endif
 #endif
 
+#ifdef MYEVENT_ENABLE
+#ifndef MYEVENT_MAX
+#define MYEVENT_MAX 32
+#endif
+#endif
+
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -452,6 +458,11 @@ enum quantum_keycodes {
 #ifdef TERMINAL_ENABLE
     TERM_ON,
     TERM_OFF,
+#endif
+
+#ifdef MYEVENT_ENABLE
+    KC_MYEVENT_FIRST,
+    KC_MYEVENT_LAST = KC_MYEVENT_FIRST + MYEVENT_MAX,
 #endif
 
     // always leave at the end

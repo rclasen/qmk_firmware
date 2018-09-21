@@ -278,6 +278,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
   #endif
+  #ifdef MYEVENT_ENABLE
+    myevent_process_record(keycode, record) &&
+  #endif
       true)) {
     return false;
   }
@@ -940,6 +943,10 @@ void matrix_scan_quantum() {
 
   #ifdef TAP_DANCE_ENABLE
     matrix_scan_tap_dance();
+  #endif
+
+  #ifdef MYEVENT_ENABLE
+    myevent_matrix_scan();
   #endif
 
   #ifdef COMBO_ENABLE
