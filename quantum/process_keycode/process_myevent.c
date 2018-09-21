@@ -384,18 +384,22 @@ void myevent_taphold_layer( myevent_taphold_action_t action, void *tdata )
 
     switch(action){
      case MYEVENT_TAPHOLD_TAP_START:
+        dprintf("myevent_taphold_layer tap/start %d\n", ldata->kc);
         register_code( ldata->kc );
         break;
 
      case MYEVENT_TAPHOLD_TAP_STOP:
+        dprintf("myevent_taphold_layer tap/clear %d\n", ldata->kc);
         unregister_code( ldata->kc );
         break;
 
      case MYEVENT_TAPHOLD_HOLD_START:
+        dprintf("myevent_taphold_layer hold/start %d\n", ldata->layer);
         layer_on( ldata->layer );
         break;
 
      case MYEVENT_TAPHOLD_HOLD_STOP:
+        dprintf("myevent_taphold_layer hold/clear %d\n", ldata->layer);
         layer_off( ldata->layer );
         break;
     }

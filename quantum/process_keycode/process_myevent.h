@@ -85,6 +85,8 @@ enum myevent_keycodes {
     KC_MYEVENT_SAFE,
 };
 
+// *_END -> tapping timeout
+// *_OTHER -> tapping end by foreign key pressed
 enum myevent_state {
     MYEVENT_STATE_IDLE = 0,     // next: DOWN
     MYEVENT_STATE_DOWN,         // next: _OTHER/_END
@@ -92,7 +94,7 @@ enum myevent_state {
     MYEVENT_STATE_DOWN_END,     // next: UP
     MYEVENT_STATE_UP,           // next: _OTHER/_END/_TIMER
     MYEVENT_STATE_UP_OTHER,     // next: IDLE
-    MYEVENT_STATE_UP_END,       // next: IDLE/_TIMER
+    MYEVENT_STATE_UP_END,       // next: IDLE/_OTHER/_TIMER
     MYEVENT_STATE_UP_TIMER,     // next: IDLE
 };
 
