@@ -65,16 +65,6 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record);
 void myevent_matrix_scan(void);
 
 /************************************************************
- * user api
- */
-
-// abort and cleanup all actions:
-void myevent_clear(void);
-
-// for custom actions: tell the backend that a foreign key was pressed
-void myevent_end_foreign ( void );
-
-/************************************************************
  * internal structures
  */
 
@@ -108,17 +98,30 @@ typedef struct {
  * fn_state is called on each state transistion (in state->state).
  */
 
-typedef void (*myevent_fn_state_t)( myevent_state_t *state, void *edata );
+struct myevent_action_s;
+typedef struct myevent_action_s myevent_action_t;
 
-typedef struct {
+typedef void (*myevent_fn_state_t)( myevent_action_t *action );
+
+struct myevent_action_s {
     myevent_state_t state;
     myevent_fn_state_t fn_state;
     void *data;
-} myevent_action_t;
+};
 
 extern myevent_action_t myevent_actions[];
 
 #define XE(n) (KC_MYEVENT_FIRST + n)
+
+/************************************************************
+ * user api
+ */
+
+// abort and cleanup all actions:
+void myevent_clear(void);
+
+// for custom actions: tell the backend that a foreign key was pressed
+void myevent_end_foreign ( myevent_action_t *current );
 
 /************************************************************
  *
@@ -146,7 +149,7 @@ typedef struct {
     void *data;
 } myevent_oneshot_data_t;
 
-void myevent_oneshot_event ( myevent_state_t *state, void *edata );
+void myevent_oneshot_event ( myevent_action_t *action );
 
 #define MYEVENT_ONESHOT(fname, odata) { \
     .fn_state       = myevent_oneshot_event, \
@@ -224,7 +227,7 @@ typedef struct {
     void *data;
 } myevent_taphold_data_t;
 
-void myevent_taphold_event ( myevent_state_t *state, void *edata );
+void myevent_taphold_event ( myevent_action_t *action );
 
 #define MYEVENT_TAPHOLD(fname, tdata) { \
     .fn_state       = myevent_taphold_event, \

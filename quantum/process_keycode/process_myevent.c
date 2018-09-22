@@ -7,7 +7,7 @@
 
 #define EMIT(action) if(action->fn_state){ \
     dprintf("myevent: edata=%u state=%d holding=%d count=%d\n", action->data, action->state.state, action->state.holding, action->state.count); \
-    (*action->fn_state)( &action->state, action->data ); \
+    (*action->fn_state)( action ); \
 }
 
 // index of highest used myevent action:
@@ -47,13 +47,13 @@ void myevent_clear(void)
 
 // end tapping when foreign key is pressed
 // foreign = no modifier, no tapping. 
-void myevent_end_foreign ( void )
+void myevent_end_foreign ( myevent_action_t *current )
 {
     // TODO: avoid recursion
     for( int8_t i = 0; i <= _myevent_highest; ++i ){
         myevent_action_t *action = &myevent_actions[i];
 
-        if( _myevent_current == i )
+        if( current == action )
             continue;
 
         switch( action->state.state ){
@@ -138,7 +138,7 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
 
             if( _myevent_highest != MYEVENT_NONE ){
                 _myevent_current = MYEVENT_NONE;
-                myevent_end_foreign();
+                myevent_end_foreign(NULL);
             }
         }
     }
@@ -216,36 +216,36 @@ void myevent_matrix_scan(void)
  * oneshot
  */
 
-void myevent_oneshot_event ( myevent_state_t *state, void *edata )
+void myevent_oneshot_event ( myevent_action_t *action )
 {
-    myevent_oneshot_data_t *odata = (myevent_oneshot_data_t *)edata;
+    myevent_oneshot_data_t *odata = (myevent_oneshot_data_t *)action->data;
 
-    switch(state->state){
+    switch(action->state.state){
      case MYEVENT_STATE_DOWN:
-        if( state->count == 1 ){
-            dprintf("myevent_oneshot edata=%u start\n", edata);
+        if( action->state.count == 1 ){
+            dprintf("myevent_oneshot edata=%u start\n", action->data );
             (*odata->fn)( MYEVENT_ONESHOT_START, odata->data );
         }
 
         break;
 
      case MYEVENT_STATE_UP:
-        if( state->holding )
+        if( action->state.holding )
             break;
 
-        if( state->count == 1 ){
-            dprintf("myevent_oneshot edata=%u oneshot\n", edata);
-            state->uptimeout = MYEVENT_ONESHOT_TIMEOUT;
+        if( action->state.count == 1 ){
+            dprintf("myevent_oneshot edata=%u oneshot\n", action->data );
+            action->state.uptimeout = MYEVENT_ONESHOT_TIMEOUT;
         }
 
         break;
 
      case MYEVENT_STATE_IDLE:
-        if( state->count == MYEVENT_ONESHOT_TOGGLE ){
-            dprintf("myevent_oneshot edata=%u locked\n", edata);
+        if( action->state.count == MYEVENT_ONESHOT_TOGGLE ){
+            dprintf("myevent_oneshot edata=%u locked\n", action->data );
 
         } else {
-            dprintf("myevent_oneshot edata=%u clear\n", edata);
+            dprintf("myevent_oneshot edata=%u clear\n", action->data );
             (*odata->fn)( MYEVENT_ONESHOT_STOP, odata->data );
         }
 
@@ -304,16 +304,16 @@ void myevent_oneshot_mod ( myevent_oneshot_action_t action, void *odata )
  * taphold
  */
 
-void myevent_taphold_event ( myevent_state_t *state, void *edata )
+void myevent_taphold_event ( myevent_action_t *action )
 {
-    myevent_taphold_data_t *tdata = (myevent_taphold_data_t *)edata;
+    myevent_taphold_data_t *tdata = (myevent_taphold_data_t *)action->data;
 
-    switch(state->state){
+    switch(action->state.state){
      case MYEVENT_STATE_DOWN:
-        if( state->count > 1 ){
-            dprintf("myevent_taphold edata=%u tap/hold\n", edata);
+        if( action->state.count > 1 ){
+            dprintf("myevent_taphold edata=%u tap/hold\n", action->data );
             (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
-            myevent_end_foreign();
+            myevent_end_foreign(action);
             (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
             tdata->state = MYEVENT_TAPHOLD_TAP;
         }
@@ -321,8 +321,8 @@ void myevent_taphold_event ( myevent_state_t *state, void *edata )
         break;
 
      case MYEVENT_STATE_DOWN_END:
-        if( state->count == 1 ){
-            dprintf("myevent_taphold edata=%u hold\n", edata);
+        if( action->state.count == 1 ){
+            dprintf("myevent_taphold edata=%u hold\n", action->data );
             (*tdata->fn)( MYEVENT_TAPHOLD_HOLD_START, tdata->data );
             tdata->state = MYEVENT_TAPHOLD_HOLD;
         }
@@ -331,8 +331,8 @@ void myevent_taphold_event ( myevent_state_t *state, void *edata )
 
      case MYEVENT_STATE_DOWN_OTHER:
         if( tdata->state != MYEVENT_TAPHOLD_HOLD ){
-            dprintf("myevent_taphold edata=%u tap/other\n", edata);
-            myevent_end_foreign();
+            dprintf("myevent_taphold edata=%u tap/other\n", action->data );
+            myevent_end_foreign(action);
             (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
             tdata->state = MYEVENT_TAPHOLD_TAP;
         }
@@ -341,9 +341,9 @@ void myevent_taphold_event ( myevent_state_t *state, void *edata )
 
      case MYEVENT_STATE_UP:
         if( tdata->state == MYEVENT_TAPHOLD_NONE ){
-            dprintf("myevent_taphold edata=%u tap/tap\n", edata);
+            dprintf("myevent_taphold edata=%u tap/tap\n", action->data );
             (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
-            myevent_end_foreign();
+            myevent_end_foreign(action);
             tdata->state = MYEVENT_TAPHOLD_TAP;
         }
 
@@ -352,12 +352,12 @@ void myevent_taphold_event ( myevent_state_t *state, void *edata )
      case MYEVENT_STATE_IDLE:
         switch( tdata->state ){
          case MYEVENT_TAPHOLD_TAP:
-            dprintf("myevent_taphold edata=%u tap/clear\n", edata);
+            dprintf("myevent_taphold edata=%u tap/clear\n", action->data );
             (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
             break;
 
          case MYEVENT_TAPHOLD_HOLD:
-            dprintf("myevent_taphold edata=%u hold/clear\n", edata);
+            dprintf("myevent_taphold edata=%u hold/clear\n", action->data );
             (*tdata->fn)( MYEVENT_TAPHOLD_HOLD_STOP, tdata->data );
             break;
 
