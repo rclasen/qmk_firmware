@@ -49,42 +49,80 @@ void myevent_clear(void)
 
 // end tapping when foreign key is pressed
 // foreign = no modifier, no tapping. 
+static bool _in_foreign_pre = false;
 void myevent_end_foreign ( myevent_action_t *current )
 {
-    // TODO: avoid recursion
-    // TODO: process action sorted by time of down event
-    for( int8_t i = 0; i <= _myevent_highest; ++i ){
-        myevent_action_t *action = &myevent_actions[i];
+    if( _in_foreign_pre )
+        return;
+    _in_foreign_pre = true;
 
-        if( current == action )
-            continue;
+    uint16_t now = timer_read();
 
-        switch( action->state.state ){
-         case MYEVENT_STATE_DOWN:
-            action->state.holding = true;
-            action->state.state = MYEVENT_STATE_DOWN_OTHER;
-            break;
+    while(1){
+        uint16_t maxage = 0;
+        myevent_action_t *action = NULL;
 
-         case MYEVENT_STATE_UP:
-         case MYEVENT_STATE_UP_END:
-            action->state.state = MYEVENT_STATE_UP_OTHER;
-            break;
+        // find oldest index
+        for( int8_t i = 0; i <= _myevent_highest; ++i ){
+            myevent_action_t *this = &myevent_actions[i];
 
-         default:
-            continue;
+            if( current == this )
+                continue;
+
+            switch( this->state.state ){
+             case MYEVENT_STATE_DOWN:
+             case MYEVENT_STATE_UP:
+             case MYEVENT_STATE_UP_END:
+                {
+                    uint16_t age = now - this->state.pressed;
+
+                    if( age > maxage ){
+                        maxage = age;
+                        action = this;
+                    }
+                }
+
+                break;
+
+             default:
+                break;
+            }
         }
 
-        action->state.complete = true;
-        dprintf("myevent_end_foreign edata=%u idx=%d\n", action->data, i );
+        if( action ){
+            switch( action->state.state ){
+             case MYEVENT_STATE_DOWN:
+                action->state.holding = true;
+                action->state.state = MYEVENT_STATE_DOWN_OTHER;
+                break;
 
-        EMIT(action);
+             case MYEVENT_STATE_UP:
+             case MYEVENT_STATE_UP_END:
+                action->state.state = MYEVENT_STATE_UP_OTHER;
+                break;
 
-        // TODO: this abuses _IDLE as event *after* other key is processed
-        if( current && action->state.state == MYEVENT_STATE_UP_OTHER ){
-            _myevent_idle( action );
+             default:
+                continue;
+            }
+
+            action->state.complete = true;
+            dprintf("myevent_end_foreign edata=%u\n", action->data );
+
+            EMIT(action);
+
+            // TODO: this abuses _IDLE as event *after* other key is processed
+            if( current && action->state.state == MYEVENT_STATE_UP_OTHER ){
+                _myevent_idle( action );
+            }
+
+        } else {
+            break;
         }
     }
+
+    _in_foreign_pre = false;
 }
+
 
 bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
 {
@@ -121,6 +159,7 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
                 _myevent_idle( action );
             }
 
+            action->state.pressed = timer_read();
             ++(action->state.count);
             action->state.state = MYEVENT_STATE_DOWN;
             action->state.uptimeout = 0;
@@ -374,13 +413,17 @@ void myevent_taphold_event ( myevent_action_t *action )
      case MYEVENT_STATE_UP:
         if( tdata->state == MYEVENT_TAPHOLD_NONE ){
             dprintf("myevent_taphold edata=%u tap/tap\n", action->data );
-            // TODO: should push to a queue and have myevent_end_foreign
-            // flush it in correct order. For now we just swap the call
-            // order to cover the most common cases.
-            (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
-            myevent_end_foreign(action);
-            (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
+            // call _UP_OTHER in correct order:
+            myevent_end_foreign( NULL );
         }
+
+        break;
+
+     case MYEVENT_STATE_UP_OTHER:
+        (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
+        (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
+
+        tdata->state = MYEVENT_TAPHOLD_NONE;
 
         break;
 

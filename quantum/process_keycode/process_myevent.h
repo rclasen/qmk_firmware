@@ -83,6 +83,7 @@ enum myevent_state {
 
 typedef struct {
     enum myevent_state state;
+    uint16_t pressed;   // time off last press
     bool holding;   // ran into DOWN_END/_OTHER
     bool complete;  // taping completed
     uint8_t count;
