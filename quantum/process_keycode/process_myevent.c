@@ -160,9 +160,13 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
                 myevent_end_foreign(NULL);
             }
         }
+
+        // tell QMK to run other hooks:
+        return true;
     }
 
-    return true;
+    // myevent key was processed:
+    return false;
 }
 
 void myevent_matrix_scan(void)
@@ -174,6 +178,7 @@ void myevent_matrix_scan(void)
 
         switch(action->state.state){
          case MYEVENT_STATE_IDLE:
+            // don't update max
             continue;
 
          case MYEVENT_STATE_DOWN:
@@ -326,6 +331,8 @@ void myevent_oneshot_mod ( myevent_oneshot_action_t action, void *odata )
 /************************************************************
  * taphold
  */
+
+// TODO: move myevent_end_foreign calls to layer/mod implementations
 
 void myevent_taphold_event ( myevent_action_t *action )
 {
