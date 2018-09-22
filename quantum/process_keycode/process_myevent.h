@@ -86,7 +86,6 @@ typedef struct {
     bool holding;   // ran into DOWN_END/_OTHER
     bool complete;  // taping completed
     uint8_t count;
-    uint16_t taptimer;
     uint16_t uptimer;
     uint16_t uptimeout;
 } myevent_state_t;

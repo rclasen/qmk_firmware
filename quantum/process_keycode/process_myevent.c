@@ -15,6 +15,7 @@ static int8_t _myevent_highest = MYEVENT_NONE;
 
 // index of ongoing myevent tapping action:
 static int8_t _myevent_current = MYEVENT_NONE;
+static uint16_t _myevent_taptimer;
 
 // return to idle state, cleanup everything
 static void _myevent_idle( myevent_action_t *action )
@@ -126,7 +127,7 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
 
             EMIT(action);
 
-            action->state.taptimer = timer_read();
+            _myevent_taptimer = timer_read();
 
         } else if( action->state.state != MYEVENT_STATE_IDLE ){
             bool done = true;
@@ -144,7 +145,6 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
             }
 
             if( ! action->state.holding ){
-                action->state.taptimer = timer_read();
                 done = false;
             }
 
@@ -182,7 +182,7 @@ void myevent_matrix_scan(void)
             continue;
 
          case MYEVENT_STATE_DOWN:
-            if( timer_elapsed(action->state.taptimer) > MYEVENT_TAPPING_TIMEOUT ){
+            if( timer_elapsed(_myevent_taptimer) > MYEVENT_TAPPING_TIMEOUT ){
                 dprintf("myevent_scan edata=%u idx=%d oldstate=%d tap timeout\n",
                         action->data, i, action->state.state );
 
@@ -195,7 +195,7 @@ void myevent_matrix_scan(void)
             break;
 
          case MYEVENT_STATE_UP:
-            if( timer_elapsed(action->state.taptimer) > MYEVENT_TAPPING_TIMEOUT ){
+            if( timer_elapsed(_myevent_taptimer) > MYEVENT_TAPPING_TIMEOUT ){
                 dprintf("myevent_scan edata=%u idx=%d oldstate=%d tap timeout\n",
                         action->data, i, action->state.state );
 
