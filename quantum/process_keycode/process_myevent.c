@@ -43,6 +43,7 @@ void myevent_clear(void)
     }
 
     _myevent_highest = MYEVENT_NONE;
+    _myevent_current = MYEVENT_NONE;
 }
 
 // end tapping when foreign key is pressed
@@ -50,6 +51,7 @@ void myevent_clear(void)
 void myevent_end_foreign ( myevent_action_t *current )
 {
     // TODO: avoid recursion
+    // TODO: process action sorted by time of down event
     for( int8_t i = 0; i <= _myevent_highest; ++i ){
         myevent_action_t *action = &myevent_actions[i];
 
@@ -92,19 +94,31 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
         if( idx > _myevent_highest )
             _myevent_highest = idx;
 
-        if( _myevent_current != MYEVENT_NONE &&
-                _myevent_current != idx ){
-                myevent_actions[idx].state.complete = true;
-        }
-
-        _myevent_current = idx;
-
         if( record->event.pressed ){
             dprintf("myevent_record edata=%u idx=%d oldstate=%d oldcount=%d down\n",
                     action->data, idx, action->state.state, action->state.count );
 
-            if( action->state.complete )
+            if( _myevent_current != MYEVENT_NONE &&
+                    _myevent_current != idx ){
+
+                myevent_action_t *old = &myevent_actions[_myevent_current];
+
+                if( ! old->state.complete && old->state.count ){
+
+                    dprintf("myevent_record edata=%u idx=%d tap other\n",
+                            old->data, _myevent_current );
+
+                    old->state.complete = true;
+                }
+            }
+            _myevent_current = idx;
+
+            if( action->state.complete ){
+                dprintf("myevent_record edata=%u idx=%d tap restart\n",
+                        action->data, idx );
+                // TODO: verify
                 _myevent_idle( action );
+            }
 
             ++(action->state.count);
             action->state.state = MYEVENT_STATE_DOWN;
@@ -246,6 +260,9 @@ void myevent_oneshot_event ( myevent_action_t *action )
         break;
 
      case MYEVENT_STATE_IDLE:
+        // _OTHER is triggered *before* the other key is registerd
+        // matrix_scan runs after this, it might get the exact order wrong
+        // TODO: run this from an event immediately *after* other key is processed
         if( action->state.count == MYEVENT_ONESHOT_TOGGLE ){
             dprintf("myevent_oneshot edata=%u locked\n", action->data );
 
@@ -270,6 +287,7 @@ void myevent_oneshot_layer ( myevent_oneshot_action_t action, void *odata )
 {
     myevent_oneshot_layer_data_t *ldata = (myevent_oneshot_layer_data_t *)odata;
 
+    // TODO: layer might get applied to multiple myevent keys pressed in quick sequence
     switch(action){
      case MYEVENT_ONESHOT_START:
         dprintf("myevent_oneshot_layer start\n");
@@ -317,8 +335,10 @@ void myevent_taphold_event ( myevent_action_t *action )
      case MYEVENT_STATE_DOWN:
         if( action->state.count > 1 ){
             dprintf("myevent_taphold edata=%u tap/hold\n", action->data );
+            // release key that was send previously
             (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
             myevent_end_foreign(action);
+            // 'hold' the tap key:
             (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
             tdata->state = MYEVENT_TAPHOLD_TAP;
         }
@@ -347,9 +367,12 @@ void myevent_taphold_event ( myevent_action_t *action )
      case MYEVENT_STATE_UP:
         if( tdata->state == MYEVENT_TAPHOLD_NONE ){
             dprintf("myevent_taphold edata=%u tap/tap\n", action->data );
+            // TODO: should push to a queue and have myevent_end_foreign
+            // flush it in correct order. For now we just swap the call
+            // order to cover the most common cases.
             (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
             myevent_end_foreign(action);
-            tdata->state = MYEVENT_TAPHOLD_TAP;
+            (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
         }
 
         break;
