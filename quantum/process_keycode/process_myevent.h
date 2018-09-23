@@ -68,24 +68,46 @@ void myevent_matrix_scan(void);
  * internal structures
  */
 
-// *_END -> tapping timeout
-// *_OTHER -> tapping end by foreign key pressed
-enum myevent_state {
-    MYEVENT_STATE_IDLE = 0,     // next: DOWN
-    MYEVENT_STATE_DOWN,         // next: _OTHER/_END
-    MYEVENT_STATE_DOWN_OTHER,   // next: UP
-    MYEVENT_STATE_DOWN_END,     // next: UP
-    MYEVENT_STATE_UP,           // next: _OTHER/_END/_TIMER
-    MYEVENT_STATE_UP_OTHER,     // next: IDLE
-    MYEVENT_STATE_UP_END,       // next: IDLE/_OTHER/_TIMER
-    MYEVENT_STATE_UP_TIMER,     // next: IDLE
-};
+// key state:
+typedef enum {
+    myevent_pos_down   = 0,
+    myevent_pos_up     = 1
+} myevent_position_t;
+
+// foreign key relation:
+typedef enum {
+    myevent_other_none    = 0,
+    myevent_other_pre     = 1,
+    myevent_other_post    = 2,
+    myevent_other_src     = 3
+} myevent_other_t;
+
+// what changed:
+typedef enum {
+    myevent_change_active,
+    myevent_change_position,
+    myevent_change_tap_done,
+    myevent_change_up_done,
+    myevent_change_other,
+} myevent_change_t;
+
+typedef union {
+        uint8_t raw;
+        // all flags are reset on down event
+        struct {
+            bool active:1;      // tapping/handling ongoing
+            myevent_position_t position:1;   // up/down
+            bool tap_done:1;    // ran into tapping timeout
+            bool up_done:1;     // ran into uptimeout
+            myevent_other_t  other:2;
+            bool holding:1;     // ran into DOWN_END/_OTHER
+            bool complete:1;    // taping completed
+        };
+} myevent_flags_t;
 
 typedef struct {
-    enum myevent_state state;
+    myevent_flags_t flags;
     uint16_t pressed;   // time off last press
-    bool holding;   // ran into DOWN_END/_OTHER
-    bool complete;  // taping completed
     uint8_t count;
     uint16_t uptimer;
     uint16_t uptimeout;
@@ -101,7 +123,7 @@ typedef struct {
 struct myevent_action_s;
 typedef struct myevent_action_s myevent_action_t;
 
-typedef void (*myevent_fn_state_t)( myevent_action_t *action );
+typedef void (*myevent_fn_state_t)( myevent_action_t *action, myevent_change_t change );
 
 struct myevent_action_s {
     myevent_state_t state;
@@ -121,7 +143,8 @@ extern myevent_action_t myevent_actions[];
 void myevent_clear(void);
 
 // for custom actions: tell the backend that a foreign key was pressed
-void myevent_end_foreign ( myevent_action_t *current );
+void myevent_foreign_pre( myevent_action_t *current );
+void myevent_foreign_post( myevent_action_t *current );
 
 /************************************************************
  *
@@ -147,15 +170,17 @@ typedef void (*myevent_oneshot_fn_t)( myevent_oneshot_action_t action, void *oda
 typedef struct {
     myevent_oneshot_fn_t fn;
     void *data;
+    bool active;
 } myevent_oneshot_data_t;
 
-void myevent_oneshot_event ( myevent_action_t *action );
+void myevent_oneshot_event ( myevent_action_t *action, myevent_change_t change );
 
 #define MYEVENT_ONESHOT(fname, odata) { \
     .fn_state       = myevent_oneshot_event, \
     .data           = (void*)&( (myevent_oneshot_data_t) { \
             .fn = fname, \
             .data = odata, \
+            .active = false, \
             } ), \
 }
 
@@ -227,7 +252,7 @@ typedef struct {
     void *data;
 } myevent_taphold_data_t;
 
-void myevent_taphold_event ( myevent_action_t *action );
+void myevent_taphold_event ( myevent_action_t *action, myevent_change_t change );
 
 #define MYEVENT_TAPHOLD(fname, tdata) { \
     .fn_state       = myevent_taphold_event, \

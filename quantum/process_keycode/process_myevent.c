@@ -5,9 +5,19 @@
 #define IS_MYEVENT(kc)  ( (kc >= KC_MYEVENT_FIRST) \
             && (kc <= KC_MYEVENT_LAST ) )
 
-#define EMIT(action) if(action->fn_state){ \
-    dprintf("myevent: edata=%u state=%d holding=%d count=%d\n", action->data, action->state.state, action->state.holding, action->state.count); \
-    (*action->fn_state)( action ); \
+#define EMIT(action, change) if(action->fn_state){ \
+    dprintf("myevent: edata=%u change=%d count=%d h=%d c=%d a=%d p=%d t=%d u=%d o=%d\n", \
+            action->data, \
+            change, \
+            action->state.count, \
+            action->state.flags.holding, \
+            action->state.flags.complete, \
+            action->state.flags.active, \
+            action->state.flags.position, \
+            action->state.flags.tap_done, \
+            action->state.flags.up_done, \
+            action->state.flags.other); \
+    (*action->fn_state)( action, change ); \
 }
 
 // index of highest used myevent action:
@@ -20,11 +30,11 @@ static uint16_t _myevent_taptimer;
 // return to idle state, cleanup everything
 static void _myevent_idle( myevent_action_t *action )
 {
-    action->state.state = MYEVENT_STATE_IDLE;
-    EMIT(action);
+    action->state.flags.raw = 0;
+    EMIT(action, myevent_change_active );
 
-    action->state.holding = false;
-    action->state.complete = false;
+    action->state.flags.holding = false;
+    action->state.flags.complete = false;
     action->state.count = 0;
 }
 
@@ -36,7 +46,7 @@ void myevent_clear(void)
     for( int8_t i = 0; i <= _myevent_highest; ++i ){
         myevent_action_t *action = &myevent_actions[i];
 
-        if( action->state.state == MYEVENT_STATE_IDLE )
+        if( ! action->state.flags.active )
             continue;
 
         dprintf("myevent_clear edata=%u\n", action->data );
@@ -48,9 +58,9 @@ void myevent_clear(void)
 }
 
 // end tapping when foreign key is pressed
-// foreign = no modifier, no tapping. 
+// foreign = no modifier, no tapping.
 static bool _in_foreign_pre = false;
-void myevent_end_foreign ( myevent_action_t *current )
+void myevent_foreign_pre( myevent_action_t *current )
 {
     if( _in_foreign_pre )
         return;
@@ -62,65 +72,70 @@ void myevent_end_foreign ( myevent_action_t *current )
         uint16_t maxage = 0;
         myevent_action_t *action = NULL;
 
-        // find oldest index
+        // find oldest down event
         for( int8_t i = 0; i <= _myevent_highest; ++i ){
             myevent_action_t *this = &myevent_actions[i];
 
-            if( current == this )
-                continue;
+            if( this->state.flags.active
+                    && this->state.flags.other == myevent_other_none ){
 
-            switch( this->state.state ){
-             case MYEVENT_STATE_DOWN:
-             case MYEVENT_STATE_UP:
-             case MYEVENT_STATE_UP_END:
-                {
-                    uint16_t age = now - this->state.pressed;
+                uint16_t age = now - this->state.pressed;
 
-                    if( age > maxage ){
-                        maxage = age;
-                        action = this;
-                    }
+                if( age > maxage ){
+                    maxage = age;
+                    action = this;
                 }
-
-                break;
-
-             default:
-                break;
             }
         }
 
         if( action ){
-            switch( action->state.state ){
-             case MYEVENT_STATE_DOWN:
-                action->state.holding = true;
-                action->state.state = MYEVENT_STATE_DOWN_OTHER;
-                break;
+            dprintf("myevent_foreign_pre edata=%u\n", action->data );
 
-             case MYEVENT_STATE_UP:
-             case MYEVENT_STATE_UP_END:
-                action->state.state = MYEVENT_STATE_UP_OTHER;
-                break;
+            if( action == current ){
+                action->state.flags.other = myevent_other_src;
 
-             default:
-                continue;
+            } else {
+                action->state.flags.complete = true;
+                if( action->state.flags.position == myevent_pos_down )
+                    action->state.flags.holding = true;
+                action->state.flags.other = myevent_other_pre;
+
             }
 
-            action->state.complete = true;
-            dprintf("myevent_end_foreign edata=%u\n", action->data );
+            EMIT(action, myevent_change_other);
 
-            EMIT(action);
-
-            // TODO: this abuses _IDLE as event *after* other key is processed
-            if( current && action->state.state == MYEVENT_STATE_UP_OTHER ){
-                _myevent_idle( action );
-            }
-
-        } else {
+        } else { // no events left, exit loop
             break;
         }
     }
 
     _in_foreign_pre = false;
+}
+
+static bool _in_foreign_post = false;
+void myevent_foreign_post( myevent_action_t *current )
+{
+    if( _in_foreign_post )
+        return;
+    _in_foreign_post = true;
+
+    // TODO: process action sorted by time of down event
+    for( int8_t i = 0; i <= _myevent_highest; ++i ){
+        myevent_action_t *action = &myevent_actions[i];
+
+        if( current == action )
+            continue;
+
+        if( action->state.flags.other == myevent_other_pre ){
+            action->state.flags.other = myevent_other_post;
+
+            dprintf("myevent_foreign_post edata=%u idx=%d\n", action->data, i );
+
+            EMIT(action, myevent_change_other);
+        }
+    }
+
+    _in_foreign_post = false;
 }
 
 
@@ -134,56 +149,58 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
             _myevent_highest = idx;
 
         if( record->event.pressed ){
-            dprintf("myevent_record edata=%u idx=%d oldstate=%d oldcount=%d down\n",
-                    action->data, idx, action->state.state, action->state.count );
+            dprintf("myevent_record edata=%u idx=%d oldcount=%d down\n",
+                    action->data, idx, action->state.count );
 
             if( _myevent_current != MYEVENT_NONE &&
                     _myevent_current != idx ){
 
                 myevent_action_t *old = &myevent_actions[_myevent_current];
 
-                if( ! old->state.complete && old->state.count ){
+                if( ! old->state.flags.complete && old->state.count ){
 
                     dprintf("myevent_record edata=%u idx=%d tap other\n",
                             old->data, _myevent_current );
 
-                    old->state.complete = true;
+                    old->state.flags.complete = true;
                 }
             }
             _myevent_current = idx;
 
-            if( action->state.complete ){
+            if( action->state.flags.complete ){
                 dprintf("myevent_record edata=%u idx=%d tap restart\n",
                         action->data, idx );
                 // TODO: verify
                 _myevent_idle( action );
             }
 
+            action->state.flags.raw = 0;
+            action->state.flags.active = true;
             action->state.pressed = timer_read();
             ++(action->state.count);
-            action->state.state = MYEVENT_STATE_DOWN;
             action->state.uptimeout = 0;
 
-            EMIT(action);
+            EMIT(action, myevent_change_position);
 
             _myevent_taptimer = timer_read();
 
-        } else if( action->state.state != MYEVENT_STATE_IDLE ){
+        } else if( action->state.flags.active ){
             bool done = true;
 
-            dprintf("myevent_record edata=%u idx=%d oldstate=%d up\n",
-                    action->data, idx, action->state.state);
+            dprintf("myevent_record edata=%u idx=%d up\n",
+                    action->data, idx);
 
-            action->state.state = MYEVENT_STATE_UP;
+            action->state.flags.position = myevent_pos_up;
+            action->state.flags.other = myevent_other_none;
 
-            EMIT(action);
+            EMIT(action, myevent_change_position);
 
             if( action->state.uptimeout > 0 ){
                 action->state.uptimer = timer_read();
                 done = false;
             }
 
-            if( ! action->state.holding ){
+            if( ! action->state.flags.holding ){
                 done = false;
             }
 
@@ -196,7 +213,7 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
 
             if( _myevent_highest != MYEVENT_NONE ){
                 _myevent_current = MYEVENT_NONE;
-                myevent_end_foreign(NULL);
+                myevent_foreign_pre( NULL );
             }
         }
 
@@ -215,61 +232,68 @@ void myevent_matrix_scan(void)
     for( int8_t i = 0; i <= _myevent_highest; ++i ){
         myevent_action_t *action = &myevent_actions[i];
 
-        switch(action->state.state){
-         case MYEVENT_STATE_IDLE:
-            // don't update max
+        if( ! action->state.flags.active )
             continue;
 
-         case MYEVENT_STATE_DOWN:
-            if( timer_elapsed(_myevent_taptimer) > MYEVENT_TAPPING_TIMEOUT ){
-                dprintf("myevent_scan edata=%u idx=%d oldstate=%d tap timeout\n",
-                        action->data, i, action->state.state );
+        max = i;
 
-                action->state.holding = true;
-                action->state.complete = true;
-                action->state.state = MYEVENT_STATE_DOWN_END;
-                EMIT( action );
-            }
-
-            break;
-
-         case MYEVENT_STATE_UP:
-            if( timer_elapsed(_myevent_taptimer) > MYEVENT_TAPPING_TIMEOUT ){
-                dprintf("myevent_scan edata=%u idx=%d oldstate=%d tap timeout\n",
-                        action->data, i, action->state.state );
-
-                action->state.complete = true;
-                action->state.state = MYEVENT_STATE_UP_END;
-                EMIT( action );
-            }
-            break;
-
-         case MYEVENT_STATE_UP_END:
-            if( action->state.uptimeout ){
-                if( timer_elapsed(action->state.uptimer) > action->state.uptimeout ){
-                    dprintf("myevent_scan edata=%u idx=%d oldstate=%d uptimeout=%d\n",
-                            action->data, i, action->state.state, action->state.uptimeout );
-
-                    action->state.state = MYEVENT_STATE_UP_TIMER;
-                    EMIT(action);
-                }
-
-            } else {
-                _myevent_idle( action );
-            }
-
-            break;
-
-         case MYEVENT_STATE_UP_TIMER:
-         case MYEVENT_STATE_UP_OTHER:
-            _myevent_idle( action );
-            break;
-
-         default:
-            break;
+        if( action->state.flags.other == myevent_other_pre ){
+            dprintf("myevent_scan edata=%u idx=%d other_post\n",
+                    action->data, i );
+            action->state.flags.other = myevent_other_post;
+            EMIT(action, myevent_change_other );
         }
 
-        max = i;
+        if( ! action->state.flags.tap_done
+                && ( action->state.flags.other == myevent_other_none
+                    || action->state.flags.other == myevent_other_src )
+                && timer_elapsed(_myevent_taptimer) > MYEVENT_TAPPING_TIMEOUT ){
+
+            dprintf("myevent_scan edata=%u idx=%d tap timeout\n",
+                    action->data, i);
+
+            action->state.flags.tap_done = true;
+            action->state.flags.complete = true;
+            if( action->state.flags.position == myevent_pos_down )
+                action->state.flags.holding = true;
+
+            EMIT( action, myevent_change_tap_done );
+
+        }
+
+        if( action->state.flags.position == myevent_pos_up ){
+            bool cleanup = false;
+
+            if( action->state.flags.other == myevent_other_post
+                    || ( action->state.flags.other == myevent_other_src
+                        && action->state.flags.tap_done )){
+
+                cleanup = true;
+
+            } else if( action->state.uptimeout ){
+                    if( timer_elapsed(action->state.uptimer) > action->state.uptimeout ){
+
+                        dprintf("myevent_scan edata=%u idx=%d uptimeout=%d\n",
+                                action->data, i, action->state.uptimeout );
+
+                        action->state.flags.up_done = true;
+                        EMIT(action, myevent_change_up_done);
+
+                        cleanup = true;
+                    }
+
+            } else if( action->state.flags.tap_done ){
+                cleanup = true;
+            }
+
+            if( cleanup ){
+                dprintf("myevent_scan edata=%u idx=%d idle\n",
+                        action->data, i);
+                _myevent_idle( action );
+            }
+        }
+
+
     }
 
     _myevent_highest = max;
@@ -279,46 +303,65 @@ void myevent_matrix_scan(void)
  * oneshot
  */
 
-void myevent_oneshot_event ( myevent_action_t *action )
+void myevent_oneshot_event ( myevent_action_t *action, myevent_change_t change )
 {
     myevent_oneshot_data_t *odata = (myevent_oneshot_data_t *)action->data;
+    bool cleanup = false;
 
-    switch(action->state.state){
-     case MYEVENT_STATE_DOWN:
-        if( action->state.count == 1 ){
-            dprintf("myevent_oneshot edata=%u start\n", action->data );
-            (*odata->fn)( MYEVENT_ONESHOT_START, odata->data );
+    switch( change ){
+     case myevent_change_position:
+        if( action->state.flags.position == myevent_pos_down ){
+            if( action->state.flags.other == myevent_other_none
+                    && ! action->state.flags.tap_done
+                    && action->state.count == 1 ){
+
+                dprintf("myevent_oneshot edata=%u start\n", action->data );
+                (*odata->fn)( MYEVENT_ONESHOT_START, odata->data );
+                odata->active = true;
+            }
+
+        } else { // up
+            if( action->state.flags.holding ){
+                dprintf("myevent_oneshot edata=%u clear/hold\n", action->data );
+                (*odata->fn)( MYEVENT_ONESHOT_STOP, odata->data );
+                odata->active = false;
+
+            } else if( action->state.count == 1 ){
+                dprintf("myevent_oneshot edata=%u oneshot\n", action->data );
+                action->state.uptimeout = MYEVENT_ONESHOT_TIMEOUT;
+            }
         }
 
         break;
 
-     case MYEVENT_STATE_UP:
-        if( action->state.holding )
-            break;
+     case myevent_change_other:
+        if( action->state.flags.position == myevent_pos_up
+                && action->state.flags.other == myevent_other_post ){
 
-        if( action->state.count == 1 ){
-            dprintf("myevent_oneshot edata=%u oneshot\n", action->data );
-            action->state.uptimeout = MYEVENT_ONESHOT_TIMEOUT;
+            cleanup = true;
         }
 
         break;
 
-     case MYEVENT_STATE_IDLE:
-        // _OTHER is triggered *before* the other key is registerd
-        // matrix_scan runs after this, it might get the exact order wrong
-        // TODO: run this from an event immediately *after* other key is processed
-        if( action->state.count == MYEVENT_ONESHOT_TOGGLE ){
-            dprintf("myevent_oneshot edata=%u locked\n", action->data );
-
-        } else {
-            dprintf("myevent_oneshot edata=%u clear\n", action->data );
-            (*odata->fn)( MYEVENT_ONESHOT_STOP, odata->data );
-        }
+     case myevent_change_up_done:
+        cleanup = true;
 
         break;
 
      default:
         break;
+
+    }
+
+    if( cleanup ){
+        if( action->state.count == MYEVENT_ONESHOT_TOGGLE ){
+            dprintf("myevent_oneshot edata=%u locked\n", action->data );
+
+        } else if( odata->active ){
+            dprintf("myevent_oneshot edata=%u clear/oneshot\n", action->data );
+            (*odata->fn)( MYEVENT_ONESHOT_STOP, odata->data );
+            odata->active = false;
+        }
     }
 }
 
@@ -368,81 +411,93 @@ void myevent_oneshot_mod ( myevent_oneshot_action_t action, void *odata )
 }
 
 /************************************************************
- * taphold
+ * Taphold
  */
 
-// TODO: move myevent_end_foreign calls to layer/mod implementations
+// TODO: move myevent_foreign calls to layer/mod implementations
 
-void myevent_taphold_event ( myevent_action_t *action )
+void myevent_taphold_event ( myevent_action_t *action, myevent_change_t change )
 {
     myevent_taphold_data_t *tdata = (myevent_taphold_data_t *)action->data;
 
-    switch(action->state.state){
-     case MYEVENT_STATE_DOWN:
-        if( action->state.count > 1 ){
-            dprintf("myevent_taphold edata=%u tap/hold\n", action->data );
-            // release key that was send previously
-            (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
-            myevent_end_foreign(action);
-            // 'hold' the tap key:
-            (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
-            tdata->state = MYEVENT_TAPHOLD_TAP;
+    switch( change ){
+     case myevent_change_position:
+        if( action->state.flags.position == myevent_pos_down ){
+
+            if( action->state.count > 1 ){
+                dprintf("myevent_taphold edata=%u tap/next\n", action->data );
+                // release key that was send previously
+                (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
+                // 'hold' the tap key:
+                (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
+                tdata->state = MYEVENT_TAPHOLD_TAP;
+            }
+
+        } else { // up
+
+            switch( tdata->state ){
+             case MYEVENT_TAPHOLD_HOLD:
+                dprintf("myevent_taphold edata=%u hold/clear\n", action->data );
+                (*tdata->fn)( MYEVENT_TAPHOLD_HOLD_STOP, tdata->data );
+                tdata->state = MYEVENT_TAPHOLD_NONE;
+                break;
+
+             case MYEVENT_TAPHOLD_TAP:
+                dprintf("myevent_taphold edata=%u tap/clear\n", action->data );
+                (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
+                tdata->state = MYEVENT_TAPHOLD_NONE;
+                break;
+
+             case MYEVENT_TAPHOLD_NONE:
+                if( action->state.count == 1 ){
+
+                    dprintf("myevent_taphold edata=%u tap/tap\n", action->data );
+                    myevent_foreign_pre(action);
+                }
+                break;
+
+             default:
+                break;
+            }
         }
 
         break;
 
-     case MYEVENT_STATE_DOWN_END:
-        if( action->state.count == 1 ){
-            dprintf("myevent_taphold edata=%u hold\n", action->data );
-            (*tdata->fn)( MYEVENT_TAPHOLD_HOLD_START, tdata->data );
-            tdata->state = MYEVENT_TAPHOLD_HOLD;
+     case myevent_change_tap_done:
+        if( action->state.flags.position == myevent_pos_down ){
+            if( action->state.count == 1 ){
+                dprintf("myevent_taphold edata=%u hold\n", action->data );
+                (*tdata->fn)( MYEVENT_TAPHOLD_HOLD_START, tdata->data );
+                tdata->state = MYEVENT_TAPHOLD_HOLD;
+            }
         }
 
         break;
 
-     case MYEVENT_STATE_DOWN_OTHER:
-        if( tdata->state != MYEVENT_TAPHOLD_HOLD ){
-            dprintf("myevent_taphold edata=%u tap/other\n", action->data );
-            myevent_end_foreign(action);
-            (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
-            tdata->state = MYEVENT_TAPHOLD_TAP;
+     case myevent_change_other:
+        if( action->state.flags.position == myevent_pos_down ){
+            if( action->state.flags.other ==  myevent_other_pre
+                    && tdata->state == MYEVENT_TAPHOLD_NONE ){
+
+                dprintf("myevent_taphold edata=%u tap/other\n", action->data );
+                myevent_foreign_pre(action);
+                (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
+                tdata->state = MYEVENT_TAPHOLD_TAP;
+                myevent_foreign_post(action);
+            }
+
+        } else { // up
+            if( action->state.flags.other ==  myevent_other_src ){
+                if( tdata->state == MYEVENT_TAPHOLD_NONE ){
+                    dprintf("myevent_taphold edata=%u tap/tap2\n", action->data );
+                    (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
+                    (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
+                    myevent_foreign_post(action);
+                    tdata->state = MYEVENT_TAPHOLD_NONE;
+                }
+            }
         }
 
-        break;
-
-     case MYEVENT_STATE_UP:
-        if( tdata->state == MYEVENT_TAPHOLD_NONE ){
-            dprintf("myevent_taphold edata=%u tap/tap\n", action->data );
-            // call _UP_OTHER in correct order:
-            myevent_end_foreign( NULL );
-        }
-
-        break;
-
-     case MYEVENT_STATE_UP_OTHER:
-        (*tdata->fn)( MYEVENT_TAPHOLD_TAP_START, tdata->data );
-        (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
-
-        tdata->state = MYEVENT_TAPHOLD_NONE;
-
-        break;
-
-     case MYEVENT_STATE_IDLE:
-        switch( tdata->state ){
-         case MYEVENT_TAPHOLD_TAP:
-            dprintf("myevent_taphold edata=%u tap/clear\n", action->data );
-            (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
-            break;
-
-         case MYEVENT_TAPHOLD_HOLD:
-            dprintf("myevent_taphold edata=%u hold/clear\n", action->data );
-            (*tdata->fn)( MYEVENT_TAPHOLD_HOLD_STOP, tdata->data );
-            break;
-
-         default:
-            break;
-        }
-        tdata->state = MYEVENT_TAPHOLD_NONE;
 
         break;
 
