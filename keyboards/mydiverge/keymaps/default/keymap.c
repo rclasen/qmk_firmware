@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XM_GHK,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XM_GHK,
         KC_TAB,  TX_A,    TX_S,    TX_D,    TX_F,    KC_G,    S_INS,
         XM_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_APP,
-                 KC_TAB,  XL_MOS,  XM_LALT, XM_LCTL,     XM_LSFT, XL_NAV,  KC_ESC,
+                 KC_TAB,  XL_MOS,  KC_NO,   KC_NO,       XM_LSFT, XL_NAV,  KC_ESC,
 
         // right hand
                                                                            BL_TOGG,
