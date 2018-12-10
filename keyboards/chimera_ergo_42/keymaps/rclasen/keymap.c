@@ -35,11 +35,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        .-----------------------------------------.
  *        |   y  |   u  |   i  |   o  |   p  | vold |
  *        +------+------+------+------+------+------|
- *        |   j  |   k  |   k  |   l  | COMP | bspc |
+ *        |   j  |   k  |   k  |   l  | COMP | ENTER |
  *        +------+------+------+------+------+------|
- *        |   n  |   m  |   ,  |   ,  | enter|      |
+ *        |   n  |   m  |   ,  |   .  | enter|      |
  * .------+------+------+---------------------------'
- * | space| fSYM | fMOS |
+ * | bspc | space| fSYM |
  * '--------------------'
  */
 
@@ -52,9 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right hand
                  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_VOLD,
-                 KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP, KC_BSPC,
+                 KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP, KC_ENTER,
                  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,XXXXXXX,
-        KC_SPC,  XL_SYM,  XL_MOS
+        KC_BSPC, KC_SPC,  XL_SYM
  ),
 
 /* keymap: Symbol Layer
