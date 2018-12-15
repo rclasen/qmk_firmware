@@ -2,4 +2,4 @@
 # for your own particular keymap
 
 include myrules.mk
-BACKLIGHT_ENABLE    := yes
+BACKLIGHT_ENABLE    = yes
