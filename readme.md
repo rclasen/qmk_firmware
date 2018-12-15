@@ -23,49 +23,52 @@ Thumb keys are arranged to allow holding 2 of them at once.
 
 The layout tries to eliminate keys where I'd move my wrists too much:
 Even on the "bigger" keyboards (ergodox, ...) I use only few of the
-extra keys.
+extra keys. I'm using the ergodox keymap as "master".
 
 My keymaps (have ASCII art in keymap.c):
 
 * [atreus](/keyboards/myatreus/keymaps/default/) - handwired atreus. Great
-  staggering, but thumb keys are too far up. I could use a bigger angle
+  staggering, but thumb keys are way too far up. I could use a bigger angle
   between the halves and the pinky column a bit futher down, but it's a
   good compromise to be portable (=transporting and setting up split
-  boards somehow feels anoying). Could use 1 or to extra keys.
+  boards somehow feels anoying). Could use 1 or two extra keys.
 
 * [chimera ergo 42](/keyboards/chimera_ergo_42/keymaps/rclasen/) - I love
-  it. Thumb keys are where I need them, staggering is great. Clearly my
-  favourite layout. I'm missing power switches to keep it from draining
-  batterie when transporting it...  and the receive could use some
-  enclosure. Actually, I'm now looking for a wired alternative.
+  it. Thumb keys are where I need them, staggering is great. Has few keys
+  I don't use. Clearly my favourite layout. I'm missing power switches to
+  keep it from draining batterie when transporting it...  and the receiver
+  could use some enclosure. Actually, I'm now looking for a wired
+  alternative to make this a daily driver.
 
 * [dactyl manuform](/keyboards/mydactyform/keymaps/default/) - need to try.
 
 * [diverge3](/keyboards/mydiverge/keymaps/default/) - ported the lets
   split firmware to unikeyboards diverge3. Needs extra pullup resistors to
-  get i2c working - official diverg3 QMK uses serial. Initially staggering
-  felt strange... likely caused by the outermost column. Thumb cluster
-  feels good. Index finger column could be bit further down. Once I
-  ignored the outermost column, I started to love the staggering.
+  get i2c working - official QMK diverge3 uses serial. Initially
+  staggering felt strange... likely caused by the outermost column. Thumb
+  cluster feels good. Index finger column could be a bit further down.
+  Once I started to see the single key that sticks out to the top as
+  separate row, I started to love the staggering. Unfortunately it's with
+  Gateron browns - and I can't stand typing on them. Plate doesn't support
+  top-removal... and I'm too lazy to desolder.
 
-* [ergodox](/keyboards/ergodox_ez/keymaps/rclasen/) - that's what I started
-  with. Still the master for keymap changes. Still my daily driver... but
-  has too many keys I don't use and my tenting stands make it quite
-  unportable. Staggering is too low and the thumb cluster needs
-  improvements. While you can get fitting keycaps, it's still quite
-  limited.
+* [ergodox](/keyboards/ergodox_ez/keymaps/rclasen/) - that's what I
+  started with and it's still my daily driver... but has too many keys I
+  don't use and my tenting stands make it quite unportable. Even without
+  stands it's quite huge. Staggering is too low and the thumb cluster
+  needs improvements. While you can get fitting keycaps, it's still quite
+  limited. It's the master for my keymaps.
 
 * [ergotravel](/keyboards/ergotravel/keymaps/rclasen/) - why on earth is
   the innermost thumb key tilted? It's useless and sacrifies another good
-  thumb key below B. The ergodox staggering is too conservative.
+  thumb key below B. Staggering is like ergodox: Too conservative.
 
 * [iris](/keyboards/iris/keymaps/rclasen/) - built it with 2x1u thumb key
   ... but I don't like the upper position. Unfortunately the thumb key
-  below c and v is too far under my palm for frequent use, too. It's nice
-  to have the thumb keys shifted to the left/right by .5u ... but I'd need
-  have another thumb key next to the '2u key' to make this 'compatible'
-  with my habbits. I do like how much more compact it is vs the
-  ergodox/diverge3.
+  below c and v is a tiny bit too far under my palm for frequent use. It's
+  nice to have the thumb keys shifted by .5u ... but I'd prefer to have
+  them shifted the other direction. Staggering is like ergodox: Too
+  conservative.
 
 * [lets split](/keyboards/lets_split/keymaps/rclasen/) - note that I start
   with the alphas on the outermost columns! While I'm heavily into
@@ -84,11 +87,12 @@ My keymaps (have ASCII art in keymap.c):
   changing posture.
 
 * [orthodox](/keyboards/orthodox/keymaps/rclasen/) - Got it to test the
-  Thumb cluster. Upper thumb row is useless, innermost key is too far
-  away, I'm missing a key below M.
+  Thumb cluster. Upper thumb row is useless and moves the other thumb keys
+  too far down. Bottom thumb keys could move closer to M.
 
 upcoming:
-* if I can get hold of it: minidox
-* custom split... using hybrid atreus/diverge layout
+* if I can get hold of it: minidox, helidox. Both have similar issues
+  as the iris, but both are more compact.
+* wired chimera ergo 42
 * custom "atreus" with bluetooth, bigger angle and moved thumb keys?
 * custom bluetooth split (chimera? something using a blue micro?)
