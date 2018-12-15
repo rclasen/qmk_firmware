@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|
  * |   Z  |   X  |   C  |   V  |   B  | ESC  |
  * |------+------+------+------+------+------|
- * | Tab  | fMOS | LALT | LCTL | LSFT | fNAV |
+ * | Tab  |      |      | fMOS | LSFT | fNAV |
  * '-----------------------------------------'
 
  *        .-----------------------------------------.
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        |------+------+------+------+------+------|
  *        |      |   N  |   M  |   ,  |   .  | ENTER|
  *        |------+------+------+------+------+------|
- *        | BSPC | Space| fSYM | fMOS | RCTL | LGUI |
+ *        | BSPC | Space| fSYM |      | RCTL | LGUI |
  *        '-----------------------------------------'
  */
 
@@ -52,13 +52,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XM_GHK,
         TX_A,    TX_S,    TX_D,    TX_F,    KC_G,    S_INS,
         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_ESC,
-        KC_TAB,  XL_MOS,  KC_NO,   KC_NO,   XM_LSFT, XL_NAV,
+        KC_TAB,  XXXXXXX, XXXXXXX, XL_MOS,  XM_LSFT, XL_NAV,
 
         // right hand
         KC_PSCR, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
         MC_BASE, KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP,
         XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,
-        KC_BSPC, KC_SPACE,XL_SYM,  XL_MOS,  XM_RCTL, XM_LGUI
+        KC_BSPC, KC_SPACE,XL_SYM,  XXXXXXX, XM_RCTL, XM_LGUI
     ),
 
 /* keymap: Symbol Layer
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        |------+------+------+------+------+------|
  *        |      |  :   |  1   |  2   |  3   | ENTER|
  *        |------+------+------+------+------+------|
- *        |      |      |      |  0   |      |      |
+ *        |      |      |  0   |  0   |      |      |
  *        '-----------------------------------------'
  */
 
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS,
        _______, MC_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM,
        _______, KC_COLN, MC_1,    MC_2,    MC_3,    KC_ENTER,
-       _______, _______, _______, KC_0,    _______, _______
+       _______, _______, KC_0,    KC_0,    _______, _______
 ),
 
 /* keymap: Media and mouse keys

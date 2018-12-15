@@ -1,6 +1,7 @@
 #ifndef MYCONFIG_H
 #define MYDONFIG_H
 
+#undef TAPPING_TERM
 #define TAPPING_TERM 200
 
 #define PREVENT_STUCK_MODIFIERS

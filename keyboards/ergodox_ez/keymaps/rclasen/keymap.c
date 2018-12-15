@@ -13,7 +13,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| sIns |
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |
  * '-+------+------+------+------+------+-------------'
- *   |      | Tab  | fMOS | LALT | LCTL |
+ *   |      | Tab  |      |      | fMOS |
  *   '----------------------------------'
  *                                                    .-------------.
  *                                                    | MENU | right|
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *               | BASE |------+------+------+------+------+--------|
  *               |      |   N  |   M  |   ,  |   .  | Enter| RShift |
  *               '-------------+------+------+------+------+------+-'
- *                             | fSYM | fMOS | RCTL | LGUI |      |
+ *                             | fSYM |      | RCTL | LGUI |      |
  *                             '----------------------------------'
  * .-------------.
  * |  up  | COMP |
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XM_GHK,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XM_GHK,
         KC_TAB,  TX_A,    TX_S,    TX_D,    TX_F,    KC_G,
         XM_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    S_INS,
-        XXXXXXX, KC_TAB,  XL_MOS,  KC_NO,   KC_NO,
+        XXXXXXX, KC_TAB,  XXXXXXX, XXXXXXX, XL_MOS,
                                             // left thumb
                                                      KC_APP,  KC_RIGHT,
                                             XM_LSFT, XL_NAV,  KC_LEFT,
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PSCR, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_VOLD,
                  KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP, XXXXXXX,
         MC_BASE, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,XM_RSFT,
-                          XL_SYM,  XL_MOS,  XM_RCTL, XM_LGUI, XXXXXXX,
+                          XL_SYM,  XXXXXXX, XM_RCTL, XM_LGUI, XXXXXXX,
         // right thum
         KC_UP,   KC_COMP,
         KC_DOWN, KC_BSPC, KC_SPACE,
@@ -161,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |      |------+------+------+------+------+--------|
  *   |      |  :   |  1   |  2   |  3   | Enter|        |
  *   '-------------+------+------+------+------+--------'
- *                 |      |  0   |      |      |      |
+ *                 |  0   |  0   |      |      |      |
  *                 '----------------------------------'
  * .-------------.
  * |      |      |
@@ -188,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS, _______,
                 MC_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, _______,
        _______, KC_COLN, MC_1,    MC_2,    MC_3,    KC_ENTER,_______,
-                         _______, KC_0,    _______, _______, _______,
+                         KC_0,    KC_0,    _______, _______, _______,
        _______, _______,
        _______, _______, _______,
        _______, _______, _______
