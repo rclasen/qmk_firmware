@@ -6,9 +6,9 @@
 
 #define USE_I2C
 
-#define MASTER_LEFT
+// #define MASTER_LEFT
 // #define _MASTER_RIGHT
-// #define EE_HANDS
+#define EE_HANDS
 
 
 #endif
