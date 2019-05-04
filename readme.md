@@ -63,6 +63,9 @@ My keymaps (have ASCII art in keymap.c):
   the innermost thumb key tilted? It's useless and sacrifies another good
   thumb key below B. Staggering is like ergodox: Too conservative.
 
+* [crkbd](/keyboards/crkbd/keymaps/rclasen) - AKA corne/helidox. Has
+  similar issues as the iris, but is more compact.
+
 * [iris](/keyboards/iris/keymaps/rclasen/) - built it with 2x1u thumb key
   ... but I don't like the upper position. Unfortunately the thumb key
   below c and v is a tiny bit too far under my palm for frequent use. It's
@@ -91,8 +94,8 @@ My keymaps (have ASCII art in keymap.c):
   too far down. Bottom thumb keys could move closer to M.
 
 upcoming:
-* if I can get hold of it: minidox, helidox. Both have similar issues
-  as the iris, but both are more compact.
-* wired chimera ergo 42
+* if I can get hold of it: minidox. Has similar issues
+  as the iris, but is more compact.
+* wired chimera ergo 42 - maybe 'jian' by /u/KgOfHedgehogs
 * custom "atreus" with bluetooth, bigger angle and moved thumb keys?
 * custom bluetooth split (chimera? something using a blue micro?)
