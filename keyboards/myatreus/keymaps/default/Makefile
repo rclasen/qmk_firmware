@@ -4,8 +4,5 @@ BOARD	:= myatreus
 MAP	:= default
 FLASH	:= teensy
 
-build:
-	make -C $(TOP) $(BOARD):$(MAP)
+include $(TOP)/mykeymap.mk
 
-$(FLASH) flash:
-	make -C $(TOP) $(BOARD):$(MAP):$(FLASH)

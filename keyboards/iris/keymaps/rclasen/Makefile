@@ -3,9 +3,7 @@ TOP	:= ../../../..
 BOARD	:= iris
 MAP	:= rclasen
 FLASH	:= avrdude
+NAMES	:= left right
 
-build:
-	make -C $(TOP) $(BOARD):$(MAP)
+include $(TOP)/mykeymap.mk
 
-$(FLASH) flash:
-	make -C $(TOP) $(BOARD):$(MAP):$(FLASH)
