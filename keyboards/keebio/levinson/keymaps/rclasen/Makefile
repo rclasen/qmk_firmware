@@ -1,6 +1,6 @@
 
-TOP	:= ../../../..
-BOARD	:= iris
+TOP	:= ../../../../..
+BOARD	:= keebio/levinson
 MAP	:= rclasen
 FLASH	:= avrdude
 NAMES	:= left right

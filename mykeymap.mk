@@ -30,7 +30,7 @@ eeright	:= $(patsubst %,eeright-%,$(filter %right,$(NAMES)))
 eeright: $(eeright)
 eehand: eeleft eeright
 
-splitdir	:= $(TOP)/keyboards/lets_split
+splitdir	:= $(TOP)/quantum/split_common
 
 $(eeleft): eeleft-%:
 	@echo "************ eehand left $(BOARD): $@"

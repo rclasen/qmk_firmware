@@ -258,11 +258,11 @@ void mybacklight_layer( void )
 
 	// finally: set led on/off/brightness
 
+    // avoid using backlight_level(new) as it updates the eeprom
     if( backlight_config.level != new ){
         backlight_set( new );
         backlight_config.level = new;
         backlight_config.enable = new > 0;
-        BACKLIT_DIRTY = true;
 	}
 }
 #endif

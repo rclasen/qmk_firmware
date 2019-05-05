@@ -66,7 +66,7 @@ My keymaps (have ASCII art in keymap.c):
 * [crkbd](/keyboards/crkbd/keymaps/rclasen) - AKA corne/helidox. Has
   similar issues as the iris, but is more compact.
 
-* [iris](/keyboards/iris/keymaps/rclasen/) - built it with 2x1u thumb key
+* [iris](/keyboards/keebio/iris/keymaps/rclasen/) - built it with 2x1u thumb key
   ... but I don't like the upper position. Unfortunately the thumb key
   below c and v is a tiny bit too far under my palm for frequent use. It's
   nice to have the thumb keys shifted by .5u ... but I'd prefer to have
@@ -80,7 +80,7 @@ My keymaps (have ASCII art in keymap.c):
   significantly differnt caps for thumbs! On dox/diverge this is
   accomplished by the gap between bottom row and thumb cluster.
 
-* [levinson](/keyboards/levinson/keymaps/rclasen/) - same as lets split,
+* [levinson](/keyboards/keebio/levinson/keymaps/rclasen/) - same as lets split,
   but with backlight.
 
 * [maltron](/keyboards/maltron/keymaps/default/) - handwired Maltron.
