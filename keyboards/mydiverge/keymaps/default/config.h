@@ -5,11 +5,10 @@
 
 #define USE_I2C
 
-#if 0
-#define _MASTER_RIGHT
-#else
-#define MASTER_LEFT
-#endif
+/* Select hand configuration */
 
+// #define MASTER_LEFT
+// #define MASTER_RIGHT
+#define EE_HANDS
 
 #endif
