@@ -38,7 +38,8 @@ My keymaps (have ASCII art in keymap.c):
   I don't use. Clearly my favourite layout. I'm missing power switches to
   keep it from draining batterie when transporting it...  and the receiver
   could use some enclosure. Actually, I'm now looking for a wired
-  alternative to make this a daily driver.
+  alternative to make this a daily driver. I love how flat it is: I do get
+  along without a wrist rest.
 
 * [dactyl manuform](/keyboards/mydactyform/keymaps/default/) - need to try.
 
@@ -61,24 +62,30 @@ My keymaps (have ASCII art in keymap.c):
 
 * [ergotravel](/keyboards/ergotravel/keymaps/rclasen/) - why on earth is
   the innermost thumb key tilted? It's useless and sacrifies another good
-  thumb key below B. Staggering is like ergodox: Too conservative.
+  thumb key below B. Staggering is like ergodox: Too conservative. Pro
+  micro prevents later access to switches/leds/... and creates extra
+  height.
 
 * [crkbd](/keyboards/crkbd/keymaps/rclasen) - AKA corne/helidox. Has
-  similar issues as the iris, but is more compact.
+  similar issues as the iris, but is more compact. For whatever reason I'm
+  having less issues with the thumb cluster when switching from
+  ergodox/chimera/diverge to crkbd as I have with the iris.
 
 * [iris](/keyboards/keebio/iris/keymaps/rclasen/) - built it with 2x1u thumb key
   ... but I don't like the upper position. Unfortunately the thumb key
   below c and v is a tiny bit too far under my palm for frequent use. It's
   nice to have the thumb keys shifted by .5u ... but I'd prefer to have
   them shifted the other direction. Staggering is like ergodox: Too
-  conservative.
+  conservative. Pro micro prevents later access to switches/leds/... and
+  creates extra height.
 
 * [lets split](/keyboards/lets_split/keymaps/rclasen/) - note that I start
   with the alphas on the outermost columns! While I'm heavily into
   columnar stagger I'm surprised how good I get along with a plain ortho
   layout. Though, my thumbs often loose their homing key -> needs
   significantly differnt caps for thumbs! On dox/diverge this is
-  accomplished by the gap between bottom row and thumb cluster.
+  accomplished by the gap between bottom row and thumb cluster. Pro micro
+  prevents later access to switches/leds/... and creates extra height.
 
 * [levinson](/keyboards/keebio/levinson/keymaps/rclasen/) - same as lets split,
   but with backlight.
@@ -91,7 +98,8 @@ My keymaps (have ASCII art in keymap.c):
 
 * [orthodox](/keyboards/orthodox/keymaps/rclasen/) - Got it to test the
   Thumb cluster. Upper thumb row is useless and moves the other thumb keys
-  too far down. Bottom thumb keys could move closer to M.
+  too far down. Bottom thumb keys could move closer to M. Pro micro
+  prevents later access to switches/leds/... and creates extra height.
 
 upcoming:
 * if I can get hold of it: minidox. Has similar issues
