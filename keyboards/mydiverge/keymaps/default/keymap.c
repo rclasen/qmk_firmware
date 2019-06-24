@@ -45,8 +45,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right hand
                                                                            BL_TOGG,
-                     XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_VOLU,
-                     KC_PSCR, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_VOLD,
+                     XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,
+                     KC_PSCR, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PSCR,
                      MC_BASE, KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP, XXXXXXX,
                      XL_MOS,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,XM_RSFT,
         KC_RALT, KC_BSPC, KC_SPC,      XL_SYM,  XXXXXXX, XM_RCTL, XM_LGUI
@@ -185,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, _______, _______, _______, _______, _______,
        KC_RST,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_RST,
        _______, TX_F6,   TX_F7,   TX_F8,   TX_F9,   KC_F10,  _______,
-       BL_TOGG, KC_F11,  KC_F12,  KC_APP,  KC_PAUS, KC_CAPS, BL_TOGG,
+       BL_TOGG, KC_F11,  KC_F12,  KC_APP,  KC_PSCR, KC_CAPS, BL_TOGG,
                 _______, _______, _______, _______,      _______, _______, _______,
 
        // right hand

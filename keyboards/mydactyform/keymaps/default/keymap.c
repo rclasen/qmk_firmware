@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                      XL_MOS,  XXXXXXX,
 
         // right hand
-                                 KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_VOLD,
+                                 KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PSCR,
                                  KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP, XXXXXXX,
                                  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,XM_RSFT,
                                                    XXXXXXX, XXXXXXX,
@@ -191,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MOS] = KEYMAP(
         KC_RST,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
         _______, TX_F6,   TX_F7,   TX_F8,   TX_F9,   KC_F10,
-        _______, KC_F11,  KC_F12,  KC_APP,  KC_PAUS, KC_CAPS,
+        _______, KC_F11,  KC_F12,  KC_APP,  KC_PSCR, KC_CAPS,
                           _______, _______,
                                                    _______, _______, _______, _______,
                                                                      _______, _______,
