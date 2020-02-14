@@ -108,5 +108,5 @@ upcoming:
 * custom "atreus" with bluetooth, bigger angle and moved thumb keys?
 * custom bluetooth split (chimera? something using a blue micro?)
 
-[incomplete family picture](https://imgur.com/VL68fP6). Some keymap
+[incomplete family picture](https://imgur.com/daPI7GG). Some keymap
 folders have links to individual pictures / build logs.
