@@ -33,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
 
+#define DIODE_DIRECTION COL2ROW
+
 // wiring of each half
 // pro micro / arduino pin labels - see QMKDIR/drivers/avr/pro_micro.h
 //#define MATRIX_ROW_PINS { A0, 15, 14, 16, 10 }

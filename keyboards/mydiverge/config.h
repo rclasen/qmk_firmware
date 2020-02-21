@@ -28,9 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         diverge3
 #define DESCRIPTION     A split keyboard for the cheap makers
 
-// lets_split/matrix.c has DIODE_DIRECTION COL2ROW hardwired...
-// so, hack around this by transposing the keybaord matrix in KEYMAP() // macro
-// TODO: convert to ROW2COL
+#define DIODE_DIRECTION COL2ROW
 
 /* key matrix size */
 // Rows are doubled-up
