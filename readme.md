@@ -33,6 +33,9 @@ My keymaps (have ASCII art in keymap.c):
   good compromise to be portable (=transporting and setting up split
   boards somehow feels anoying). Could use 1 or two extra keys.
 
+* [atreus50](/keyboards/myatreus50/keymaps/default/) - handwired atreus.
+  extra pinky column and thumb key is further down. Need to try.
+
 * [chimera ergo 42](/keyboards/chimera_ergo_42/keymaps/rclasen/) - I love
   it. Thumb keys are where I need them, staggering is great. Has few keys
   I don't use. Clearly my favourite layout. I'm missing power switches to
@@ -52,6 +55,8 @@ My keymaps (have ASCII art in keymap.c):
   separate row, I started to love the staggering. Unfortunately it's with
   Gateron browns - and I can't stand typing on them. Plate doesn't support
   top-removal... and I'm too lazy to desolder.
+
+* [ergodash](/keyboards/ergodash/rev2/keymaps/rclasen/) - need to try.
 
 * [ergodox](/keyboards/ergodox_ez/keymaps/rclasen/) - that's what I
   started with and it's still my daily driver... but has too many keys I
@@ -79,6 +84,8 @@ My keymaps (have ASCII art in keymap.c):
   conservative. Pro micro prevents later access to switches/leds/... and
   creates extra height.
 
+* [kyria](/keyboards/kyria/keymaps/rclasen/) - need to try.
+
 * [lets split](/keyboards/lets_split/keymaps/rclasen/) - note that I start
   with the alphas on the outermost columns! While I'm heavily into
   columnar stagger I'm surprised how good I get along with a plain ortho
@@ -90,6 +97,8 @@ My keymaps (have ASCII art in keymap.c):
 * [levinson](/keyboards/keebio/levinson/keymaps/rclasen/) - same as lets split,
   but with backlight.
 
+* [lily58](/keyboards/lily58/keymaps/rclasen/) - need to try.
+
 * [maltron](/keyboards/maltron/keymaps/default/) - handwired Maltron.
   Thumb cluster is hard to use when resting your palm -> made it
   impossible for me to use it for long enough to get used to the dwells.
@@ -100,13 +109,6 @@ My keymaps (have ASCII art in keymap.c):
   Thumb cluster. Upper thumb row is useless and moves the other thumb keys
   too far down. Bottom thumb keys could move closer to M. Pro micro
   prevents later access to switches/leds/... and creates extra height.
-
-upcoming:
-* if I can get hold of it: minidox. Has similar issues
-  as the iris, but is more compact.
-* wired chimera ergo 42 - maybe 'jian' by /u/KgOfHedgehogs
-* custom "atreus" with bluetooth, bigger angle and moved thumb keys?
-* custom bluetooth split (chimera? something using a blue micro?)
 
 [incomplete family picture](https://imgur.com/daPI7GG). Some keymap
 folders have links to individual pictures / build logs.
