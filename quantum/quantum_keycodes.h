@@ -37,9 +37,9 @@
 #define XXXXXXX KC_NO
 
 enum quantum_keycodes {
-    // Ranges used in shortucuts - not to be used directly
-    QK_TMK                = 0x0000,
-    QK_TMK_MAX            = 0x00FF,
+    // Ranges used in shortcuts - not to be used directly
+    QK_BASIC              = 0x0000,
+    QK_BASIC_MAX          = 0x00FF,
     QK_MODS               = 0x0100,
     QK_LCTL               = 0x0100,
     QK_LSFT               = 0x0200,
@@ -495,6 +495,18 @@ enum quantum_keycodes {
     // Right control, close paren
     KC_RAPC,
 
+    CMB_ON,
+    CMB_OFF,
+    CMB_TOG,
+  
+    MAGIC_SWAP_LCTL_LGUI,
+    MAGIC_SWAP_RCTL_RGUI,
+    MAGIC_UNSWAP_LCTL_LGUI,
+    MAGIC_UNSWAP_RCTL_RGUI,
+    MAGIC_SWAP_CTL_GUI,
+    MAGIC_UNSWAP_CTL_GUI,
+    MAGIC_TOGGLE_CTL_GUI,
+
 #ifdef MYEVENT_ENABLE
     KC_MYEVENT_FIRST,
     KC_MYEVENT_LAST = KC_MYEVENT_FIRST + MYEVENT_MAX,
@@ -599,8 +611,6 @@ enum quantum_keycodes {
 #define KC_DOUBLE_QUOTE KC_DQT
 #define KC_DQUO KC_DQT
 
-#define KC_DELT KC_DELETE // Del key (four letter code)
-
 // Alias for function layers than expand past FN31
 #define FUNC(kc) (QK_FUNCTION | (kc))
 
@@ -646,6 +656,10 @@ enum quantum_keycodes {
 #define AG_SWAP MAGIC_SWAP_ALT_GUI
 #define AG_NORM MAGIC_UNSWAP_ALT_GUI
 #define AG_TOGG MAGIC_TOGGLE_ALT_GUI
+
+#define CG_SWAP MAGIC_SWAP_CTL_GUI
+#define CG_NORM MAGIC_UNSWAP_CTL_GUI
+#define CG_TOGG MAGIC_TOGGLE_CTL_GUI
 
 // GOTO layer - 16 layers max
 // when:

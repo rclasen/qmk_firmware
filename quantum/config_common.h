@@ -132,6 +132,16 @@
         #define F7 PINDEF(F, 7)
     #endif
 
+  #ifndef __ASSEMBLER__
+    #define _PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + (p >> PORT_SHIFTER) + offset)
+    // Port X Input Pins Address
+    #define PINx_ADDRESS(p)  _PIN_ADDRESS(p, 0)
+    // Port X Data Direction Register,  0:input 1:output
+    #define DDRx_ADDRESS(p)  _PIN_ADDRESS(p, 1)
+    // Port X Data Register
+    #define PORTx_ADDRESS(p) _PIN_ADDRESS(p, 2)
+  #endif
+
 #elif defined(PROTOCOL_CHIBIOS)
   // Defines mapping for Proton C replacement
   #ifdef CONVERT_TO_PROTON_C
@@ -204,6 +214,8 @@
     #define B13 PAL_LINE(GPIOB, 13)
     #define B14 PAL_LINE(GPIOB, 14)
     #define B15 PAL_LINE(GPIOB, 15)
+    #define B16 PAL_LINE(GPIOB, 16)
+    #define B17 PAL_LINE(GPIOB, 17)
     #define C0  PAL_LINE(GPIOC, 0)
     #define C1  PAL_LINE(GPIOC, 1)
     #define C2  PAL_LINE(GPIOC, 2)
