@@ -271,7 +271,7 @@ bool process_record_quantum(keyrecord_t *record) {
 
     if (record->event.pressed) {
         switch (keycode) {
-            case RESET:
+            case KC_RST:
                 reset_keyboard();
                 return false;
 #ifndef NO_DEBUG
