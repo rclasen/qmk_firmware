@@ -56,7 +56,7 @@ My keymaps (have ASCII art in keymap.c):
   Gateron browns - and I can't stand typing on them. Plate doesn't support
   top-removal... and I'm too lazy to desolder.
 
-* [ergodash](/keyboards/ergodash/rev2/keymaps/rclasen/) - need to try.
+* [ergodash](/keyboards/ergodash/rev1/keymaps/rclasen/) - need to try.
 
 * [ergodox](/keyboards/ergodox_ez/keymaps/rclasen/) - that's what I
   started with and it's still my daily driver... but has too many keys I
