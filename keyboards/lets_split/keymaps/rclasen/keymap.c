@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .-----------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  | RESET|
  * |------+------+------+------+------+------|
- * |  F6  |  F7  |  F8  |  F9  |  F10 |      |
+ * |  F6  |  F7  |  F8  |  F9  |  F10 |  VER |
  * |------+------+------+------+------+------|
  * |  F11 |  F12 | MENU | PRINT| CAPS |      |
  * |------+------+------+------+------+------|
@@ -149,25 +149,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *        .-----------------------------------------.
  *        | RESET|NumLck| VolD | VolUp| Mute | Mclk |
  *        |------+------+------+------+------+------|
- *        |      | Mleft| Mdown| Mup  | Mrigh| Lclk |
+ *        |  VER | Mleft| Mdown| Mup  | Mrigh| Lclk |
  *        |------+------+------+------+------+------|
  *        |      | mprev| mstop| mplay| mnext| Rclk |
  *        |------+------+------+------+------+------|
- *        |      |      |      |      |      |      |
+ *        |      |      |      |      | VER  | RESET|
  *        '-----------------------------------------'
  */
 
 [MOS] = KEYMAP_HAND(
        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_RST,
-       TX_F6,   TX_F7,   TX_F8,   TX_F9,   KC_F10,  _______,
+       TX_F6,   TX_F7,   TX_F8,   TX_F9,   KC_F10,  MC_VER,
        KC_F11,  KC_F12,  KC_APP,  KC_PSCR, KC_CAPS, BL_TOGG,
        _______, _______, _______, _______, _______, _______,
 
        // right hand
        KC_RST,  KC_NLCK, KC_VOLD, KC_VOLU, KC_MUTE, KC_BTN3,
-       _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1,
+       MC_VER,  KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1,
        BL_ON,   KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_BTN2,
-       _______, _______, _______, _______, _______, _______
+       _______, _______, _______, _______, MC_VER,  KC_RST
 ),
 };
 

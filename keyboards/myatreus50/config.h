@@ -34,13 +34,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 13
 
 // COLS: Left to right, ROWS: Top to bottom
-#if 0
-// TODO: pins
+// TODO: define pins
 #define MATRIX_ROW_PINS { D0, D1, D2, D3 }
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7,/* left */ \
                           D4, /* thumbs */ \
                           B7, B3, B2, B1, B0, D5 } /* right */
-#endif
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL

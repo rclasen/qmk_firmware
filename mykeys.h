@@ -3,6 +3,7 @@
 #include QMK_KEYBOARD_H
 #include "print.h"
 #include "action_layer.h"
+#include "version.h"
 
 #ifdef BACKLIGHT_ENABLE
 #include "backlight.h"
@@ -531,6 +532,7 @@ enum {
     M_PLUS,
     M_CUML,
     M_BASE,
+    M_VER,
 };
 
 void mod_tmp( uint16_t keycode, uint8_t suppress, uint8_t add )
@@ -666,6 +668,12 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
             break;
 
+        case M_VER: // M(M_VER),
+            if( record->event.pressed ){
+                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+            }
+            break;
+
     }
     return MACRO_NONE;
 };
@@ -770,6 +778,7 @@ const uint16_t PROGMEM fn_actions[] = {
 #define MC_PLUS     M(M_PLUS)
 #define MC_CUML     M(M_CUML)
 #define MC_BASE     M(M_BASE)
+#define MC_VER      M(M_VER)
 
 
 #define _______ KC_TRNS
