@@ -173,5 +173,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     // not sufficient to set debug_enable from matrix_init
     debug_enable=true;
 
-    return true;
+    return mymacro_process_record( keycode, record );
 }

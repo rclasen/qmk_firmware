@@ -513,28 +513,6 @@ myevent_action_t myevent_actions[] = {
  * macro user config
  */
 
-enum {
-    M_0,
-    M_1,
-    M_2,
-    M_3,
-    M_4,
-    M_5,
-    M_6,
-    M_7,
-    M_8,
-    M_9,
-    M_COLN,
-    M_DOT,
-    M_MINS,
-    M_SCLN,
-    M_COMM,
-    M_PLUS,
-    M_CUML,
-    M_BASE,
-    M_VER,
-};
-
 void mod_tmp( uint16_t keycode, uint8_t suppress, uint8_t add )
 {
 
@@ -547,8 +525,7 @@ void mod_tmp( uint16_t keycode, uint8_t suppress, uint8_t add )
     if(enable)
         register_mods(enable);
 
-    register_code(keycode);
-    unregister_code(keycode);
+    tap_code(keycode);
 
     if(enable)
         unregister_mods(enable);
@@ -558,10 +535,35 @@ void mod_tmp( uint16_t keycode, uint8_t suppress, uint8_t add )
 
 #define noshiftralt(code) mod_tmp(code, MB_SFT , 0 )
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+// macros/functions that block modifiers:
+enum my_keycodes {
+    MC_0 = SAFE_RANGE,
+    MC_1,
+    MC_2,
+    MC_3,
+    MC_4,
+    MC_5,
+    MC_6,
+    MC_7,
+    MC_8,
+    MC_9,
+    MC_COLN,
+    MC_DOT,
+    MC_MINS,
+    MC_SCLN,
+    MC_COMM,
+    MC_PLUS,
+    MC_BASE,
+    MC_VER,
+
+    MC_SAFE,
+};
+
+
+bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
 {
-    switch(id) {
-        case M_0: // ACTION_MACRO_TAP(M_0),
+    switch(keycode) {
+        case MC_0:
             if (record->event.pressed) {
                 register_mods(MB_LSFT);
             } else {
@@ -572,89 +574,84 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 }
                 record->tap.count = 0;
             }
-            break;
+            return false;
 
-        case M_1: // M(M_1),
+        case MC_1:
             if(record->event.pressed)
                 noshiftralt(KC_1);
-            break;
+            return false;
 
-        case M_2: // M(M_2),
+        case MC_2:
             if(record->event.pressed)
                 noshiftralt(KC_2);
-            break;
+            return false;
 
-        case M_3: // M(M_3),
+        case MC_3:
             if(record->event.pressed)
                 noshiftralt(KC_3);
-            break;
+            return false;
 
-        case M_4: // M(M_4),
+        case MC_4:
             if(record->event.pressed)
                 noshiftralt(KC_4);
-            break;
+            return false;
 
-        case M_5: // M(M_5),
+        case MC_5:
             if(record->event.pressed)
                 noshiftralt(KC_5);
-            break;
+            return false;
 
-        case M_6: // M(M_6),
+        case MC_6:
             if(record->event.pressed)
                 noshiftralt(KC_6);
-            break;
+            return false;
 
-        case M_7: // M(M_7),
+        case MC_7:
             if(record->event.pressed)
                 noshiftralt(KC_7);
-            break;
+            return false;
 
-        case M_8: // M(M_8),
+        case MC_8:
             if(record->event.pressed)
                 noshiftralt(KC_8);
-            break;
+            return false;
 
-        case M_9: // M(M_9),
+        case MC_9:
             if(record->event.pressed)
                 noshiftralt(KC_9);
-            break;
+            return false;
 
-        case M_COLN: // M(M_COLN),
+        case MC_COLN:
             if(record->event.pressed)
                 mod_tmp(KC_SCLN, MB_RALT, MB_LSFT);
-            break;
+            return false;
 
-        case M_DOT: // M(M_DOT),
+        case MC_DOT:
             if(record->event.pressed)
                 noshiftralt(KC_DOT);
-            break;
+            return false;
 
-        case M_MINS: // M(M_MINS),
+        case MC_MINS:
             if(record->event.pressed)
                 noshiftralt(KC_MINS);
-            break;
+            return false;
 
-        case M_SCLN: // M(M_SCLN),
+        case MC_SCLN:
             if(record->event.pressed)
                 noshiftralt(KC_SCLN);
-            break;
+            return false;
 
-        case M_COMM: // M(M_COMM),
+        case MC_COMM:
             if(record->event.pressed)
                 noshiftralt(KC_COMM);
-            break;
+            return false;
 
-        case M_PLUS: // M(M_PLUS),
+        case MC_PLUS:
             if(record->event.pressed)
                 mod_tmp(KC_EQL, MB_RALT, MB_LSFT);
-            break;
+            return false;
 
-        case M_CUML: // M(M_CUML),
-            if(record->event.pressed)
-                return MACRO(T(COMP), D(LSFT), T(QUOT), U(LSFT), END);
-            break;
-
-        case M_BASE: // M(M_BASE),
+        case MC_BASE:
             if( record->event.pressed ){
                 clear_oneshot_mods();
                 clear_oneshot_locked_mods();
@@ -666,33 +663,17 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 reset_oneshot_layer();
                 layer_clear();
             }
-            break;
+            return false;
 
-        case M_VER: // M(M_VER),
+        case MC_VER:
             if( record->event.pressed ){
                 SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
             }
-            break;
+            return false;
 
     }
-    return MACRO_NONE;
-};
 
-/************************************************************
- * action user config
- */
-
-enum {
-    F_0,
-    F_MAX,
-};
-
-#if F_MAX > 31
-#warn youo might have issues with too many fn_actions
-#endif
-
-const uint16_t PROGMEM fn_actions[] = {
-    [F_0] = ACTION_MACRO_TAP(M_0),
+    return true; // keep going
 };
 
 
@@ -760,26 +741,7 @@ const uint16_t PROGMEM fn_actions[] = {
 // https://tstarling.com/stuff/ComposeKeys.html
 
 // macros/functions that block modifiers:
-#define MC_0        F(F_0)
-#define MC_1        M(M_1)
-#define MC_2        M(M_2)
-#define MC_3        M(M_3)
-#define MC_4        M(M_4)
-#define MC_5        M(M_5)
-#define MC_6        M(M_6)
-#define MC_7        M(M_7)
-#define MC_8        M(M_8)
-#define MC_9        M(M_9)
-#define MC_COLN     M(M_COLN)
-#define MC_DOT      M(M_DOT)
-#define MC_MINS     M(M_MINS)
-#define MC_SCLN     M(M_SCLN)
-#define MC_COMM     M(M_COMM)
-#define MC_PLUS     M(M_PLUS)
-#define MC_CUML     M(M_CUML)
-#define MC_BASE     M(M_BASE)
-#define MC_VER      M(M_VER)
-
+// MC_* - see macro stuff above
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
