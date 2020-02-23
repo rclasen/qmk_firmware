@@ -2,3 +2,5 @@
 # for your own particular keymap
 
 include myrules.mk
+
+#OLED_DRIVER_ENABLE = yes
