@@ -74,7 +74,8 @@ My keymaps (have ASCII art in keymap.c):
 * [crkbd](/keyboards/crkbd/keymaps/rclasen) - AKA corne/helidox. Has
   similar issues as the iris, but is more compact. For whatever reason I'm
   having less issues with the thumb cluster when switching from
-  ergodox/chimera/diverge to crkbd as I have with the iris.
+  ergodox/chimera/diverge to crkbd as I have with the iris. I love the
+  pro-micro placement.
 
 * [iris](/keyboards/keebio/iris/keymaps/rclasen/) - built it with 2x1u thumb key
   ... but I don't like the upper position. Unfortunately the thumb key
@@ -97,7 +98,8 @@ My keymaps (have ASCII art in keymap.c):
 * [levinson](/keyboards/keebio/levinson/keymaps/rclasen/) - same as lets split,
   but with backlight.
 
-* [lily58](/keyboards/lily58/keymaps/rclasen/) - need to try.
+* [lily58](/keyboards/lily58/keymaps/rclasen/) - Has similar issues as
+  iris. Just got it because of hot-swap support and better iris placement.
 
 * [maltron](/keyboards/maltron/keymaps/default/) - handwired Maltron.
   Thumb cluster is hard to use when resting your palm -> made it
