@@ -3,8 +3,8 @@
 
 include myrules.mk
 
-# breaks fn_actions:
-LINK_TIME_OPTIMIZATION_ENABLE = no
+# pro-micro:
+BOOTLOADER = caterina
 
-# TODO: OLED_DRIVER_ENABLE = yes
-# TODO: RGBLIGHT_ENABLE = yes
+OLED_DRIVER_ENABLE = yes
+RGBLIGHT_ENABLE = yes

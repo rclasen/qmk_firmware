@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right hand
                           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PSCR,
-                          KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP, XXXXXXX,
-                          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,XXXXXXX,
+                          KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP, RGB_TOG,
+                          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,RGB_HUI,
         XXXXXXX, KC_BSPC, KC_SPC,  XL_SYM,  XXXXXXX
  ),
 
@@ -175,3 +175,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
     return mymacro_process_record( keycode, record );
 }
+
+#ifdef OLED_DRIVER_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+	return OLED_ROTATION_180;
+}
+
+static void render_status(void) {
+    static const char nolayer[] PROGMEM = {"    "};
+    static const char nolock[] PROGMEM = {"    "};
+
+    // Host Keyboard Layer Status
+    if( layer_state_is(SYM) ){
+            oled_write_P(PSTR("SYM "), false);
+    } else {
+            oled_write( nolayer, false );
+    }
+
+    if( layer_state_is(NAV) ){
+            oled_write_P(PSTR("NAV "), false);
+    } else {
+            oled_write( nolayer, false );
+    }
+
+    if( layer_state_is(MOS) ){
+            oled_write_P(PSTR("MOS "), false);
+    } else {
+            oled_write( nolayer, false );
+    }
+    oled_write_P(PSTR("\n"), false);
+
+
+    // Host Keyboard LED Status
+    uint8_t led_usb_state = host_keyboard_leds();
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUM ") : nolock, false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAP ") : nolock, false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCR ") : nolock, false);
+}
+
+void oled_task_user(void) {
+    if (is_keyboard_master()) {
+        render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    }
+}
+#endif
+
