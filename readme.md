@@ -75,7 +75,7 @@ My keymaps (have ASCII art in keymap.c):
   similar issues as the iris, but is more compact. For whatever reason I'm
   having less issues with the thumb cluster when switching from
   ergodox/chimera/diverge to crkbd as I have with the iris. I love the
-  pro-micro placement.
+  pro micro placement.
 
 * [iris](/keyboards/keebio/iris/keymaps/rclasen/) - built it with 2x1u thumb key
   ... but I don't like the upper position. Unfortunately the thumb key
@@ -85,7 +85,9 @@ My keymaps (have ASCII art in keymap.c):
   conservative. Pro micro prevents later access to switches/leds/... and
   creates extra height.
 
-* [kyria](/keyboards/kyria/keymaps/rclasen/) - need to try.
+* [kyria](/keyboards/kyria/keymaps/rclasen/) - staggering feels great.
+  Thumb cluster is like iris + another key on each side. Need to try
+  shifting my thumb layout.
 
 * [lets split](/keyboards/lets_split/keymaps/rclasen/) - note that I start
   with the alphas on the outermost columns! While I'm heavily into
@@ -99,7 +101,8 @@ My keymaps (have ASCII art in keymap.c):
   but with backlight.
 
 * [lily58](/keyboards/lily58/keymaps/rclasen/) - Has similar issues as
-  iris. Just got it because of hot-swap support and better iris placement.
+  iris. Just got it because of hot-swap support and better pro micro
+  placement.
 
 * [maltron](/keyboards/maltron/keymaps/default/) - handwired Maltron.
   Thumb cluster is hard to use when resting your palm -> made it
