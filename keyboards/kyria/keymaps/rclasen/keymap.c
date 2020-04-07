@@ -14,7 +14,7 @@
     l00, l01, l02, l03, l04, l05,                             r02, r03, r04, r05, r06, r07, \
     l10, l11, l12, l13, l14, l15,                             r12, r13, r14, r15, r16, r17, \
     l20, l21, l22, l23, l24, l25, KC_NO, KC_NO, KC_NO, KC_NO, r22, r23, r24, r25, r26, r27, \
-                   l33, l24, l35, l36,   l37,   r30,   r31,   r32, r33, r34 \
+                   l33, l34, l35, l36,   l37,   r30,   r31,   r32, r33, r34 \
     )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
