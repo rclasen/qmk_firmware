@@ -210,6 +210,10 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef HAPTIC_ENABLE
             process_haptic(keycode, record) &&
 #endif  // HAPTIC_ENABLE
+#ifdef MYEVENT_ENABLE
+            // Must run early to see 'foreign' keys
+            myevent_process_record(keycode, record) &&
+#endif
 #if defined(RGB_MATRIX_ENABLE)
             process_rgb_matrix(keycode, record) &&
 #endif
@@ -261,9 +265,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             process_rgb(keycode, record) &&
-#endif
-#ifdef MYEVENT_ENABLE
-            myevent_process_record(keycode, record) &&
 #endif
             true)) {
         return false;

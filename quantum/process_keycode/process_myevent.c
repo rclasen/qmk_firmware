@@ -141,6 +141,8 @@ void myevent_foreign_post( myevent_action_t *current )
 
 bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
 {
+    //dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+
     if( IS_MYEVENT(keycode) ){
         int8_t idx = keycode - KC_MYEVENT_FIRST;
         myevent_action_t *action = &myevent_actions[idx];
