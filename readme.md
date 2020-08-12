@@ -75,6 +75,9 @@ My keymaps (have ASCII art in keymap.c):
   micro prevents later access to switches/leds/... and creates extra
   height.
 
+* [fretboard](/keyboards/fretboard/keymaps/default) - need to build + try.
+  Designed by [fretsome](https://www.reddit.com/u/Fretsome).
+
 * [crkbd](/keyboards/crkbd/keymaps/rclasen) - AKA corne/helidox. Has
   similar issues as the iris, but is more compact. For whatever reason I'm
   having less issues with the thumb cluster when switching from
