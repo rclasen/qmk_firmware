@@ -32,6 +32,10 @@ My keymaps (have ASCII art in keymap.c):
   between the halves and the pinky column a bit futher down, but it's a
   good compromise to be portable (=transporting and setting up split
   boards somehow feels anoying). Could use 1 or two extra keys.
+  Got Lost.
+
+* [atreus2](/keyboards/atreus/keymaps/rclasen/) - replacement for lost
+  atreus with hot-swap from falbatech.
 
 * [atreus50](/keyboards/myatreus50/keymaps/default/) - handwired atreus.
   extra pinky column and thumb key is further down. Need to try.
