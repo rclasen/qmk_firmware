@@ -89,6 +89,7 @@ typedef enum {
     myevent_change_tap_done,
     myevent_change_up_done,
     myevent_change_other,
+    myevent_change_clear,
 } myevent_change_t;
 
 typedef union {
@@ -183,6 +184,9 @@ void myevent_oneshot_event ( myevent_action_t *action, myevent_change_t change )
             .active = false, \
             } ), \
 }
+
+bool myevent_oneshot_active( myevent_action_t *action );
+#define myevent_oneshot_active_id(id) myevent_oneshot_active(&myevent_actions[id])
 
 /************************************************************
  * oneshot layer

@@ -20,8 +20,10 @@
     (*action->fn_state)( action, change ); \
 }
 
-// index of highest used myevent action:
+// index of highest active myevent action:
 static int8_t _myevent_highest = MYEVENT_NONE;
+// index of highest myevent action ever seen:
+static int8_t _myevent_last = MYEVENT_NONE;
 
 // index of ongoing myevent tapping action:
 static int8_t _myevent_current = MYEVENT_NONE;
@@ -41,19 +43,21 @@ static void _myevent_idle( myevent_action_t *action )
 // set all to idle ... to be called by user
 void myevent_clear(void)
 {
-    dprintf("myevent_clear highest=%d\n", _myevent_highest );
+    dprintf("myevent_clear last=%d\n", _myevent_last );
 
-    for( int8_t i = 0; i <= _myevent_highest; ++i ){
+    for( int8_t i = 0; i <= _myevent_last; ++i ){
         myevent_action_t *action = &myevent_actions[i];
 
-        if( ! action->state.flags.active )
-            continue;
+        if( action->state.flags.active ){
+            dprintf("myevent_clear edata=%u\n", action->data );
+            _myevent_idle( action );
+        }
 
-        dprintf("myevent_clear edata=%u\n", action->data );
-        _myevent_idle( action );
+        EMIT(action, myevent_change_clear );
     }
 
     _myevent_highest = MYEVENT_NONE;
+    _myevent_last = MYEVENT_NONE;
     _myevent_current = MYEVENT_NONE;
 }
 
@@ -149,6 +153,8 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
 
         if( idx > _myevent_highest )
             _myevent_highest = idx;
+        if( idx > _myevent_last )
+            _myevent_last = idx;
 
         if( record->event.pressed ){
             dprintf("myevent_record edata=%u idx=%d oldcount=%d down\n",
@@ -350,6 +356,11 @@ void myevent_oneshot_event ( myevent_action_t *action, myevent_change_t change )
 
         break;
 
+     case myevent_change_clear:
+        cleanup = true;
+
+        break;
+
      default:
         break;
 
@@ -367,6 +378,13 @@ void myevent_oneshot_event ( myevent_action_t *action, myevent_change_t change )
     }
 }
 
+
+bool myevent_oneshot_active( myevent_action_t *action )
+{
+    myevent_oneshot_data_t *odata = (myevent_oneshot_data_t *)action->data;
+
+    return odata->active;
+}
 
 /************************************************************
  * oneshot layer
@@ -500,6 +518,26 @@ void myevent_taphold_event ( myevent_action_t *action, myevent_change_t change )
             }
         }
 
+
+        break;
+
+     case myevent_change_clear:
+        switch( tdata->state ){
+         case MYEVENT_TAPHOLD_HOLD:
+            dprintf("myevent_taphold edata=%u clear\n", action->data );
+            (*tdata->fn)( MYEVENT_TAPHOLD_HOLD_STOP, tdata->data );
+            tdata->state = MYEVENT_TAPHOLD_NONE;
+            break;
+
+         case MYEVENT_TAPHOLD_TAP:
+            dprintf("myevent_taphold edata=%u clear\n", action->data );
+            (*tdata->fn)( MYEVENT_TAPHOLD_TAP_STOP, tdata->data );
+            tdata->state = MYEVENT_TAPHOLD_NONE;
+            break;
+
+         default:
+            break;
+        }
 
         break;
 
