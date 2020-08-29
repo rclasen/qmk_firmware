@@ -210,10 +210,7 @@ enum my_layer {
 };
 
 
-#define MOD_ACTIVE(bits) ( keyboard_report->mods & (bits) || (\
-	(get_oneshot_mods() & (bits)) \
-	&& !has_oneshot_mods_timed_out() \
-	) )
+#define MOD_ACTIVE(bits) ( keyboard_report->mods & (bits) )
 
 // for keys with custom "actions" coded in matrix_scan_user
 //enum my_keycodes {
@@ -653,15 +650,15 @@ bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
 
         case MC_BASE:
             if( record->event.pressed ){
-                clear_oneshot_mods();
-                clear_oneshot_locked_mods();
                 myevent_clear();
+
+                layer_clear();
+
                 unregister_mods(get_mods());
+
                 // TODO: caps lock
                 // TODO: num lock
 
-                reset_oneshot_layer();
-                layer_clear();
             }
             return false;
 
