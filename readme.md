@@ -63,9 +63,10 @@ My keymaps (have ASCII art in keymap.c):
 * [ergodash](/keyboards/ergodash/rev1/keymaps/rclasen/) - need to try.
 
 * [ergodox](/keyboards/ergodox_ez/keymaps/rclasen/) - that's what I
-  started with and it's still my daily driver... but has too many keys I
-  don't use and my tenting stands make it quite unportable. Even without
-  stands it's quite huge. Staggering is too low and the thumb cluster
+  started with. I've stopped using it as it caused thumb pain. It has way
+  too many keys and is way too big, aswell.
+  My tenting stands make it even less portable.
+  Staggering is too low and the thumb cluster
   needs improvements. While you can get fitting keycaps, it's still quite
   limited. It's the master for my keymaps.
 
