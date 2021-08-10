@@ -125,5 +125,7 @@ My keymaps (have ASCII art in keymap.c):
   too far down. Bottom thumb keys could move closer to M. Pro micro
   prevents later access to switches/leds/... and creates extra height.
 
+* [tbk mini](/keyboards/bastardkb/tbkmini/rclasen) - need to build + try.
+
 [incomplete family picture](https://imgur.com/daPI7GG). Some keymap
 folders have links to individual pictures / build logs.
