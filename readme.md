@@ -93,6 +93,8 @@ My keymaps (have ASCII art in keymap.c):
   conservative. Pro micro prevents later access to switches/leds/... and
   creates extra height.
 
+* [kimiko](/keyboards/keycapss/keymaps/rclasen/) - need to try.
+
 * [kyria](/keyboards/kyria/keymaps/rclasen/) - staggering feels great.
   Thumb cluster is like iris + another key on each side. Need to try
   shifting my thumb layout.
