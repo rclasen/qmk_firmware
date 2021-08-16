@@ -93,7 +93,10 @@ My keymaps (have ASCII art in keymap.c):
   conservative. Pro micro prevents later access to switches/leds/... and
   creates extra height.
 
-* [kimiko](/keyboards/keycapss/keymaps/rclasen/) - need to try.
+* [kimiko](/keyboards/keycapss/keymaps/rclasen/) - Coming back to a
+  keyboard with reasonably aggressive stagger and an 'aligned' thumb
+  cluster felt like coming home. I really like the layout. Seems to be an
+  improved version of a Sofle v2 ... with per-key RGB.
 
 * [kyria](/keyboards/kyria/keymaps/rclasen/) - staggering feels great.
   Thumb cluster is like iris + another key on each side. Need to try
