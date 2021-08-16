@@ -129,3 +129,33 @@ My keymaps (have ASCII art in keymap.c):
 
 [incomplete family picture](https://imgur.com/daPI7GG). Some keymap
 folders have links to individual pictures / build logs.
+
+## layout styles
+
+switching between massively different layouts takes a (short) while to get
+used to. Following list is helping me to pick 'similar' sets for work +
+home.
+
+keyboard        | split | stagger style | thumb style
+---             | ---   | ---           | ---
+atreus          | mono  | aggressive    | aligned (mostly)
+atreus2         | mono  | aggressive    | aligned (mostly)
+atreus50        | mono  | aggressive    | aligned (mostly)
+chimera ergo 42 | split | aggressive    | aligned
+dactyl manuform | split | maltron       | manuform
+diverge3        | split | aggressive    | aligned (mostly)
+ergodash        | split | maltron       | iris
+ergodox         | split | maltron       | maltron
+ergotravel      | split | maltron       | broken
+fretboard       | mono  | aggressive    | aligned (mostly)
+crkbd           | split | maltron       | iris
+iris            | split | maltron       | iris
+kimiko          | split | aggressive    | aligned (mostly)
+kyria           | split | aggressive    | iris
+lets split      | split | none          | aligned
+levinson        | split | none          | aligned
+lily58          | split | maltron       | iris
+maltron         | mono  | maltron       | maltron
+orthodox        | split | none          | maltron-like
+tbk mini        | split | maltron       | ?
+
