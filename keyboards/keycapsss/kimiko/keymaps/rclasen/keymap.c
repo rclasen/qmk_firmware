@@ -180,14 +180,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [MOS] = KEYMAP_HAND(
-       _______, _______, _______, _______, _______, _______,
+       RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,
        KC_RST,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
        MC_VER,  TX_F6,   TX_F7,   TX_F8,   TX_F9,   KC_F10,
        BL_TOGG, KC_F11,  KC_F12,  KC_APP,  KC_PSCR, KC_CAPS, _______,
                          _______, _______, _______, _______, _______,
 
        // right hand
-                _______, _______, _______, _______, _______, _______,
+                RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD,
                 KC_NLCK, KC_VOLD, KC_VOLU, KC_MUTE, KC_BTN3, KC_RST,
                 KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, MC_VER,
        _______, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_BTN2, BL_ON,

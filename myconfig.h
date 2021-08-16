@@ -28,4 +28,7 @@
 #undef BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 3
 
+#define RGBLIGHT_SLEEP
+#undef SLEEP_LED_ENABLE
+
 #endif
