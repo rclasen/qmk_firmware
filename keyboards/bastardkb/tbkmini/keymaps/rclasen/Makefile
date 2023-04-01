@@ -2,7 +2,7 @@
 TOP	:= ../../../../..
 BOARD	:= bastardkb/tbkmini
 MAP	:= rclasen
-FLASH	:= avrdude
+FLASH	:= dfu
 NAMES	:= left right
 
 include $(TOP)/mykeymap.mk
