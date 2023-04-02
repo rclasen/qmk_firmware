@@ -7,3 +7,4 @@ include myrules.mk
 BOOTLOADER = caterina
 
 RGBLIGHT_ENABLE = yes
+#RGB_MATRIX_ENABLE := WS2812
