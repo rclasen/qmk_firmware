@@ -60,14 +60,16 @@ My keymaps (have ASCII art in keymap.c):
   Gateron browns - and I can't stand typing on them. Plate doesn't support
   top-removal... and I'm too lazy to desolder.
 
-* [ergodash](/keyboards/ergodash/rev1/keymaps/rclasen/) - need to try.
+* [ergodash](/keyboards/ergodash/rev1/keymaps/rclasen/) - don't get along
+  with the thumb cluster... the 2u keys are too far away... and the key
+  next to M tucks too far below the palm. Has same staggering as ergodox.
 
 * [ergodox](/keyboards/ergodox_ez/keymaps/rclasen/) - that's what I
   started with. I've stopped using it as it caused thumb pain. It has way
   too many keys and is way too big, aswell.
   My tenting stands make it even less portable.
   Staggering is too low and the thumb cluster
-  needs improvements. While you can get fitting keycaps, it's still quite
+  is a tad too wide. While you can get fitting keycaps, it's still quite
   limited. It's the master for my keymaps.
 
 * [ergotravel](/keyboards/ergotravel/keymaps/rclasen/) - why on earth is
@@ -128,7 +130,8 @@ My keymaps (have ASCII art in keymap.c):
   too far down. Bottom thumb keys could move closer to M. Pro micro
   prevents later access to switches/leds/... and creates extra height.
 
-* [tbk mini](/keyboards/bastardkb/tbkmini/rclasen) - need to build + try.
+* [tbk mini](/keyboards/bastardkb/tbkmini/rclasen) - Tried it with SA caps
+  and liked the cuve... though, the thumb cluster is waaaay too wide.
 
 [incomplete family picture](https://imgur.com/daPI7GG). Some keymap
 folders have links to individual pictures / build logs.
@@ -160,5 +163,5 @@ levinson        | split | none          | aligned
 lily58          | split | ergodox       | iris
 maltron         | mono  | ergodox       | maltron
 orthodox        | split | none          | maltron-like
-tbk mini        | split | maltron       | ?
+tbk mini        | split | maltron       | maltron-like
 
