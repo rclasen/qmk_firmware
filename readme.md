@@ -147,18 +147,18 @@ atreus50        | mono  | aggressive    | aligned (mostly)
 chimera ergo 42 | split | aggressive    | aligned
 dactyl manuform | split | maltron       | manuform
 diverge3        | split | aggressive    | aligned (mostly)
-ergodash        | split | maltron       | iris
-ergodox         | split | maltron       | maltron
-ergotravel      | split | maltron       | broken
+ergodash        | split | ergodox       | iris
+ergodox         | split | ergodox       | maltron
+ergotravel      | split | ergodox       | broken
 fretboard       | mono  | aggressive    | aligned (mostly)
-crkbd           | split | maltron       | iris
-iris            | split | maltron       | iris
+crkbd           | split | ergodox       | iris
+iris            | split | ergodox       | iris
 kimiko          | split | aggressive    | aligned (mostly)
 kyria           | split | aggressive    | iris
 lets split      | split | none          | aligned
 levinson        | split | none          | aligned
-lily58          | split | maltron       | iris
-maltron         | mono  | maltron       | maltron
+lily58          | split | ergodox       | iris
+maltron         | mono  | ergodox       | maltron
 orthodox        | split | none          | maltron-like
 tbk mini        | split | maltron       | ?
 
