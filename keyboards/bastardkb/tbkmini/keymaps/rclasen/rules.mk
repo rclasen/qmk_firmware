@@ -3,5 +3,5 @@
 
 include myrules.mk
 
-#RGBLIGHT_ENABLE := no
-#RGB_MATRIX_ENABLE := WS2812
+RGBLIGHT_ENABLE := yes
+RGB_MATRIX_ENABLE := no
