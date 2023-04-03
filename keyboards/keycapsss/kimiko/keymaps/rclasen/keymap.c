@@ -146,9 +146,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
        // right hand
                 KC_TAB,  KC_NLCK, KC_SLSH, KC_ASTR, _______, _______,
-                MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS, _______,
-                MC_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, _______,
-       _______, MC_COLN, MC_1,    MC_2,    MC_3,    KC_ENTER,_______,
+                MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS, RGB_SAI,
+                MC_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, RGB_MOD,
+       _______, MC_COLN, MC_1,    MC_2,    MC_3,    KC_ENTER,RGB_VAI,
        _______, _______, KC_0,    _______, _______
 ),
 
