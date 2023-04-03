@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '-----------------------------------------'
  */
 
-[BASE] = KEYMAP( \
+[BASE] = LAYOUT( \
         // left hand
         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
         TX_A,    TX_S,    TX_D,    TX_F,    KC_G,
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '-----------------------------------------'
  */
 
-[SYM] = KEYMAP(
+[SYM] = LAYOUT(
        // left hand
        KC_AT,   KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC,
        KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_ASTR,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '-----------------------------------------'
  */
 
-[NAV] = KEYMAP(
+[NAV] = LAYOUT(
        KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN,
        KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
        KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '-----------------------------------------'
  */
 
-[MOS] = KEYMAP(
+[MOS] = LAYOUT(
        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
        TX_F6,   TX_F7,   TX_F8,   TX_F9,   KC_F10,
        KC_F11,  KC_F12,  KC_APP,  KC_PSCR, KC_CAPS,

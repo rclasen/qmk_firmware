@@ -6,7 +6,6 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    JosefAdamcik
 #define PRODUCT         Sofle
-#define DESCRIPTION     Sofle is 6×4+5keys+encoder column-staggered split keyboard.
 
 /* key matrix size */
 // Rows are doubled-up
@@ -27,6 +26,8 @@
 #define ENCODERS_PAD_A_RIGHT { F4 }
 #define ENCODERS_PAD_B_RIGHT { F5 }
 #define ENCODER_RESOLUTION 2
+
+#define TAP_CODE_DELAY 10
 
 /* communication between sides */
 #define USE_SERIAL

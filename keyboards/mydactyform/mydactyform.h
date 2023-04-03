@@ -9,7 +9,7 @@
 #endif
 
 //Standard Keymap
-#define KEYMAP( \
+#define LAYOUT( \
 	l00,l01,l02,l03,l04,l05,\
 	l10,l11,l12,l13,l14,l15,\
 	l20,l21,l22,l23,l24,l25,\

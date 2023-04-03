@@ -112,7 +112,7 @@ uint8_t matrix_scan(void)
             if (timeout > 10000){
                 break;
             }
-        } 
+        }
         uart_data[i] = SERIAL_UART_DATA;
     }
 
@@ -148,7 +148,7 @@ void matrix_print(void)
     print_matrix_header();
 
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        phex(row); print(": ");
+        print_hex8(row); print(": ");
         print_matrix_row(row);
         print("\n");
     }

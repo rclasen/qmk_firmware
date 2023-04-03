@@ -49,7 +49,7 @@ inline void diverge_led_back_set(uint8_t n)
 }
 
 //Standard Keymap
-#define KEYMAP( \
+#define LAYOUT( \
 	l00,\
 	l10,l11,l12,l13,l14,l15,l16,\
 	l20,l21,l22,l23,l24,l25,l26,\
