@@ -2,9 +2,6 @@
 
 #define MYEVENT_NONE    (-1)
 
-#define IS_MYEVENT(kc)  ( (kc >= KC_MYEVENT_FIRST) \
-            && (kc <= KC_MYEVENT_LAST ) )
-
 #define EMIT(action, change) if(action->fn_state){ \
     dprintf("myevent: edata=%u change=%d count=%d h=%d c=%d a=%d p=%d t=%d u=%d o=%d\n", \
             action->data, \
@@ -147,8 +144,8 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
 {
     //dprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
 
-    if( IS_MYEVENT(keycode) ){
-        int8_t idx = keycode - KC_MYEVENT_FIRST;
+    if( IS_QK_MYEVENT(keycode) ){
+        int8_t idx = keycode - QK_MYEVENT;
         myevent_action_t *action = &myevent_actions[idx];
 
         if( idx > _myevent_highest )
@@ -217,7 +214,7 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
         }
 
     } else { // not MYEVENT
-        if( record->event.pressed && !IS_MOD(keycode) ){
+        if( record->event.pressed && !IS_MODIFIER_KEYCODE(keycode) ){
 
             if( _myevent_highest != MYEVENT_NONE ){
                 _myevent_current = MYEVENT_NONE;
@@ -233,7 +230,7 @@ bool myevent_process_record(uint16_t keycode, keyrecord_t *record)
     return false;
 }
 
-void myevent_matrix_scan(void)
+void myevent_task(void)
 {
     int8_t max = MYEVENT_NONE;
 

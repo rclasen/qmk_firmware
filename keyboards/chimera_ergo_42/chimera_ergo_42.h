@@ -53,10 +53,10 @@
                  k36, k37, k38,      k39, k40, k41 \
 ) \
 { \
-	{ KC_NO, k28,   k14,   k03,   k16, KC_NO,         k39, k19, k08,   k21,   KC_NO, KC_NO  }, \
-	{ KC_NO, k25,   k02,   k15,   k04, k24,           k35, k07, k20,   k09,   k34,   KC_NO  }, \
-	{ k00,   k13,   KC_NO, k27,   k17, k37,           k40, k18, k32,   KC_NO, k22,   k11    }, \
-	{ k12,   k01,   k26,   KC_NO, k05, k36,           k41, k06, KC_NO, k33,   k10,   k23    },  \
-	{ k29,   k38,   KC_NO, k28,   k25, KC_NO,         k30, k31, KC_NO, KC_NO, k34,   KC_NO  }, \
+	{ KC_NO, k28,   k14,   k03,   k16,   KC_NO,         k39, k19, k08,   k21,   KC_NO, KC_NO  }, \
+	{ KC_NO, k25,   k02,   k15,   k04,   k24,           k35, k07, k20,   k09,   k34,   KC_NO  }, \
+	{ k00,   k13,   KC_NO, k27,   k17,   k37,           k40, k18, k32,   KC_NO, k22,   k11    }, \
+	{ k12,   k01,   k26,   KC_NO, k05,   k36,           k41, k06, KC_NO, k33,   k10,   k23    },  \
+	{ k29,   k38,   KC_NO, KC_NO, KC_NO, KC_NO,         k30, k31, KC_NO, KC_NO, KC_NO, KC_NO  }, \
 }
 #endif

@@ -18,15 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    zuto.de
-#define PRODUCT         diverge3
-#define DESCRIPTION     A split keyboard for the cheap makers
 
 #define DIODE_DIRECTION COL2ROW
 

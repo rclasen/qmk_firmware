@@ -2,8 +2,10 @@
 
 based on an old version of [QMK](https://github.com/qmk/qmk_firmware).
 
-Comes with my own OneShot/TapHold implementations as I could't get the
-following working with the original one:
+Comes with my own OneShot/TapHold implementations using a custom
+[myevent](/quantum/process_keycode/process_myevent.h) backend. I'm not
+sure if that's still needed, but when I started using QMK in 2017 I 
+couldn't get the following working:
 
 * consistent behavior for Modifiers and layers
 * allow "queueing" multiple oneshot operations
@@ -11,8 +13,6 @@ following working with the original one:
 * avoid interfering with regular typing (TapHold)
 * easy per-keymap customization (eg. suppress shift keys in my symbol
   layer and on numpad keys of nav layer)
-
-Both use a common [myevent](/quantum/process_keycode/process_myevent.h) backend.
 
 I'm trying to keep my keymaps "similar". For simplifying this, all of
 them use the [shared definitions](/mykeys.h). The shared definitions

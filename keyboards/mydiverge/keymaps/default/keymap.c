@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                            BL_TOGG,
                      XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,
                      KC_PSCR, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PSCR,
-                     MC_BASE, KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP, XXXXXXX,
+                     MY_BASE, KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP, XXXXXXX,
                      XL_MOS,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,XM_RSFT,
         KC_RALT, KC_BSPC, KC_SPC,      XL_SYM,  XXXXXXX, XM_RCTL, XM_LGUI
  ),
@@ -142,10 +142,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
        // right hand
                                                                            _______,
-                     _______, KC_TAB,  KC_NLCK, KC_SLSH, KC_ASTR, _______, _______,
-                     _______, MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS, _______,
-                     _______, MC_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, _______,
-                     _______, MC_COLN, MC_1,    MC_2,    MC_3,    KC_ENTER,_______,
+                     _______, KC_TAB,  KC_NUM,  KC_SLSH, KC_ASTR, _______, _______,
+                     _______, MY_MINS, MY_7,    MY_8,    MY_9,    MY_PLUS, _______,
+                     _______, MY_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, _______,
+                     _______, MY_COLN, MY_1,    MY_2,    MY_3,    KC_ENTER,_______,
        _______, _______, _______,      KC_0,    KC_0,    _______, _______
 ),
 
@@ -183,18 +183,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MOS] = LAYOUT(
        _______,
        _______, _______, _______, _______, _______, _______, _______,
-       KC_RST,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_RST,
-       MC_VER,  TX_F6,   TX_F7,   TX_F8,   TX_F9,   KC_F10,  MC_VER,
+       QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   QK_BOOT,
+       MY_VER,  TX_F6,   TX_F7,   TX_F8,   TX_F9,   KC_F10,  MY_VER,
        BL_TOGG, KC_F11,  KC_F12,  KC_APP,  KC_PSCR, KC_CAPS, BL_TOGG,
                 _______, _______, _______, _______,      _______, _______, _______,
 
        // right hand
                                                                            _______,
                      _______, _______, _______, _______, _______, _______, _______,
-                     KC_RST,  KC_NLCK, KC_VOLD, KC_VOLU, KC_MUTE, KC_BTN3, KC_RST,
-                     MC_VER,  KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, MC_VER,
+                     QK_BOOT, KC_NUM,  KC_VOLD, KC_VOLU, KC_MUTE, KC_BTN3, QK_BOOT,
+                     MY_VER,  KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, MY_VER,
                      _______, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_BTN2, BL_ON,
-       _______, _______, _______,      _______, _______, MC_VER,  KC_RST
+       _______, _______, _______,      _______, _______, MY_VER,  QK_BOOT
 ),
 
 };

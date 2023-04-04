@@ -55,6 +55,8 @@
 
 #include "quantum.h"
 
+#define MYEVENT_MAX (QK_MYEVENT_MAX - QK_MYEVENT)
+
 /************************************************************
  * globals hooks
  *
@@ -62,7 +64,7 @@
  */
 
 bool myevent_process_record(uint16_t keycode, keyrecord_t *record);
-void myevent_matrix_scan(void);
+void myevent_task(void);
 
 /************************************************************
  * internal structures
@@ -134,7 +136,7 @@ struct myevent_action_s {
 
 extern myevent_action_t myevent_actions[];
 
-#define XE(n) (KC_MYEVENT_FIRST + n)
+#define XE(n) (QK_MYEVENT + n)
 
 /************************************************************
  * user api

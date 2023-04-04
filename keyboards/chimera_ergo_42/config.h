@@ -18,16 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "config_common.h"
-
 /* USB Device descriptor parameter */
-
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    unknown
-#define PRODUCT         Chimera Ergo fortytwo
-#define DESCRIPTION     q.m.k. keyboard firmware for Chimera Ergo fortytwo
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -51,8 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
-
-#define PREVENT_STUCK_MODIFIERS
 
 /* disable debug print */
 //#define NO_DEBUG

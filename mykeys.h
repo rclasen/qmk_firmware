@@ -1,6 +1,7 @@
 #pragma once
 
 #include QMK_KEYBOARD_H
+#include "quantum.h"
 #include "print.h"
 #include "action_layer.h"
 #include "version.h"
@@ -88,7 +89,7 @@ total symbols:
 
   base:
   - alt, shift, ctrl - to modify mouse behaviour
-  - shift-insert, ctrl-insert, alt-insert, shift-delete - for copy/paste 1 
+  - shift-insert, ctrl-insert, alt-insert, shift-delete - for copy/paste 1
     -> shift/ctrl and insert/delete need different fingers
   - alt-tab - to switch windows
     -> alt and tab need different fingers
@@ -117,7 +118,7 @@ total symbols:
   - shift
   - SYM - layer symbol
   - ctrl ?
- 
+
 - may use 2 hands together:
   - alt-enter
   - alt-f4
@@ -313,7 +314,7 @@ enum myevent {
 #define STATIC_ASSERT( condition, name )\
         typedef char assert_failed_ ## name [ (condition) ? 1 : -1 ];
 
-STATIC_ASSERT(TMAX < MYEVENT_MAX, not_enough_keycodes_for_myevent );
+_Static_assert(TMAX < MYEVENT_MAX, "not_enough_keycodes_for_myevent" );
 
 static uint8_t shift_saved = 0;
 
@@ -534,33 +535,33 @@ void mod_tmp( uint16_t keycode, uint8_t suppress, uint8_t add )
 
 // macros/functions that block modifiers:
 enum my_keycodes {
-    MC_0 = SAFE_RANGE,
-    MC_1,
-    MC_2,
-    MC_3,
-    MC_4,
-    MC_5,
-    MC_6,
-    MC_7,
-    MC_8,
-    MC_9,
-    MC_COLN,
-    MC_DOT,
-    MC_MINS,
-    MC_SCLN,
-    MC_COMM,
-    MC_PLUS,
-    MC_BASE,
-    MC_VER,
+    MY_0 = SAFE_RANGE,
+    MY_1,
+    MY_2,
+    MY_3,
+    MY_4,
+    MY_5,
+    MY_6,
+    MY_7,
+    MY_8,
+    MY_9,
+    MY_COLN,
+    MY_DOT,
+    MY_MINS,
+    MY_SCLN,
+    MY_COMM,
+    MY_PLUS,
+    MY_BASE,
+    MY_VER,
 
-    MC_SAFE,
+    MY_SAFE,
 };
 
 
 bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
 {
     switch(keycode) {
-        case MC_0:
+        case MY_0:
             if (record->event.pressed) {
                 register_mods(MB_LSFT);
             } else {
@@ -573,82 +574,82 @@ bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
             }
             return false;
 
-        case MC_1:
+        case MY_1:
             if(record->event.pressed)
                 noshiftralt(KC_1);
             return false;
 
-        case MC_2:
+        case MY_2:
             if(record->event.pressed)
                 noshiftralt(KC_2);
             return false;
 
-        case MC_3:
+        case MY_3:
             if(record->event.pressed)
                 noshiftralt(KC_3);
             return false;
 
-        case MC_4:
+        case MY_4:
             if(record->event.pressed)
                 noshiftralt(KC_4);
             return false;
 
-        case MC_5:
+        case MY_5:
             if(record->event.pressed)
                 noshiftralt(KC_5);
             return false;
 
-        case MC_6:
+        case MY_6:
             if(record->event.pressed)
                 noshiftralt(KC_6);
             return false;
 
-        case MC_7:
+        case MY_7:
             if(record->event.pressed)
                 noshiftralt(KC_7);
             return false;
 
-        case MC_8:
+        case MY_8:
             if(record->event.pressed)
                 noshiftralt(KC_8);
             return false;
 
-        case MC_9:
+        case MY_9:
             if(record->event.pressed)
                 noshiftralt(KC_9);
             return false;
 
-        case MC_COLN:
+        case MY_COLN:
             if(record->event.pressed)
                 mod_tmp(KC_SCLN, MB_RALT, MB_LSFT);
             return false;
 
-        case MC_DOT:
+        case MY_DOT:
             if(record->event.pressed)
                 noshiftralt(KC_DOT);
             return false;
 
-        case MC_MINS:
+        case MY_MINS:
             if(record->event.pressed)
                 noshiftralt(KC_MINS);
             return false;
 
-        case MC_SCLN:
+        case MY_SCLN:
             if(record->event.pressed)
                 noshiftralt(KC_SCLN);
             return false;
 
-        case MC_COMM:
+        case MY_COMM:
             if(record->event.pressed)
                 noshiftralt(KC_COMM);
             return false;
 
-        case MC_PLUS:
+        case MY_PLUS:
             if(record->event.pressed)
                 mod_tmp(KC_EQL, MB_RALT, MB_LSFT);
             return false;
 
-        case MC_BASE:
+        case MY_BASE:
             if( record->event.pressed ){
                 myevent_clear();
 
@@ -662,7 +663,7 @@ bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
             }
             return false;
 
-        case MC_VER:
+        case MY_VER:
             if( record->event.pressed ){
                 SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
             }
@@ -738,7 +739,7 @@ bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
 // https://tstarling.com/stuff/ComposeKeys.html
 
 // macros/functions that block modifiers:
-// MC_* - see macro stuff above
+// MY_* - see macro stuff above
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO

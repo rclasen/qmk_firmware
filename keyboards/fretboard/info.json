@@ -1,0 +1,11 @@
+{
+  "keyboard_name": "Fretboard",
+  "manufacturer": "u/Fretsome",
+  "url": "",
+  "maintainer": "rclasen",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6061",
+    "device_version": "0.0.1"
+  }
+}

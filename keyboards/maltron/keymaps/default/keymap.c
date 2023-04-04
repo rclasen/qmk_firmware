@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_TOG,    RGB_HUI,    RGB_HUD,    RGB_SAI,    RGB_SAD,    RGB_VAI,    RGB_VAD,
         RGB_MOD,    KC_PGUP,    KC_BSPC,    KC_UP,      KC_DEL,     KC_PGDN,    XXXXXXX,
         XM_GHK,     KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,   KC_END,     KC_PSCR,
-        S_INS,      KC_ESC,     KC_TAB,     KC_INS,     KC_ENTER,   KC_SPACE,   MC_BASE,
+        S_INS,      KC_ESC,     KC_TAB,     KC_INS,     KC_ENTER,   KC_SPACE,   MY_BASE,
 
         // right hand
                     KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,
@@ -252,10 +252,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
        // right well
                 _______, _______, _______, _______, _______, _______,
-                KC_TAB,  KC_NLCK, KC_SLSH, KC_ASTR, _______, _______,
-                MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS, _______,
-                MC_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, _______,
-                MC_COLN, MC_1,    MC_2,    MC_3,    MC_SCLN, _______,
+                KC_TAB,  KC_NUM,  KC_SLSH, KC_ASTR, _______, _______,
+                MY_MINS, MY_7,    MY_8,    MY_9,    MY_PLUS, _______,
+                MY_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, _______,
+                MY_COLN, MY_1,    MY_2,    MY_3,    MY_SCLN, _______,
                          KC_0,    KC_0,    _______, _______,
        // right thumb
        _______, _______, _______,
@@ -322,8 +322,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // left well
        _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______,
-       KC_RST,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
-       MC_VER,  TX_F6,   TX_F7,   TX_F8,   TX_F9,   KC_F10,
+       QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
+       MY_VER,  TX_F6,   TX_F7,   TX_F8,   TX_F9,   KC_F10,
        _______, KC_F11,  KC_F12,  KC_APP,  KC_PSCR, KC_CAPS,
                 _______, _______, _______, _______,
        // left thumb
@@ -340,10 +340,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // right well
                 _______, _______, _______, _______, _______, _______,
                 _______, _______, _______, _______, _______, _______,
-                KC_NLCK, KC_VOLD, KC_VOLU, KC_MUTE, KC_BTN3, KC_RST,
-                KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, MC_VER,
+                KC_NUM,  KC_VOLD, KC_VOLU, KC_MUTE, KC_BTN3, QK_BOOT,
+                KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, MY_VER,
                 KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_BTN2, _______,
-                         _______, _______, MC_VER,  KC_RST,
+                         _______, _______, MY_VER,  QK_BOOT,
        // right thumb
        _______, _______, _______,
        _______, _______, _______,

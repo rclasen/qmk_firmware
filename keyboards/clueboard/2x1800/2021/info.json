@@ -2,10 +2,7 @@
     "manufacturer": "Clueboard",
     "keyboard_name": "Clueboard 2x1800 2021",
     "maintainer": "skullydazed",
-    "height": 6.5,
-    "width": 24,
     "bootloader": "halfkay",
-    "debounce": 5,
     "diode_direction": "ROW2COL",
     "features": {
         "audio": true,
@@ -29,13 +26,17 @@
     "usb": {
         "pid": "0x23A0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"},
+            {"pin_a": "C5", "pin_b": "C6"}
+        ]
+    },
     "layout_aliases": {
-        "KEYMAP": "LAYOUT_all",
         "LAYOUT": "LAYOUT_all"
     },
     "layouts": {
         "LAYOUT_4u_space": {
-            "key_count": 124,
             "layout": [
                 { "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
                 { "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
@@ -164,7 +165,6 @@
             ]
         },
         "LAYOUT_7u_space": {
-            "key_count": 121,
             "layout": [
                 { "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
                 { "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
@@ -290,7 +290,6 @@
             ]
         },
         "LAYOUT_all": {
-            "key_count": 127,
             "layout": [
                 { "label": "Home", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
                 { "label": "End", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },

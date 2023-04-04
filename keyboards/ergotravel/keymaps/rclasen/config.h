@@ -1,7 +1,6 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "config_common.h"
 #include <myconfig.h>
 
 #define USE_I2C

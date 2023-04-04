@@ -18,16 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "config_common.h"
-
 /* USB Device descriptor parameter */
-
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Technomancy
-#define PRODUCT         Atreus
-#define DESCRIPTION     q.m.k. keyboard firmware for Atreus
 
 /* key matrix size */
 #define MATRIX_ROWS 4

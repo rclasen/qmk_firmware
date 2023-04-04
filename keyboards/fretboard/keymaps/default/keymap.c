@@ -108,9 +108,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            _______, _______, _______,
 
        // right hand
-                MC_MINS, MC_7,    MC_8,    MC_9,    MC_PLUS, _______,
-                MC_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, _______,
-       _______, MC_COLN, MC_1,    MC_2,    MC_3,    MC_SCLN,
+                MY_MINS, MY_7,    MY_8,    MY_9,    MY_PLUS, _______,
+                MY_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, _______,
+       _______, MY_COLN, MY_1,    MY_2,    MY_3,    MY_SCLN,
        _______, _______, KC_0
 ),
 
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            _______, _______, _______,
 
        // right hand
-                KC_NLCK, KC_VOLD, KC_VOLU, KC_MUTE, KC_BTN3, _______,
+                KC_NUM,  KC_VOLD, KC_VOLU, KC_MUTE, KC_BTN3, _______,
                 KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_BTN1, _______,
        _______, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_BTN2,
        _______, _______, _______

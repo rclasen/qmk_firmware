@@ -1,0 +1,11 @@
+{
+  "keyboard_name": "Maltron",
+  "manufacturer": "zuto.de",
+  "url": "",
+  "maintainer": "rclasen",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  }
+}

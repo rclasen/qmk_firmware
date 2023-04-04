@@ -18,16 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "config_common.h"
-
 /* USB Device descriptor parameter */
-
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    zuto.de
-#define PRODUCT         Maltron
-#define DESCRIPTION     q.m.k. keyboard firmware for Maltron
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -44,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 5
 
 #define RGB_DI_PIN C7
 #define RGBLED_NUM 30
