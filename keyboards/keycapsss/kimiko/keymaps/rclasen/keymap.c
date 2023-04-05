@@ -39,13 +39,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *               '----------------------------------'
 
  *        .-----------------------------------------.
- *        |   6  |   7  |   8  |   9  |   0  | volup|
+ *        |   6  |   7  |   8  |   9  |   0  |      |
  *        |------+------+------+------+------+------|
- *        |   y  |   u  |   i  |   o  |   p  | vold |
+ *        |   y  |   u  |   i  |   o  |   p  | PRINT|
  *        |------+------+------+------+------+------|
- *        |   j  |   k  |   k  |   l  | COMP |      |
+ *        |   j  |   k  |   k  |   l  | COMP | RGBT |
  * .------+------+------+------+------+------+------|
- * |      |   n  |   m  |   ,  |   ,  | enter| rsft |
+ * |      |   n  |   m  |   ,  |   ,  | enter| RGBH |
  * |------+------+------+---------------------------'
  * | BSPC | space| fSYM |      |      |
  * '----------------------------------'
@@ -139,9 +139,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [NAV] = KEYMAP_HAND(
        _______, _______, _______, _______, _______, _______,
-       _______, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN,
-       _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
-       _______, KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,_______,
+       RGB_SPI, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN,
+       RGB_TOG, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
+       RGB_HUI, KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,_______,
                          _______, _______, _______, _______, _______,
 
        // right hand

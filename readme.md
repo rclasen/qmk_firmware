@@ -38,7 +38,7 @@ My keymaps (have ASCII art in keymap.c):
   atreus with hot-swap from falbatech.
 
 * [atreus50](/keyboards/myatreus50/keymaps/default/) - handwired atreus.
-  extra pinky column and thumb key is further down. Need to try.
+  extra pinky column and thumb key is further down. Need to build and try.
 
 * [chimera ergo 42](/keyboards/chimera_ergo_42/keymaps/rclasen/) - I love
   it. Thumb keys are where I need them, staggering is great. Has few keys
@@ -47,6 +47,15 @@ My keymaps (have ASCII art in keymap.c):
   could use some enclosure. Actually, I'm now looking for a wired
   alternative to make this a daily driver. I love how flat it is: I do get
   along without a wrist rest.
+
+* [corne_aurora](/keyboards/splitkb/aurora/corne/keymaps/rclasen) - see
+  crkbd. Got this to have a backup in a nicer case.
+
+* [crkbd](/keyboards/crkbd/keymaps/rclasen) - AKA corne/helidox. Has
+  similar issues as the iris, but is more compact. For whatever reason I'm
+  having less issues with the thumb cluster when switching from
+  ergodox/chimera/diverge to crkbd as I have with the iris. I love the
+  pro micro placement.
 
 * [dactyl manuform](/keyboards/mydactyform/keymaps/default/) - need to try.
 
@@ -79,13 +88,10 @@ My keymaps (have ASCII art in keymap.c):
   height.
 
 * [fretboard](/keyboards/fretboard/keymaps/default) - need to build + try.
-  Designed by [fretsome](https://www.reddit.com/u/Fretsome).
-
-* [crkbd](/keyboards/crkbd/keymaps/rclasen) - AKA corne/helidox. Has
-  similar issues as the iris, but is more compact. For whatever reason I'm
-  having less issues with the thumb cluster when switching from
-  ergodox/chimera/diverge to crkbd as I have with the iris. I love the
-  pro micro placement.
+  Designed by [fretsome](https://www.reddit.com/u/Fretsome). Staggering +
+  Thumb keys look amazing. Probably an amazing traveling/couch/lap-use
+  board... mabye with bluetooth? Not sure if/how to protect the raw PCB,
+  though.... so...  need ideas for a 'case'(?)
 
 * [iris](/keyboards/keebio/iris/keymaps/rclasen/) - built it with 2x1u thumb key
   ... but I don't like the upper position. Unfortunately the thumb key
@@ -108,7 +114,7 @@ My keymaps (have ASCII art in keymap.c):
   with the alphas on the outermost columns! While I'm heavily into
   columnar stagger I'm surprised how good I get along with a plain ortho
   layout. Though, my thumbs often loose their homing key -> needs
-  significantly differnt caps for thumbs! On dox/diverge this is
+  significantly different caps for thumbs! On dox/diverge this is
   accomplished by the gap between bottom row and thumb cluster. Pro micro
   prevents later access to switches/leds/... and creates extra height.
 
@@ -122,7 +128,7 @@ My keymaps (have ASCII art in keymap.c):
 * [maltron](/keyboards/maltron/keymaps/default/) - handwired Maltron.
   Thumb cluster is hard to use when resting your palm -> made it
   impossible for me to use it for long enough to get used to the dwells.
-  Angle between halvs is ok, but I do miss adjusting the angle when
+  Angle between halves is ok, but I do miss adjusting the angle when
   changing posture.
 
 * [orthodox](/keyboards/orthodox/keymaps/rclasen/) - Got it to test the
@@ -130,8 +136,15 @@ My keymaps (have ASCII art in keymap.c):
   too far down. Bottom thumb keys could move closer to M. Pro micro
   prevents later access to switches/leds/... and creates extra height.
 
+* [piantor](/keyboards/beekeeb/piantor/keymaps/rclasen) - need to build +
+  try. Stagger + thumb row look very appealing. I'm also curios how
+  choc switches feel.
+
+* [reviung41](/keyboards/reviung/reviung41/keymaps/rclasen) - No Idea why
+  I got it. It's missing thumb keys and the stagger is insufficient.
+
 * [tbk mini](/keyboards/bastardkb/tbkmini/rclasen) - Tried it with SA caps
-  and liked the cuve... though, the thumb cluster is waaaay too wide.
+  and liked the curve... though, the thumb cluster is waaaay too wide.
 
 [incomplete family picture](https://imgur.com/daPI7GG). Some keymap
 folders have links to individual pictures / build logs.
@@ -145,16 +158,15 @@ home.
 keyboard        | split | stagger style | thumb style
 ---             | ---   | ---           | ---
 atreus          | mono  | aggressive    | aligned (mostly)
-atreus2         | mono  | aggressive    | aligned (mostly)
 atreus50        | mono  | aggressive    | aligned (mostly)
 chimera ergo 42 | split | aggressive    | aligned
+crkbd           | split | ergodox       | iris
 dactyl manuform | split | maltron       | manuform
 diverge3        | split | aggressive    | aligned (mostly)
 ergodash        | split | ergodox       | iris
 ergodox         | split | ergodox       | maltron
 ergotravel      | split | ergodox       | broken
 fretboard       | mono  | aggressive    | aligned (mostly)
-crkbd           | split | ergodox       | iris
 iris            | split | ergodox       | iris
 kimiko          | split | aggressive    | aligned (mostly)
 kyria           | split | aggressive    | iris
@@ -163,5 +175,7 @@ levinson        | split | none          | aligned
 lily58          | split | ergodox       | iris
 maltron         | mono  | ergodox       | maltron
 orthodox        | split | none          | maltron-like
+piantor         | split | aggressive    | aligned (mostly)
+reviung41       | mono  | ergodox       | broken
 tbk mini        | split | maltron       | maltron-like
 

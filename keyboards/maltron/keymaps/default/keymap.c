@@ -38,14 +38,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                      .-----------------------------------------.
  *                      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  *                      |------+------+------+-------------+------|
- *                      |   6  |   7  |   8  |   9  |   0  | volup|
+ *                      |   6  |   7  |   8  |   9  |   0  |      |
  *                      |------+------+------+-------------+------|
- *                      |   y  |   u  |   i  |   o  |   p  | vold |
+ *                      |   y  |   u  |   i  |   o  |   p  | PRINT|
  *                      |------+------+------+-------------+------|
- *                      |   j  |   k  |   k  |   l  | COMP |      |
+ *                      |   j  |   k  |   k  |   l  | COMP | RGBT |
  *                      |------+------+------+------|------+------|
  *                      |   n  |   m  |   ,  |   ,  | enter|      |
- *                      '------+------+------+------+------| rsft |
+ *                      '------+------+------+------+------| RGBH |
  *                             | fSYM |      | rctl | lgui |      |
  *                             '----------------------------------'
  * .--------------------.
@@ -80,8 +80,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,
                     KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       XXXXXXX,
                     KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_PSCR,
-                    KC_H,       TX_J,       TX_K,       TX_L,       TX_COMP,    XXXXXXX,
-                    KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_ENTER,   XM_RSFT,
+                    KC_H,       TX_J,       TX_K,       TX_L,       TX_COMP,    RGB_TOG,
+                    KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_ENTER,   RGB_HUI,
                                 XL_SYM,     XXXXXXX,    XM_RCTL,    XM_LGUI,
         // right thumb
         KC_UP,      XXXXXXX,    XXXXXXX,
@@ -235,9 +235,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // left well
        _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______,
-       _______, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN,
-       _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
-       _______, KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,
+       RGB_SPI, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN,
+       RGB_TOG, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
+       RGB_HUI, KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,
                 XM_GHK,  _______, _______, _______,
        // left thumb
                                            _______, _______, _______,
@@ -253,9 +253,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // right well
                 _______, _______, _______, _______, _______, _______,
                 KC_TAB,  KC_NUM,  KC_SLSH, KC_ASTR, _______, _______,
-                MY_MINS, MY_7,    MY_8,    MY_9,    MY_PLUS, _______,
-                MY_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, _______,
-                MY_COLN, MY_1,    MY_2,    MY_3,    MY_SCLN, _______,
+                MY_MINS, MY_7,    MY_8,    MY_9,    MY_PLUS, RGB_SAT,
+                MY_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, RGB_MOD,
+                MY_COLN, MY_1,    MY_2,    MY_3,    MY_SCLN, RGB_VAI,
                          KC_0,    KC_0,    _______, _______,
        // right thumb
        _______, _______, _______,
