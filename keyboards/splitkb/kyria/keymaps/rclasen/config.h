@@ -7,10 +7,6 @@
   #define OLED_DISPLAY_128X64
 #endif
 
-#ifdef RGBLIGHT_ENABLE
-//#define RGBLIGHT_ANIMATIONS
-#endif
-
 // #define USE_I2C
 
 // #define MASTER_LEFT

@@ -3,10 +3,6 @@
 
 #include <myconfig.h>
 
-#ifdef RGBLIGHT_ENABLE
-//#define RGBLIGHT_ANIMATIONS
-#endif
-
 // #define USE_I2C
 
 // #define MASTER_LEFT

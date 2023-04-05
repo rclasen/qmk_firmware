@@ -2,4 +2,5 @@
 # for your own particular keymap
 
 include myrules.mk
+
 RGBLIGHT_ENABLE := yes

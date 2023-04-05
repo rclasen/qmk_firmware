@@ -7,5 +7,6 @@ include myrules.mk
 BOOTLOADER = caterina
 
 OLED_DRIVER_ENABLE = yes
+
 RGBLIGHT_ENABLE = yes
 RGBMATRIX_ENABLE = no
