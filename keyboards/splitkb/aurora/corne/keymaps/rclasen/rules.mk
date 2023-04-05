@@ -3,10 +3,6 @@
 
 include myrules.mk
 
-ENCODER_ENABLE := no
-
-OLED_ENABLE := no
-
 RGBLIGHT_ENABLE := no
 
 RGB_MATRIX_ENABLE := yes

@@ -13,9 +13,4 @@
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-// for OLED:
-//#define USE_I2C
-//#define SSD1306OLED
-
-
 #endif

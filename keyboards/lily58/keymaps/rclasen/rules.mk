@@ -3,4 +3,3 @@
 
 include myrules.mk
 
-#OLED_DRIVER_ENABLE = yes

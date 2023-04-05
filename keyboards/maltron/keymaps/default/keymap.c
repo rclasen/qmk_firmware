@@ -253,7 +253,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // right well
                 _______, _______, _______, _______, _______, _______,
                 KC_TAB,  KC_NUM,  KC_SLSH, KC_ASTR, _______, _______,
-                MY_MINS, MY_7,    MY_8,    MY_9,    MY_PLUS, RGB_SAT,
+                MY_MINS, MY_7,    MY_8,    MY_9,    MY_PLUS, RGB_SAI,
                 MY_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, RGB_MOD,
                 MY_COLN, MY_1,    MY_2,    MY_3,    MY_SCLN, RGB_VAI,
                          KC_0,    KC_0,    _______, _______,

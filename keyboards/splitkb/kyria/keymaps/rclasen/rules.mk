@@ -6,7 +6,9 @@ include myrules.mk
 # pro-micro:
 BOOTLOADER = caterina
 
-OLED_DRIVER_ENABLE = yes
+#OLED_ENABLE = yes
 
 RGBLIGHT_ENABLE = yes
 RGBMATRIX_ENABLE = no
+
+#LTO_ENABLE = yes
