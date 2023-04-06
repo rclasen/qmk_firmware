@@ -136,9 +136,14 @@ My keymaps (have ASCII art in keymap.c):
   too far down. Bottom thumb keys could move closer to M. Pro micro
   prevents later access to switches/leds/... and creates extra height.
 
-* [piantor](/keyboards/beekeeb/piantor/keymaps/rclasen) - need to build +
-  try. Stagger + thumb row look very appealing. I'm also curios how
-  choc switches feel.
+* [piantor](/keyboards/beekeeb/piantor/keymaps/rclasen) 2023/04 - Was by
+  far the fastest build I've ever had: No diodes and castellated holes on
+  RPi made it a breeze. Stagger is nice but thumb cluster is too close to
+  iris.  Just realized, that the travel of choc switches actually isn't
+  too way of from regular switches.  Actually some mods (QMX, Zealencios,
+  Jailhouse blue) reduce travel way more. Though, (my) chocs sound awful
+  and the lack of profiled keycaps is killihg me.
+
 
 * [reviung41](/keyboards/reviung/reviung41/keymaps/rclasen) - No Idea why
   I got it. It's missing thumb keys and the stagger is insufficient.
