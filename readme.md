@@ -27,7 +27,7 @@ extra keys. I'm using the ergodox keymap as "master".
 
 My keymaps (have ASCII art in keymap.c):
 
-* [atreus](/keyboards/myatreus/keymaps/default/) 2017/11 - Handwired
+* [atreus](/keyboards/rclasen/atreus/keymaps/rclasen/) 2017/11 - Handwired
   atreus. Great staggering, but thumb keys are way too far up. I could use
   a bigger angle between the halves and the pinky column a bit futher
   down, but it's a good compromise to be portable (=transporting and
@@ -37,11 +37,11 @@ My keymaps (have ASCII art in keymap.c):
 * [atreus2](/keyboards/atreus/keymaps/rclasen/) 2020/08 - Replacement for
   lost atreus with hot-swap from falbatech.
 
-* [atreus50](/keyboards/myatreus50/keymaps/default/) 2019/08 - handwired
+* [atreus50](/keyboards/rclasen/atreus50/keymaps/rclasen/) 2019/08 - handwired
   atreus.  extra pinky column and thumb key is further down. Need to build
   and try.
 
-* [chimera ergo 42](/keyboards/chimera_ergo_42/keymaps/rclasen/) 2018/08 -
+* [chimera ergo 42](/keyboards/rclasen/chimera42/keymaps/rclasen/) 2018/08 -
   I love it. Thumb keys are where I need them, staggering is great. Has
   few keys I don't use. Clearly my favourite layout. I'm missing power
   switches to keep it from draining batterie when transporting it...  and
@@ -59,10 +59,10 @@ My keymaps (have ASCII art in keymap.c):
 * [corne_aurora](/keyboards/splitkb/aurora/corne/keymaps/rclasen) 2023/04
   - see corne. Got this to have a backup in a nicer case.
 
-* [dactyl manuform](/keyboards/mydactyform/keymaps/default/) 2018/09 -
+* [dactyl manuform](/keyboards/rclasen/dactyform/keymaps/rclasen/) 2018/09 -
   need to try.
 
-* [diverge3](/keyboards/mydiverge/keymaps/default/) 2016/09 - ported the
+* [diverge3](/keyboards/rclasen/diverge3/keymaps/rclasen/) 2016/09 - ported the
   lets split firmware to unikeyboards diverge3. Needs extra pullup
   resistors to get i2c working - official QMK diverge3 uses serial.
   Initially staggering felt strange... likely caused by the outermost
@@ -72,7 +72,7 @@ My keymaps (have ASCII art in keymap.c):
   it's with Gateron browns - and I can't stand typing on them. Plate
   doesn't support top-removal... and I'm too lazy to desolder.
 
-* [ergodash](/keyboards/ergodash/rev1/keymaps/rclasen/) 2020/02 - don't
+* [ergodash](/keyboards/omkbd/ergodash/keymaps/rclasen/) 2020/02 - don't
   get along with the thumb cluster... the 2u keys are too far away... and
   the key next to M tucks too far below the palm. Has same staggering as
   ergodox.
@@ -90,7 +90,7 @@ My keymaps (have ASCII art in keymap.c):
   conservative. Pro micro prevents later access to switches/leds/... and
   creates extra height.
 
-* [fretboard](/keyboards/fretboard/keymaps/default) 2020/04 - need to
+* [fretboard](/keyboards/rclasen/fretboard/keymaps/rclasen) 2020/04 - need to
   build + try.  Designed by [fretsome](https://www.reddit.com/u/Fretsome).
   Staggering + Thumb keys look amazing. Probably an amazing
   traveling/couch/lap-use board... mabye with bluetooth? Not sure if/how
@@ -104,14 +104,14 @@ My keymaps (have ASCII art in keymap.c):
   ergodox: Too conservative. Pro micro prevents later access to
   switches/leds/...  and creates extra height.
 
-* [kimiko](/keyboards/keycapss/keymaps/rclasen/) 2021/08 - Coming back to
+* [kimiko](/keyboards/keycapsss/kimiko/keymaps/rclasen/) 2021/08 - Coming back to
   a keyboard with reasonably aggressive stagger and an 'aligned' thumb
   cluster felt like coming home. I really like the layout. Seems to be an
   improved version of a Sofle v2 ... with per-key RGB. Would make it my
   daily driver if it wasn't that 'big' and I had a 2nd board with a
   similar layout for home+work.
 
-* [kyria](/keyboards/kyria/keymaps/rclasen/) 2019/09 - staggering feels
+* [kyria](/keyboards/splitkb/kyria/keymaps/rclasen/) 2019/09 - staggering feels
   great.  Thumb cluster is like iris + another key on each side. Need to
   try shifting my thumb layout.
 
@@ -130,7 +130,7 @@ My keymaps (have ASCII art in keymap.c):
   issues as iris. Just got it because of hot-swap support and better pro
   micro placement.
 
-* [maltron](/keyboards/maltron/keymaps/default/) 2017/09 - handwired
+* [maltron](/keyboards/rclasen/maltron/keymaps/rclasen/) 2017/09 - handwired
   Maltron.  Thumb cluster is hard to use when resting your palm -> made it
   impossible for me to use it for long enough to get used to the dwells.
   Angle between halves is ok, but I do miss adjusting the angle when
