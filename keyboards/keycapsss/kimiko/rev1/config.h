@@ -24,11 +24,17 @@
 
 /* SK6812 RGB LED */
 #define RGB_DI_PIN D3
+#define RGBLED_NUM 60
+#define RGBLED_SPLIT { 30, 30 } // LEDs per side
 
 #ifdef RGBLIGHT_ENABLE
-#   define RGBLED_NUM 60  // Total number of LEDs
-#   define RGBLED_SPLIT { 30, 30 } // LEDs per side
 #   define RGBLIGHT_SPLIT
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+#   define RGB_MATRIX_LED_COUNT 60
+#   define RGB_MATRIX_SPLIT {30,30}
+#   define SPLIT_TRANSPORT_MIRROR
 #endif
 
 // Limit the power draw
