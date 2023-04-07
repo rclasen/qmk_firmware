@@ -50,14 +50,14 @@ My keymaps (have ASCII art in keymap.c):
   do get along without a wrist rest. Unfortunately it stopped working -
   not sure how I killed it.
 
-* [corne_aurora](/keyboards/splitkb/aurora/corne/keymaps/rclasen) 2023/04
-  - see crkbd. Got this to have a backup in a nicer case.
-
-* [crkbd](/keyboards/crkbd/keymaps/rclasen) 2018/12 - AKA corne/helidox.
+* [corne](/keyboards/crkbd/keymaps/rclasen) 2018/12 - AKA corne/helidox.
   Has similar issues as the iris, but is more compact. For whatever reason
   I'm having less issues with the thumb cluster when switching from
-  ergodox/chimera/diverge to crkbd as I have with the iris. I love the pro
+  ergodox/chimera/diverge to corne as I have with the iris. I love the pro
   micro placement. My current daily driver.
+
+* [corne_aurora](/keyboards/splitkb/aurora/corne/keymaps/rclasen) 2023/04
+  - see corne. Got this to have a backup in a nicer case.
 
 * [dactyl manuform](/keyboards/mydactyform/keymaps/default/) 2018/09 -
   need to try.
@@ -172,7 +172,7 @@ keyboard        | split | stagger style | thumb style
 atreus          | mono  | aggressive    | aligned (mostly)
 atreus50        | mono  | aggressive    | aligned (mostly)
 chimera ergo 42 | split | aggressive    | aligned
-crkbd           | split | ergodox       | iris
+corne           | split | ergodox       | iris
 dactyl manuform | split | maltron       | manuform
 diverge3        | split | aggressive    | aligned (mostly)
 ergodash        | split | ergodox       | iris
