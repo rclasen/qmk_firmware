@@ -3,5 +3,4 @@
 
 include myrules.mk
 
-BACKLIGHT_ENABLE := yes
 # TODO: RGBLIGHT_ENABLE := yes

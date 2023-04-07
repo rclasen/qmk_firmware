@@ -9,6 +9,5 @@ BOOTLOADER = caterina
 #OLED_ENABLE = yes
 
 RGBLIGHT_ENABLE = yes
-RGBMATRIX_ENABLE = no
 
 #LTO_ENABLE = yes

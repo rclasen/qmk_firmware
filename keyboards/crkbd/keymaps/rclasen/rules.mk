@@ -3,5 +3,5 @@
 
 include myrules.mk
 
-#TODO: RGBLIGHT_ENABLE := no
-#TODO: RGB_MATRIX_ENABLE := no
+RGBLIGHT_ENABLE := no
+#TODO: RGB_MATRIX_ENABLE := yes
