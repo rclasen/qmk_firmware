@@ -24,10 +24,4 @@ all	:= $(FLASH) $(eeleft) $(eeright)
 $(all):
 	@echo "************ flashing $(BOARD):$(MAP):$@"
 	make -C $(TOP) $(BOARD):$(MAP):$@
-	date > .$@
-
-stamps := $(patsubst %,.%,$(all))
-pending: $(stamps)
-$(stamps): .%: rules.mk config.h keymap.c
-	@echo "************ $(BOARD): $@"
 
