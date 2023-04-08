@@ -60,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
                  XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,
                  KC_PSCR, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PSCR,
-                 MY_BASE, KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP, XXXXXXX,
-                          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,XXXXXXX,
+                 MY_BASE, KC_H,    TX_J,    TX_K,    TX_L,    TX_COMP, RGB_TOG,
+                          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_ENTER,RGB_HUI,
         XXXXXXX, KC_BSPC, KC_SPC,  XL_SYM,           XM_RCTL, XM_LGUI, XM_RSFT
  ),
 
@@ -137,16 +137,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [NAV] = KEYMAP_HAND(
        _______, _______, _______, _______, _______, _______, _______,
-       _______, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, _______,
-       _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,  _______,
-       _______, KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,
+       RGB_SPI, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN, _______,
+       RGB_TOG, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,  _______,
+       RGB_HUI, KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,
        _______, XM_GHK,  _______,          _______, _______, _______, _______,
 
        // right hand
                 _______, KC_TAB,  KC_NUM,  KC_SLSH, KC_ASTR, _______, _______,
-                _______, MY_MINS, MY_7,    MY_8,    MY_9,    MY_PLUS, _______,
-                _______, MY_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, _______,
-                         MY_COLN, MY_1,    MY_2,    MY_3,    KC_ENTER,_______,
+                _______, MY_MINS, MY_7,    MY_8,    MY_9,    MY_PLUS, RGB_SAI,
+                _______, MY_DOT,  TX_4,    TX_5,    TX_6,    TX_COMM, RGB_MOD,
+                         MY_COLN, MY_1,    MY_2,    MY_3,    KC_ENTER,RGB_VAI,
        _______, _______, _______, KC_0,             _______, _______, _______
 ),
 

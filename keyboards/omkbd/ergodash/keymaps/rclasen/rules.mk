@@ -3,4 +3,6 @@
 
 include myrules.mk
 
-# TODO: RGBLIGHT_ENABLE := yes
+BACKLIGHT_ENABLE := yes
+RGBLIGHT_ENABLE := yes
+LTO_ENABLE := yes
