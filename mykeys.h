@@ -270,6 +270,8 @@ void mybacklight_layer( void )
  * myevent user config
  */
 
+#ifdef MYEVENT_ENABLE
+
 enum myevent {
     TSYM,
     TNAV,
@@ -310,9 +312,6 @@ enum myevent {
 };
 
 // TODO& RSFT doesn't work: register_mods( KC_RSFT) registers lsft + rctrl
-
-#define STATIC_ASSERT( condition, name )\
-        typedef char assert_failed_ ## name [ (condition) ? 1 : -1 ];
 
 _Static_assert(TMAX < MYEVENT_MAX, "not_enough_keycodes_for_myevent" );
 
@@ -507,6 +506,8 @@ myevent_action_t myevent_actions[] = {
     [TCOMM] = MYEVENT_TAPHOLD_MOD( MB_LGUI, KC_COMM),
 };
 
+#endif
+
 /************************************************************
  * macro user config
  */
@@ -651,7 +652,9 @@ bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
 
         case MY_BASE:
             if( record->event.pressed ){
+#ifdef MYEVENT_ENABLE
                 myevent_clear();
+#endif
 
                 layer_clear();
 
@@ -681,6 +684,8 @@ bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
 
 #define S_INS   LSFT(KC_INS)
 
+#ifdef MYEVENT_ENABLE
+
 #define XL_NAV	XE(TNAV)
 #define XL_MOS	XE(TMOS)
 #define XL_SYM	XE(TSYM)
@@ -702,14 +707,12 @@ bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
 #define TX_S    XE(TS)
 #define TX_D    XE(TD)
 #define TX_F    XE(TF)
-//#define TX_V    XE(TV)
 
 #define TX_F6   XE(TF6)
 #define TX_F7   XE(TF7)
 #define TX_F8   XE(TF8)
 #define TX_F9   XE(TF9)
 
-//#define TX_M    XE(TM)
 #define TX_J    XE(TJ)
 #define TX_K    XE(TK)
 #define TX_L    XE(TL)
@@ -719,6 +722,49 @@ bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
 #define TX_5    XE(T5)
 #define TX_6    XE(T6)
 #define TX_COMM XE(TCOMM)
+
+#else
+
+#define XL_NAV	OSL(NAV)
+#define XL_MOS	OSL(MOS)
+#define XL_SYM	OSL(SYM)
+
+#define XM_LALT	OSM(MOD_LALT)
+#define XM_RALT	OSM(MOD_RALT)
+
+#define XM_LCTL	OSM(MOD_LCTL)
+#define XM_RCTL	OSM(MOD_RCTL)
+
+#define XM_LGUI	OSM(MOD_LGUI)
+
+#define XM_LSFT	OSM(MOD_LSFT)
+#define XM_RSFT	OSM(MOD_RSFT)
+
+#define MOD_GHK ( MOD_LCTL | MOD_LALT | MOD_LGUI )
+#define XM_GHK OSM(MOD_GHK)
+
+#define TX_A    MT(MOD_LGUI, KC_A)
+#define TX_S    MT(MOD_LCTL, KC_S)
+#define TX_D    MT(MOD_LALT, KC_D)
+#define TX_F    MT(MOD_LSFT, KC_F)
+
+#define TX_F6   MT(MOD_LGUI, KC_F6)
+#define TX_F7   MT(MOD_LCTL, KC_F7)
+#define TX_F8   MT(MOD_LALT, KC_F8)
+#define TX_F9   MT(MOD_LSFT, KC_F9)
+
+#define TX_J    MT(MOD_RSFT, KC_J)
+#define TX_K    MT(MOD_LALT, KC_K)
+#define TX_L    MT(MOD_RCTL, KC_L)
+#define TX_COMP MT(MOD_LGUI, KC_COMP)
+
+#define TX_4    MT(MOD_RSFT, KC_4)
+#define TX_5    MT(MOD_LALT, KC_5)
+#define TX_6    MT(MOD_RCTL, KC_6)
+#define TX_COMM MT(MOD_LGUI, KC_COMP)
+
+
+#endif
 
 // Layer:
 //

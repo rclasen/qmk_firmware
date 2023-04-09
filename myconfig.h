@@ -7,9 +7,8 @@
 #define ONESHOT_TAP_TOGGLE 2
 #define ONESHOT_TIMEOUT 2000
 
-
-//#undef LEADER_TIMEOUT
-//#define LEADER_TIMEOUT 300
+// when not using myevent:
+#define IGNORE_MOD_TAP_INTERRUPT
 
 #undef MOUSEKEY_TIME_TO_MAX
 #define MOUSEKEY_TIME_TO_MAX 40

@@ -28,6 +28,8 @@ NKRO_ENABLE         := yes
 MOUSEKEY_ENABLE     := yes # Mouse keys(+4700)
 EXTRAKEY_ENABLE     := yes # Audio control and System control(+450)
 MYEVENT_ENABLE      := yes
+# alternative to myevent:
+#ONESHOT_ENABLE		:= yes
 
 
 
