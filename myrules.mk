@@ -31,6 +31,5 @@ MYEVENT_ENABLE      := yes
 # alternative to myevent:
 #ONESHOT_ENABLE		:= yes
 
-
-
-
+# save space:
+LTO_ENABLE			:= yes
