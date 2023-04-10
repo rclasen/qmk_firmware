@@ -761,7 +761,7 @@ bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
 #define TX_4    MT(MOD_RSFT, KC_4)
 #define TX_5    MT(MOD_LALT, KC_5)
 #define TX_6    MT(MOD_RCTL, KC_6)
-#define TX_COMM MT(MOD_LGUI, KC_COMP)
+#define TX_COMM MT(MOD_LGUI, KC_COMM)
 
 
 #endif
