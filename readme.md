@@ -50,13 +50,13 @@ My keymaps (have ASCII art in keymap.c):
   do get along without a wrist rest. Unfortunately it stopped working -
   not sure how I killed it.
 
-* [corne](/keyboards/crkbd/keymaps/rclasen) 2018/12 - AKA corne/helidox.
+* [corne](/keyboards/crkbd/keymaps/rclasen/) 2018/12 - AKA corne/helidox.
   Has similar issues as the iris, but is more compact. For whatever reason
   I'm having less issues with the thumb cluster when switching from
   ergodox/chimera/diverge to corne as I have with the iris. I love the pro
   micro placement. My current daily driver.
 
-* [corne_aurora](/keyboards/splitkb/aurora/corne/keymaps/rclasen) 2023/04
+* [corne_aurora](/keyboards/splitkb/aurora/corne/keymaps/rclasen/) 2023/04
   - see corne. Got this to have a backup in a nicer case.
 
 * [dactyl manuform](/keyboards/rclasen/dactyform/keymaps/rclasen/) 2018/09 -
@@ -90,7 +90,7 @@ My keymaps (have ASCII art in keymap.c):
   conservative. Pro micro prevents later access to switches/leds/... and
   creates extra height.
 
-* [fretboard](/keyboards/rclasen/fretboard/keymaps/rclasen) 2020/04 - need to
+* [fretboard](/keyboards/rclasen/fretboard/keymaps/rclasen/) 2020/04 - need to
   build + try.  Designed by [fretsome](https://www.reddit.com/u/Fretsome).
   Staggering + Thumb keys look amazing. Probably an amazing
   traveling/couch/lap-use board... mabye with bluetooth? Not sure if/how
@@ -142,7 +142,7 @@ My keymaps (have ASCII art in keymap.c):
   micro prevents later access to switches/leds/... and creates extra
   height.
 
-* [piantor](/keyboards/beekeeb/piantor/keymaps/rclasen) 2023/04 - Was by
+* [piantor](/keyboards/beekeeb/piantor/keymaps/rclasen/) 2023/04 - Was by
   far the fastest build I've ever had: No diodes and castellated holes on
   RPi made it a breeze. Stagger is nice but thumb cluster is too close to
   iris.  Just realized, that the travel of choc switches actually isn't
@@ -150,11 +150,11 @@ My keymaps (have ASCII art in keymap.c):
   Jailhouse blue) reduce travel way more. Though, (my) chocs sound awful
   and the lack of profiled keycaps is killihg me.
 
-* [reviung41](/keyboards/reviung/reviung41/keymaps/rclasen) 2021/08 - No
+* [reviung41](/keyboards/reviung/reviung41/keymaps/rclasen/) 2021/08 - No
   Idea why I got it. It's missing thumb keys and the stagger is
   insufficient.
 
-* [tbk mini](/keyboards/bastardkb/tbkmini/rclasen) 2021/07 - Tried it with
+* [tbk mini](/keyboards/bastardkb/tbkmini/rclasen/) 2021/07 - Tried it with
   SA caps and liked the curve... though, the thumb cluster is waaaay too
   wide.
 
