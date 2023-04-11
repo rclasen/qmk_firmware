@@ -725,23 +725,23 @@ bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
 
 #else
 
-#define XL_NAV	OSL(NAV)
-#define XL_MOS	OSL(MOS)
-#define XL_SYM	OSL(SYM)
+#define XL_NAV	TT(NAV)
+#define XL_MOS	TT(MOS)
+#define XL_SYM	TT(SYM)
 
-#define XM_LALT	OSM(MOD_LALT)
-#define XM_RALT	OSM(MOD_RALT)
+#define XM_LALT	MOD_LALT
+#define XM_RALT	MOD_RALT
 
-#define XM_LCTL	OSM(MOD_LCTL)
-#define XM_RCTL	OSM(MOD_RCTL)
+#define XM_LCTL	MOD_LCTL
+#define XM_RCTL	MOD_RCTL
 
-#define XM_LGUI	OSM(MOD_LGUI)
+#define XM_LGUI	MOD_LGUI
 
-#define XM_LSFT	OSM(MOD_LSFT)
-#define XM_RSFT	OSM(MOD_RSFT)
+#define XM_LSFT	MOD_LSFT
+#define XM_RSFT	MOD_RSFT
 
 #define MOD_GHK ( MOD_LCTL | MOD_LALT | MOD_LGUI )
-#define XM_GHK OSM(MOD_GHK)
+#define XM_GHK  OSM(MOD_GHK)
 
 #define TX_A    MT(MOD_LGUI, KC_A)
 #define TX_S    MT(MOD_LCTL, KC_S)

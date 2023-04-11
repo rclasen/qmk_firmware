@@ -4,7 +4,7 @@ based on an old version of [QMK](https://github.com/qmk/qmk_firmware).
 
 Comes with my own OneShot/TapHold implementations using a custom
 [myevent](/quantum/process_keycode/process_myevent.h) backend. I'm not
-sure if that's still needed, but when I started using QMK in 2017 I 
+sure if that's still needed, but when I started using QMK in 2017 I
 couldn't get the following working:
 
 * consistent behavior for Modifiers and layers
@@ -13,6 +13,10 @@ couldn't get the following working:
 * avoid interfering with regular typing (TapHold)
 * easy per-keymap customization (eg. suppress shift keys in my symbol
   layer and on numpad keys of nav layer)
+
+Nowadays TapHold seems to be ok - even for home-row mods... but the
+upstream oneshot (no usable cancel, differences between mod+layer) is
+still unusable.
 
 I'm trying to keep my keymaps "similar". For simplifying this, all of
 them use the [shared definitions](/mykeys.h). The shared definitions
