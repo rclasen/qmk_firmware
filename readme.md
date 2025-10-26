@@ -36,13 +36,13 @@ My keymaps (have ASCII art in keymap.c):
   a bigger angle between the halves and the pinky column a bit futher
   down, but it's a good compromise to be portable (=transporting and
   setting up split boards somehow feels anoying). Could use 1 or two extra
-  keys.  Got Lost.
+  keys. Got Lost.
 
 * [atreus2](/keyboards/atreus/keymaps/rclasen/) 2020/08 - Replacement for
   lost atreus with hot-swap from falbatech.
 
 * [atreus50](/keyboards/rclasen/atreus50/keymaps/rclasen/) 2019/08 - handwired
-  atreus.  extra pinky column and thumb key is further down. Need to build
+  atreus.  extra pinky column and thumb key is further down. TODO: Build
   and try.
 
 * [chimera ergo 42](/keyboards/rclasen/chimera42/keymaps/rclasen/) 2018/08 -
@@ -61,10 +61,13 @@ My keymaps (have ASCII art in keymap.c):
   micro placement. My current daily driver.
 
 * [corne_aurora](/keyboards/splitkb/aurora/corne/keymaps/rclasen/) 2023/04
-  - see corne. Got this to have a backup in a nicer case.
+
+  See corne above. Got this to have a backup in a nicer case.
 
 * [dactyl manuform](/keyboards/rclasen/dactyform/keymaps/rclasen/) 2018/09 -
-  need to try.
+  TODO: Build and try.
+
+* dasbob 2025/10 - TODO: build and try
 
 * [diverge3](/keyboards/rclasen/diverge3/keymaps/rclasen/) 2016/09 - ported the
   lets split firmware to unikeyboards diverge3. Needs extra pullup
@@ -98,7 +101,8 @@ My keymaps (have ASCII art in keymap.c):
   build + try.  Designed by [fretsome](https://www.reddit.com/u/Fretsome).
   Staggering + Thumb keys look amazing. Probably an amazing
   traveling/couch/lap-use board... mabye with bluetooth? Not sure if/how
-  to protect the raw PCB, though.... so...  need ideas for a 'case'(?)
+  to protect the raw PCB, though. TODO: need ideas for a 'case'(?), then
+  build and try.
 
 * [iris](/keyboards/keebio/iris/keymaps/rclasen/) 2017/12 - built it with
   2x1u thumb key ... but I don't like the upper position. Unfortunately
@@ -156,14 +160,16 @@ My keymaps (have ASCII art in keymap.c):
 
 * [reviung41](/keyboards/reviung/reviung41/keymaps/rclasen/) 2021/08 - No
   Idea why I got it. It's missing thumb keys and the stagger is
-  insufficient.
+  insufficient. TODO: Build and try.
 
 * [tbk mini](/keyboards/bastardkb/tbkmini/rclasen/) 2021/07 - Tried it with
   SA caps and liked the curve... though, the thumb cluster is waaaay too
   wide.
 
 * [totem](keyboards/geigeigeist/totem/keymaps/rclasen) 2023/04, built
-  2025/10
+  2025/10 - looks like the perfect amount of keys for my layout... though,
+  choc switches turn me off... which delayed the built quite a bit.
+  TODO: Need to try.
 
 [incomplete family picture](https://imgur.com/daPI7GG). Some keymap
 folders have links to individual pictures / build logs.
@@ -181,6 +187,7 @@ atreus50        | mono  | aggressive    | aligned (mostly)
 chimera ergo 42 | split | aggressive    | aligned
 corne           | split | ergodox       | iris
 dactyl manuform | split | maltron       | manuform
+dasbob          | split |               | aligned (mostly)
 diverge3        | split | aggressive    | aligned (mostly)
 ergodash        | split | ergodox       | iris
 ergodox         | split | ergodox       | maltron
