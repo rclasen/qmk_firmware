@@ -152,7 +152,7 @@ My keymaps (have ASCII art in keymap.c):
   iris.  Just realized, that the travel of choc switches actually isn't
   too way of from regular switches.  Actually some mods (QMX, Zealencios,
   Jailhouse blue) reduce travel way more. Though, (my) chocs sound awful
-  and the lack of profiled keycaps is killihg me.
+  and the lack of profiled keycaps is killing me.
 
 * [reviung41](/keyboards/reviung/reviung41/keymaps/rclasen/) 2021/08 - No
   Idea why I got it. It's missing thumb keys and the stagger is
@@ -161,6 +161,9 @@ My keymaps (have ASCII art in keymap.c):
 * [tbk mini](/keyboards/bastardkb/tbkmini/rclasen/) 2021/07 - Tried it with
   SA caps and liked the curve... though, the thumb cluster is waaaay too
   wide.
+
+* [totem](keyboards/geigeigeist/totem/keymaps/rclasen) 2023/04, built
+  2025/10
 
 [incomplete family picture](https://imgur.com/daPI7GG). Some keymap
 folders have links to individual pictures / build logs.
@@ -194,4 +197,5 @@ orthodox        | split | none          | maltron-like
 piantor         | split | aggressive    | aligned (mostly)
 reviung41       | mono  | ergodox       | broken
 tbk mini        | split | maltron       | maltron-like
+totem           | split | aggressive    | aligned (mostly)
 
