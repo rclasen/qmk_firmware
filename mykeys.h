@@ -286,11 +286,12 @@ enum myevent {
     TLGUI,
     TGHK,
 
+    TINS,
+
     TA,
     TS,
     TD,
     TF,
-    //TV,
 
     TF6,
     TF7,
@@ -302,7 +303,6 @@ enum myevent {
     T6,
     TCOMM,
 
-    //TM,
     TJ,
     TK,
     TL,
@@ -471,6 +471,46 @@ void taphold_mod_noshift( myevent_taphold_action_t action, void *tdata )
             .mod = modifier, \
             } ) )
 
+typedef struct {
+    uint16_t kc;
+} taphold_paste_data_t;
+
+void taphold_paste( myevent_taphold_action_t action, void *tdata )
+{
+    taphold_paste_data_t *mdata = (taphold_paste_data_t *)tdata;
+
+    switch(action){
+     case MYEVENT_TAPHOLD_TAP_START:
+        register_code(mdata->kc);
+        break;
+
+     case MYEVENT_TAPHOLD_TAP_STOP:
+        unregister_code(mdata->kc);
+        break;
+
+     case MYEVENT_TAPHOLD_HOLD_START:
+        shift_saved |= MB_LSFT;
+
+        register_mods(MB_LSFT);
+        register_code(KC_INS);
+
+        break;
+
+     case MYEVENT_TAPHOLD_HOLD_STOP:
+        shift_saved &= ~MB_LSFT;
+
+        unregister_mods(MB_LSFT);
+        unregister_code(KC_INS);
+        break;
+    }
+}
+
+#define TAPHOLD_PASTE(keycode) MYEVENT_TAPHOLD( \
+        taphold_paste, \
+        (void*)&( (taphold_paste_data_t) { \
+            .kc = keycode, \
+            } ) )
+
 
 myevent_action_t myevent_actions[] = {
     [TSYM] = MYEVENT_ONESHOT( oneshot_layer_sym, NULL ),
@@ -484,6 +524,8 @@ myevent_action_t myevent_actions[] = {
     [TRALT] = MYEVENT_ONESHOT_MOD( MB_RALT ),
     [TLGUI] = MYEVENT_ONESHOT_MOD( MB_LGUI ),
     [TGHK] = MYEVENT_ONESHOT_MOD( MB_LCTL | MB_LALT | MB_LGUI ),
+
+    [TINS] = TAPHOLD_PASTE(KC_INS),
 
     [TA] = MYEVENT_TAPHOLD_MOD( MB_LGUI, KC_A ),
     [TS] = MYEVENT_TAPHOLD_MOD( MB_LCTL, KC_S ),
@@ -702,6 +744,8 @@ bool mymacro_process_record(uint16_t keycode, keyrecord_t *record)
 #define XM_RSFT	XE(TRSFT)
 
 #define XM_GHK XE(TGHK)
+
+#define TX_INS XE(TINS)
 
 #define TX_A    XE(TA)
 #define TX_S    XE(TS)

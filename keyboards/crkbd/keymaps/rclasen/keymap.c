@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [NAV] = KEYMAP_HAND(
        RGB_SPI, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,  KC_PGDN,
        RGB_TOG, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,KC_END,
-       RGB_HUI, KC_ESC,  S_INS,   KC_INS,  KC_ENTER,KC_SPACE,
+       RGB_HUI, KC_ESC,  S_INS,   TX_INS,  KC_ENTER,KC_SPACE,
                                            _______, _______, _______,
 
        // right hand
